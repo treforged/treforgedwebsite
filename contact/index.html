@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact — Tre Forged</title>
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<header class="site-header">
+  <div class="container site-top">
+    <div class="brand">
+      <div class="logo">TF</div>
+      <div>
+        <h1>Tre Forged</h1>
+        <div class="muted">Wealth • Cars • Strategy</div>
+      </div>
+    </div>
+    <nav class="primary" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/services/">Services</a>
+      <a href="/cars/">Cars</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+
+    <div id="burger" class="hamburger" aria-label="Open menu">
+      <div></div><div></div><div></div>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <nav id="mobileNav" style="display:none;">
+    <div class="container" style="background:linear-gradient(135deg,var(--purple-2),var(--black));padding:12px;border-top:1px solid rgba(255,255,255,0.04)">
+      <a href="/">Home</a>
+      <a href="/services/">Services</a>
+      <a href="/cars/">Cars</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </nav>
+
+  <style>
+    /* mobile nav styles (inline to ensure visibility) */
+    #mobileNav{position:fixed;left:0;right:0;top:72px;z-index:70;display:none;transition:all .25s}
+    #mobileNav.open{display:block}
+  </style>
+</header>
+
+<main class="container">
+  <section class="card reveal">
+    <div class="section-title"><h2>Contact & Follow</h2></div>
+    <div class="contact-row" style="margin-top:12px">
+      <div class="contact-card reveal">
+        <h4>Get in touch</h4>
+        <p class="muted">For partnerships, sponsorships, media requests, or general inquiries, reach out below.</p><p style="margin-top:12px;font-weight:800">Primary: <a href="mailto:contact@treforged.com">contact@treforged.com</a></p><p class="muted" style="margin-top:8px">Brand deals & sponsorships: <a href="mailto:business@treforged.com">business@treforged.com</a></p>
+      </div>
+      <div class="contact-card reveal">
+        <h4>Follow Us</h4>
+        <p class="muted">Follow for new drops, car features, and wealth + habit content.</p>
+        <div style="margin-top:12px">
+          <a class="btn btn-primary" href="https://www.instagram.com/treforged/" target="_blank">@treforged</a>
+        </div>
+        <div style="margin-top:12px" class="muted">Prefer a DM? Message us on Instagram or send an email.</div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div>© 2026 Tre Forged. All rights reserved.</div>
+    <div style="opacity:0.9">Designed for collectors, investors, and enthusiasts.</div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body></html>

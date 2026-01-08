@@ -147,28 +147,71 @@
     document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   });
 })();
-
-// --- Image popup (lightbox) ---
-const modal = document.getElementById("imgModal");
-const modalImg = document.getElementById("modalImage");
-const captionText = document.getElementById("caption");
-const closeBtn = document.querySelector(".close");
-
-document.querySelectorAll(".popup-img").forEach(img => {
-  img.addEventListener("click", function(){
-    modal.style.display = "block";
-    modalImg.src = this.src;
-    captionText.textContent = this.alt;
+// --- Smooth image loading (fade in) ---
+(function(){
+  function markLoaded(img){
+    img.classList.add('is-loaded');
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('img.smooth-img').forEach(img=>{
+      if (img.complete) {
+        markLoaded(img);
+      } else {
+        img.addEventListener('load', ()=>markLoaded(img), { once: true });
+        img.addEventListener('error', ()=>markLoaded(img), { once: true }); // avoid invisible broken images
+      }
+    });
   });
-});
+})();
+// --- Image popup (lightbox) with keyboard + swipe (only if modal exists) ---
+(function(){
+  const modal = document.getElementById("imgModal");
+  const modalImg = document.getElementById("modalImage");
+  const captionText = document.getElementById("caption");
+  const closeBtn = document.querySelector(".close");
+  const images = Array.from(document.querySelectorAll(".popup-img"));
 
-closeBtn.addEventListener("click", function(){
-  modal.style.display = "none";
-});
+  if (!modal || !modalImg || images.length === 0) return;
 
-// Close modal on outside click
-modal.addEventListener("click", function(e){
-  if (e.target === modal) {
+  let currentIndex = -1;
+
+  function openModal(index){
+    currentIndex = index;
+    modal.style.display = "block";
+    modalImg.src = images[index].src;
+    if (captionText) captionText.textContent = images[index].alt || "";
+  }
+
+  function closeModal(){
     modal.style.display = "none";
   }
-});
+
+  images.forEach((img, i) => {
+    img.addEventListener("click", () => openModal(i));
+  });
+
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", function(e){
+    if (e.target === modal) closeModal();
+  });
+
+  // Keyboard navigation
+  document.addEventListener("keydown", function(e){
+    if (modal.style.display !== "block") return;
+    if (e.key === "Escape") return closeModal();
+    if (e.key === "ArrowRight") openModal((currentIndex + 1) % images.length);
+    if (e.key === "ArrowLeft") openModal((currentIndex - 1 + images.length) % images.length);
+  });
+
+  // Touch swipe navigation
+  let startX = 0;
+  modal.addEventListener("touchstart", (e)=>{ startX = e.touches[0].clientX; }, {passive:true});
+  modal.addEventListener("touchend", (e)=>{
+    if (modal.style.display !== "block") return;
+    const endX = e.changedTouches[0].clientX;
+    const delta = startX - endX;
+    if (delta > 50) openModal((currentIndex + 1) % images.length);      // swipe left
+    if (delta < -50) openModal((currentIndex - 1 + images.length) % images.length); // swipe right
+  }, {passive:true});
+})();

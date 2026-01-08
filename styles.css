@@ -409,3 +409,12 @@ a:focus, button:focus, .hamburger:focus {
 .close:hover { color: #bbb; }
 
 /* End of stylesheet */
+
+
+/* Smooth image loading */
+img.smooth-img{opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .35s ease; will-change:opacity, transform;}
+img.smooth-img.is-loaded{opacity:1; transform:none;}
+
+@media (prefers-reduced-motion: reduce){
+  img.smooth-img{transition:none; transform:none;}
+}

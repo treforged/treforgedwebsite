@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cars — Tre Forged</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container site-top">
+    <div class="brand">
+      <div class="logo">TF</div>
+      <div>
+        <h1>Tre Forged</h1>
+        <div class="muted">Wealth • Cars • Strategy</div>
+      </div>
+    </div>
+
+    <nav class="primary" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/services/">Services</a>
+      <a href="/cars/">Cars</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+
+    <div id="burger" class="hamburger" role="button" tabindex="0" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false">
+      <div></div><div></div><div></div>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <nav id="mobileNav" style="display:none;">
+    <div class="container" style="background:linear-gradient(135deg,var(--purple-2),var(--black));padding:12px;border-top:1px solid rgba(255,255,255,0.04)">
+      <a href="/">Home</a>
+      <a href="/services/">Services</a>
+      <a href="/cars/">Cars</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </nav>
+
+  <style>
+    #mobileNav{position:fixed;left:0;right:0;top:72px;z-index:70;display:none;transition:all .25s}
+    #mobileNav.open{display:block}
+  </style>
+</header>
+
+<main class="container">
+  <section class="card reveal">
+    <div class="section-title"><h2>Featured Cars</h2></div>
+    <p class="muted">Curated showcases and acquisition stories.</p>
+    <div class="gallery" style="margin-top:12px">
+      <div class="card-photo reveal">
+        <img loading="lazy" decoding="async" src="assets/car1.jpg" alt="Featured car 1" class="responsive popup-img smooth-img">
+      </div>
+      <div class="card-photo reveal">
+        <img loading="lazy" decoding="async" src="assets/car2.jpg" alt="Featured car 2" class="responsive popup-img smooth-img">
+      </div>
+      <div class="card-photo reveal">
+        <img loading="lazy" decoding="async" src="assets/car3.JPG" alt="Featured car 3" class="responsive popup-img smooth-img">
+      </div>
+</div>
+  </section>
+</main>
+
+<!-- Modal for popup -->
+<div id="imgModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modalImage">
+  <div id="caption"></div>
+</div>
+
+<footer class="site-footer">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div>© 2026 Tre Forged. All rights reserved.</div>
+    <div style="opacity:0.9">Designed for collectors, investors, and enthusiasts.</div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
