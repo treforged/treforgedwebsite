@@ -20,6 +20,9 @@
 
   /* Mobile nav background */
   --mobile-bg: #000000;
+
+  /* Layout */
+  --header-height: 64px;
 }
 
 /* Dark mode variables */
@@ -66,8 +69,19 @@ header.site-header{
   backdrop-filter: blur(6px);
   box-shadow: 0 6px 20px rgba(10,8,20,0.18);
 }
-.site-top { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
-.brand { display: flex; align-items: center; gap: 14px; margin-left: 8px; }
+.site-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-height);
+  padding: 8px 0;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 8px;
+}
 .logo{
   width: 48px; height: 48px;
   background: linear-gradient(135deg, var(--accent), var(--gold));
@@ -75,16 +89,30 @@ header.site-header{
   box-shadow: 0 4px 14px rgba(58,12,163,0.12);
 }
 .brand h1 { margin: 0; font-size: 1.05rem; letter-spacing: 0.6px; color: var(--header-text); }
-.brand .muted { color: #e6e3e3; }
+.brand .muted { color: #e6e3e3; font-size: 0.92rem; line-height: 1.1; }
+
+/* Logo image (match original placeholder sizing) */
+.site-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+}
 
 /* nav */
-nav.primary { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+nav.primary { display: flex; gap: 10px; align-items: center; flex-wrap: nowrap; }
 nav.primary a{
   color: var(--header-text);
-  text-decoration: none; margin: 0 8px; font-weight: 700; padding: 6px 8px; border-radius: 6px; transition: all .18s;
+  text-decoration: none;
+  margin: 0;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: all .18s;
   outline-offset: 3px;
   white-space: normal;
   word-break: break-word;
+  line-height: 1;
 }
 nav.primary a:hover,
 nav.primary a:focus{
@@ -114,7 +142,7 @@ nav.primary a:focus{
 #mobileNav{
   position: absolute;
   right: 8px;
-  top: 72px;
+  top: var(--header-height);
   z-index: 70;
   display: none;
   transition: all .18s ease;
@@ -279,7 +307,7 @@ nav.primary a,
   .hero-title { font-size: 26px; }
   .kicker { padding: 5px 8px; }
   .btn { font-size: 0.95rem; padding: 10px 14px; }
-  #mobileNav { top: 64px; right: 8px; min-width: 200px; }
+  #mobileNav { top: var(--header-height); right: 8px; min-width: 200px; }
 }
 
 /* Collapse services grid earlier */
@@ -307,7 +335,7 @@ nav.primary a,
   .hero-title { font-size: 22px; line-height: 1.2; }
   .hero-sub, p, .muted { font-size: 0.95rem; }
   .brand h1 { font-size: 1rem; }
-  #mobileNav { min-width: 160px; right: 8px; top: 64px; }
+  #mobileNav { min-width: 160px; right: 8px; top: var(--header-height); }
 }
 
 @media (max-width: 420px) {
