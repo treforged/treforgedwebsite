@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tre Forged — Home</title>
+
+<!-- Favicon: simple SVG matching the TF logo (gradient + TF text) -->
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%23b58bff'/><stop offset='1' stop-color='%23d4af37'/></linearGradient></defs><rect width='64' height='64' rx='10' fill='url(%23g)'/><text x='50%' y='56%' font-size='28' font-family='Inter,Arial,Helvetica,sans-serif' font-weight='700' text-anchor='middle' fill='%23111'>TF</text></svg>">
+
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container site-top">
+    <div class="brand">
+      <div class="logo">TF</div>
+      <div>
+        <h1>Tre Forged</h1>
+        <div class="muted">Wealth • Cars • Strategy</div>
+      </div>
+    </div>
+    <nav class="primary" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/services/">Services</a>
+      <a href="/cars/">Cars</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+
+    <div id="burger" class="hamburger" role="button" tabindex="0" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false">
+      <div></div><div></div><div></div>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <nav id="mobileNav" style="display:none;">
+    <div class="container" style="background:linear-gradient(135deg,var(--purple-2),var(--black));padding:12px;border-top:1px solid rgba(255,255,255,0.04)">
+      <a href="/">Home</a>
+      <a href="/services/">Services</a>
+      <a href="/cars/">Cars</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </nav>
+
+  <style>
+    /* mobile nav styles (inline to ensure visibility) */
+    #mobileNav{position:fixed;left:0;right:0;top:72px;z-index:70;display:none;transition:all .25s}
+    #mobileNav.open{display:block}
+  </style>
+</header>
+
+<main class="container">
+  <section class="hero" id="home">
+    <div>
+      <div class="kicker reveal">Wealth • Cars • Strategy</div>
+      <h2 class="hero-title reveal">Content that elevates your financial and automotive journey.</h2>
+      <p class="hero-sub reveal">Tre Forged produces digestible, action-driven content about building and maintaining wealth and the culture of cars.</p>
+      <div class="cta-row reveal" style="margin-top:12px">
+        <a href="/services/" class="btn btn-primary">Our Work</a>
+        </div>
+      <hr class="hr reveal">
+      <p class="muted reveal">Follow our insights for curated opportunities and practical guides.</p>
+    </div>
+    <div style="position:relative">
+      <div class="hero-bg float" aria-hidden="true"></div>
+      <div class="hero-card reveal" style="position:relative;z-index:2">
+        <h3>Featured Content</h3>
+        <p>Video breakdowns, market commentary, and vehicle showcases focused on long-term value.</p>
+        <p style="margin-top:10px;font-weight:700;color:var(--purple-2)"><a href="https://www.instagram.com/treforged/" target="_blank">Follow</a> · <a href="https://www.tiktok.com/@treforged" target="_blank">Watch</a> · <a href="https://www.youtube.com/@TreForged" target="_blank">Learn</a></p>
+      </div>
+      <!-- Single high-resolution image -->
+      <img loading="lazy" decoding="async" 
+        src="assets/car3.JPG" 
+        alt="Featured car" 
+        class="home-hero-image reveal smooth-img"
+        style="max-width:100%;height:auto">
+    </div>
+  </section>
+
+  <section class="card reveal">
+    <div class="section-title"><h2>Latest Themes</h2></div>
+    <p class="muted">Recent topics: portfolio fundamentals, car valuation, maintenance priorities, and monetization strategies.</p>
+    <div class="grid-3" style="margin-top:18px">
+      <div class="feature reveal"><h4>Money Basics</h4><p class="muted">Simple guides on saving, investing, and budgeting.</p></div>
+      <div class="feature reveal"><h4>Car Care</h4><p class="muted">Maintenance, sourcing, and ownership costs explained.</p></div>
+      <div class="feature reveal"><h4>Market Insight</h4><p class="muted">Short analyses to help you spot trends and opportunities.</p></div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div>© 2026 Tre Forged. All rights reserved.</div>
+    <div style="opacity:0.9">Designed for collectors, investors, and enthusiasts.</div>
+  </div>
+</footer>
+
+<script src="/main.js"></script>
+</body>
+</html>
