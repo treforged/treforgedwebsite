@@ -4,80 +4,97 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Cars — TRE Forged</title>
-  <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <header class="site-header">
   <div class="container site-top">
-    <div class="brand">
+    <a href="/" class="brand-link" aria-label="TRE Forged home">
       <img src="/assets/logo.png" alt="TRE Forged logo" class="site-logo">
-      <div>
+      <div class="brand-text">
         <h1>TRE Forged</h1>
-        <div class="muted">Wealth • Cars • Strategy</div>
+        <div class="tagline">Wealth · Cars · Strategy</div>
       </div>
-    </div>
-
+    </a>
     <nav class="primary" aria-label="Primary">
       <a href="/">Home</a>
       <a href="/services/">Services</a>
-      <a href="/cars/">Cars</a>
+      <a href="/cars/" class="active">Cars</a>
       <a href="/contact/">Contact</a>
+      <a href="https://app.treforged.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
     </nav>
-
-    <div id="burger" class="hamburger" role="button" tabindex="0" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false">
-      <div></div><div></div><div></div>
-    </div>
+    <button id="burger" class="hamburger"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-
-  <!-- Mobile nav -->
-  <nav id="mobileNav" style="display:none;">
-    <div class="container" style="background:linear-gradient(135deg,var(--purple-2),var(--black));padding:12px;border-top:1px solid rgba(255,255,255,0.04)">
+  <nav id="mobileNav" aria-label="Mobile navigation">
       <a href="/">Home</a>
       <a href="/services/">Services</a>
-      <a href="/cars/">Cars</a>
+      <a href="/cars/" class="active">Cars</a>
       <a href="/contact/">Contact</a>
-    </div>
+    <a href="https://app.treforged.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
   </nav>
-
-  <style>
-    #mobileNav{position:fixed;left:0;right:0;top:var(--header-height);z-index:70;display:none;transition:all .25s}
-    #mobileNav.open{display:block}
-  </style>
 </header>
+<main class="page-main">
+  <div class="container">
+    <section class="page-hero reveal">
+      <div class="page-hero-label">Garage</div>
+      <h2>Featured Cars</h2>
+      <p>Curated showcases and acquisition stories from the TRE Forged collection.</p>
+    </section>
+    <div class="block reveal">
+      <div class="block-title">Gallery</div>
+      <h2>The Collection</h2>
+      <p class="lead">Click any photo to view full size.</p>
+      <div class="gallery">
+        <div class="gallery-item reveal">
+          <img loading="lazy" decoding="async" src="/assets/car1.jpg"
+               alt="Featured car 1" class="popup-img smooth-img">
+        </div>
+        <div class="gallery-item reveal">
+          <img loading="lazy" decoding="async" src="/assets/car2.jpg"
+               alt="Featured car 2" class="popup-img smooth-img">
+        </div>
+        <div class="gallery-item reveal">
+          <img loading="lazy" decoding="async" src="/assets/car3.JPG"
+               alt="Featured car 3" class="popup-img smooth-img">
+        </div>
+      </div>
+    </div>
+    <div class="app-block reveal">
+      <div class="app-inner">
+        <div>
+          <div class="app-label">New · Web App</div>
+          <h2>Explore More in the App</h2>
+          <p>Dive deeper into vehicle features, valuations, and acquisition stories on the TRE Forged platform.</p>
+        </div>
+        <div class="app-cta-stack">
+          <a href="https://app.treforged.com/" target="_blank" rel="noopener" class="btn btn-gold">Open App ↗</a>
+          <div class="app-url">app.treforged.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<main class="container">
-  <section class="card reveal">
-    <div class="section-title"><h2>Featured Cars</h2></div>
-    <p class="muted">Curated showcases and acquisition stories.</p>
-    <div class="gallery" style="margin-top:12px">
-      <div class="card-photo reveal">
-        <img loading="lazy" decoding="async" src="/assets/car1.jpg" alt="Featured car 1" class="responsive popup-img smooth-img">
-      </div>
-      <div class="card-photo reveal">
-        <img loading="lazy" decoding="async" src="/assets/car2.jpg" alt="Featured car 2" class="responsive popup-img smooth-img">
-      </div>
-      <div class="card-photo reveal">
-        <img loading="lazy" decoding="async" src="/assets/car3.JPG" alt="Featured car 3" class="responsive popup-img smooth-img">
-      </div>
-</div>
-  </section>
+  <div id="imgModal">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <img class="modal-content" id="modalImage" alt="">
+    <div id="caption"></div>
+  </div>
 </main>
-
-<!-- Modal for popup -->
-<div id="imgModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="modalImage">
-  <div id="caption"></div>
-</div>
-
 <footer class="site-footer">
-  <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-    <div>© 2026 TRE Forged. All rights reserved.</div>
-    <div style="opacity:0.9">Designed for collectors, investors, and enthusiasts.</div>
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand">TRE Forged</div>
+      <div class="footer-copy">© 2026 TRE Forged LLC. All rights reserved.</div>
+    </div>
+    <div class="footer-right">Designed for collectors, investors &amp; enthusiasts.</div>
   </div>
 </footer>
-
 <script src="/main.js"></script>
 </body>
 </html>

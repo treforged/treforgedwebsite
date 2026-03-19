@@ -1,72 +1,107 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact — TRE Forged</title>
-<link rel="stylesheet" href="/styles.css">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact — TRE Forged</title>
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
-</head><body>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
 <header class="site-header">
   <div class="container site-top">
-    <div class="brand">
+    <a href="/" class="brand-link" aria-label="TRE Forged home">
       <img src="/assets/logo.png" alt="TRE Forged logo" class="site-logo">
-      <div>
+      <div class="brand-text">
         <h1>TRE Forged</h1>
-        <div class="muted">Wealth • Cars • Strategy</div>
+        <div class="tagline">Wealth · Cars · Strategy</div>
       </div>
-    </div>
+    </a>
     <nav class="primary" aria-label="Primary">
       <a href="/">Home</a>
       <a href="/services/">Services</a>
       <a href="/cars/">Cars</a>
-      <a href="/contact/">Contact</a>
+      <a href="/contact/" class="active">Contact</a>
+      <a href="https://app.treforged.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
     </nav>
-
-    <div id="burger" class="hamburger" aria-label="Open menu">
-      <div></div><div></div><div></div>
-    </div>
+    <button id="burger" class="hamburger"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-
-  <!-- Mobile nav -->
-  <nav id="mobileNav" style="display:none;">
-    <div class="container" style="background:linear-gradient(135deg,var(--purple-2),var(--black));padding:12px;border-top:1px solid rgba(255,255,255,0.04)">
+  <nav id="mobileNav" aria-label="Mobile navigation">
       <a href="/">Home</a>
       <a href="/services/">Services</a>
       <a href="/cars/">Cars</a>
-      <a href="/contact/">Contact</a>
-    </div>
+      <a href="/contact/" class="active">Contact</a>
+    <a href="https://app.treforged.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
   </nav>
-
-  <style>
-    /* mobile nav styles (inline to ensure visibility) */
-    #mobileNav{position:fixed;left:0;right:0;top:var(--header-height);z-index:70;display:none;transition:all .25s}
-    #mobileNav.open{display:block}
-  </style>
 </header>
-
-<main class="container">
-  <section class="card reveal">
-    <div class="section-title"><h2>Contact & Follow</h2></div>
-    <div class="contact-row" style="margin-top:12px">
-      <div class="contact-card reveal">
-        <h4>Get in touch</h4>
-        <p class="muted">For partnerships, sponsorships, media requests, or general inquiries, reach out below.</p><p style="margin-top:12px;font-weight:800">Primary: <a href="mailto:contact@treforged.com">contact@treforged.com</a></p><p class="muted" style="margin-top:8px">Brand deals & sponsorships: <a href="mailto:business@treforged.com">business@treforged.com</a></p>
-      </div>
-      <div class="contact-card reveal">
-        <h4>Follow Us</h4>
-        <p class="muted">Follow for new drops, car features, and wealth + habit content.</p>
-        <div style="margin-top:12px">
-          <a class="btn btn-primary" href="https://www.instagram.com/treforged/" target="_blank">@treforged</a>
+<main class="page-main">
+  <div class="container">
+    <section class="page-hero reveal">
+      <div class="page-hero-label">Reach Out</div>
+      <h2>Contact &amp; Follow</h2>
+      <p>For partnerships, sponsorships, media requests, or general inquiries.</p>
+    </section>
+    <div class="block reveal">
+      <div class="block-title">Connect</div>
+      <h2>Get in Touch</h2>
+      <div class="contact-grid">
+        <div class="contact-card reveal">
+          <h4>Email Us</h4>
+          <p>For partnerships, sponsorships, media requests, or general inquiries, reach out directly.</p>
+          <div class="contact-email">
+            <div style="margin-bottom:4px">
+              <a href="mailto:contact@treforged.com">contact@treforged.com</a>
+            </div>
+            <div style="font-size:.78rem;color:var(--text-faint);font-weight:400;margin-bottom:14px">General inquiries</div>
+            <div style="margin-bottom:4px">
+              <a href="mailto:business@treforged.com">business@treforged.com</a>
+            </div>
+            <div style="font-size:.78rem;color:var(--text-faint);font-weight:400">Brand deals &amp; sponsorships</div>
+          </div>
         </div>
-        <div style="margin-top:12px" class="muted">Prefer a DM? Message us on Instagram or send an email.</div>
+        <div class="contact-card reveal">
+          <h4>Follow Us</h4>
+          <p>Follow for new drops, car features, and wealth + habit content across all platforms.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+            <a href="https://www.instagram.com/treforged/" target="_blank" rel="noopener"
+               class="btn btn-primary" style="justify-content:center">Instagram · @treforged</a>
+            <a href="https://www.tiktok.com/@treforged" target="_blank" rel="noopener"
+               class="btn btn-ghost" style="justify-content:center">TikTok · @treforged</a>
+            <a href="https://www.youtube.com/@TreForged" target="_blank" rel="noopener"
+               class="btn btn-ghost" style="justify-content:center">YouTube · TreForged</a>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+    <div class="app-block reveal">
+      <div class="app-inner">
+        <div>
+          <div class="app-label">New · Web App</div>
+          <h2>Try the TRE Forged App</h2>
+          <p>Access the full TRE Forged experience — tools, content, and community — at app.treforged.com.</p>
+        </div>
+        <div class="app-cta-stack">
+          <a href="https://app.treforged.com/" target="_blank" rel="noopener" class="btn btn-gold">Open App ↗</a>
+          <div class="app-url">app.treforged.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 <footer class="site-footer">
-  <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-    <div>© 2026 TRE Forged. All rights reserved.</div>
-    <div style="opacity:0.9">Designed for collectors, investors, and enthusiasts.</div>
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand">TRE Forged</div>
+      <div class="footer-copy">© 2026 TRE Forged LLC. All rights reserved.</div>
+    </div>
+    <div class="footer-right">Designed for collectors, investors &amp; enthusiasts.</div>
   </div>
 </footer>
-
 <script src="/main.js"></script>
-</body></html>
+</body>
+</html>
