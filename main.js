@@ -3,95 +3,113 @@
 
   document.addEventListener('DOMContentLoaded', function () {
 
-    // ── Mobile nav ────────────────────────────────────────────────
-    const burger = document.getElementById('burger');
-    const mobileNav = document.getElementById('mobileNav');
+    // ── Mobile hamburger ──────────────────────────────────────────
+    // Use the burger button — works on iPhone (touchend, not touchstart)
+    var burger = document.getElementById('burger');
+    var nav = document.getElementById('mobileNav');
 
-    if (burger && mobileNav) {
-      const toggle = (e) => {
-        if (e && e.preventDefault) e.preventDefault();
-        const open = mobileNav.classList.toggle('open');
-        burger.setAttribute('aria-expanded', String(open));
-      };
-      burger.addEventListener('click', toggle);
-      burger.addEventListener('touchstart', toggle, { passive: false });
-      burger.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(e); }
+    function openNav() {
+      nav.classList.add('open');
+      burger.setAttribute('aria-expanded', 'true');
+    }
+    function closeNav() {
+      nav.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+    function toggleNav(e) {
+      e.stopPropagation();
+      nav.classList.contains('open') ? closeNav() : openNav();
+    }
+
+    if (burger && nav) {
+      // click covers desktop + most mobile
+      burger.addEventListener('click', toggleNav);
+      // touchend for iPhone (more reliable than touchstart for tap detection)
+      burger.addEventListener('touchend', function (e) {
+        e.preventDefault();
+        toggleNav(e);
+      }, { passive: false });
+      // keyboard
+      burger.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleNav(e); }
       });
-      mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-        mobileNav.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-      }));
-      document.addEventListener('click', (e) => {
-        if (!mobileNav.contains(e.target) && !burger.contains(e.target)) {
-          mobileNav.classList.remove('open');
-          burger.setAttribute('aria-expanded', 'false');
+      // close when a nav link is tapped
+      nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', closeNav);
+      });
+      // close when tapping outside
+      document.addEventListener('click', function (e) {
+        if (nav.classList.contains('open') && !nav.contains(e.target) && !burger.contains(e.target)) {
+          closeNav();
         }
       });
-      window.addEventListener('resize', () => {
-        if (window.innerWidth > 960) {
-          mobileNav.classList.remove('open');
-          burger.setAttribute('aria-expanded', 'false');
-        }
+      // close on resize to desktop
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 900) closeNav();
       });
     }
 
-    // ── Reveal on scroll ─────────────────────────────────────────
-    const revealObs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    // ── Reveal on scroll ──────────────────────────────────────────
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          revealObs.unobserve(entry.target);
+          obs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.10 });
-    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
 
     // ── Smooth image fade-in ──────────────────────────────────────
-    document.querySelectorAll('img.smooth-img').forEach(img => {
-      if (img.complete) img.classList.add('is-loaded');
-      else {
-        img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
-        img.addEventListener('error', () => img.classList.add('is-loaded'), { once: true });
+    document.querySelectorAll('img.smooth-img').forEach(function (img) {
+      if (img.complete) {
+        img.classList.add('is-loaded');
+      } else {
+        img.addEventListener('load',  function () { img.classList.add('is-loaded'); }, { once: true });
+        img.addEventListener('error', function () { img.classList.add('is-loaded'); }, { once: true });
       }
     });
 
     // ── Lightbox ──────────────────────────────────────────────────
-    const modal = document.getElementById('imgModal');
-    const modalImg = document.getElementById('modalImage');
-    const captionEl = document.getElementById('caption');
-    const closeBtn = document.querySelector('.close');
-    const popups = Array.from(document.querySelectorAll('.popup-img'));
+    var modal    = document.getElementById('imgModal');
+    var modalImg = document.getElementById('modalImage');
+    var caption  = document.getElementById('caption');
+    var closeBtn = document.querySelector('.modal-close');
+    var popups   = Array.from(document.querySelectorAll('.popup-img'));
 
     if (!modal || !popups.length) return;
 
-    let current = -1;
+    var current = -1;
 
-    const openModal = (idx) => {
+    function openModal(idx) {
       current = idx;
-      modal.classList.add('open');
+      modal.style.display = 'flex';
       modalImg.src = popups[idx].src;
-      if (captionEl) captionEl.textContent = popups[idx].alt || '';
-    };
-    const closeModal = () => { modal.classList.remove('open'); };
+      if (caption) caption.textContent = popups[idx].alt || '';
+    }
+    function closeModal() {
+      modal.style.display = 'none';
+    }
 
-    popups.forEach((img, i) => img.addEventListener('click', () => openModal(i)));
+    popups.forEach(function (img, i) {
+      img.addEventListener('click', function () { openModal(i); });
+    });
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
 
-    document.addEventListener('keydown', (e) => {
-      if (!modal.classList.contains('open')) return;
+    document.addEventListener('keydown', function (e) {
+      if (modal.style.display !== 'flex') return;
       if (e.key === 'Escape') closeModal();
       if (e.key === 'ArrowRight') openModal((current + 1) % popups.length);
-      if (e.key === 'ArrowLeft') openModal((current - 1 + popups.length) % popups.length);
+      if (e.key === 'ArrowLeft')  openModal((current - 1 + popups.length) % popups.length);
     });
 
-    let startX = 0;
-    modal.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
-    modal.addEventListener('touchend', (e) => {
-      if (!modal.classList.contains('open')) return;
-      const d = startX - e.changedTouches[0].clientX;
-      if (d > 50) openModal((current + 1) % popups.length);
+    var swipeX = 0;
+    modal.addEventListener('touchstart', function (e) { swipeX = e.touches[0].clientX; }, { passive: true });
+    modal.addEventListener('touchend',   function (e) {
+      if (modal.style.display !== 'flex') return;
+      var d = swipeX - e.changedTouches[0].clientX;
+      if (d >  50) openModal((current + 1) % popups.length);
       if (d < -50) openModal((current - 1 + popups.length) % popups.length);
     }, { passive: true });
 
