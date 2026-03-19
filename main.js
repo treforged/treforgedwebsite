@@ -4,45 +4,73 @@
   document.addEventListener('DOMContentLoaded', function () {
 
     // ── Mobile hamburger ──────────────────────────────────────────
-    // Use the burger button — works on iPhone (touchend, not touchstart)
+    // KEY FIX: On iOS, touchend fires AND then click fires ~300ms later.
+    // Both listeners = double toggle = menu opens then immediately closes.
+    // Solution: use a flag to swallow the synthetic click that follows touchend.
     var burger = document.getElementById('burger');
-    var nav = document.getElementById('mobileNav');
-
-    function openNav() {
-      nav.classList.add('open');
-      burger.setAttribute('aria-expanded', 'true');
-    }
-    function closeNav() {
-      nav.classList.remove('open');
-      burger.setAttribute('aria-expanded', 'false');
-    }
-    function toggleNav(e) {
-      e.stopPropagation();
-      nav.classList.contains('open') ? closeNav() : openNav();
-    }
+    var nav    = document.getElementById('mobileNav');
 
     if (burger && nav) {
-      // click covers desktop + most mobile
-      burger.addEventListener('click', toggleNav);
-      // touchend for iPhone (more reliable than touchstart for tap detection)
-      burger.addEventListener('touchend', function (e) {
-        e.preventDefault();
-        toggleNav(e);
+      var touchFired = false;
+
+      function openNav() {
+        nav.classList.add('open');
+        burger.setAttribute('aria-expanded', 'true');
+      }
+      function closeNav() {
+        nav.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      }
+      function toggle() {
+        nav.classList.contains('open') ? closeNav() : openNav();
+      }
+
+      // touchstart: act immediately, set flag to block the follow-up click
+      burger.addEventListener('touchstart', function (e) {
+        e.preventDefault();   // prevents ghost click AND iOS hover delay
+        touchFired = true;
+        toggle();
       }, { passive: false });
+
+      // click: only run if touch didn't already handle it
+      burger.addEventListener('click', function (e) {
+        if (touchFired) {
+          touchFired = false;  // reset for next interaction
+          return;              // swallow the ghost click
+        }
+        toggle();
+      });
+
       // keyboard
       burger.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleNav(e); }
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
       });
+
       // close when a nav link is tapped
       nav.querySelectorAll('a').forEach(function (a) {
         a.addEventListener('click', closeNav);
       });
-      // close when tapping outside
+
+      // close when tapping/clicking outside
+      document.addEventListener('touchstart', function (e) {
+        if (nav.classList.contains('open') &&
+            !nav.contains(e.target) &&
+            !burger.contains(e.target)) {
+          closeNav();
+        }
+      }, { passive: true });
+
       document.addEventListener('click', function (e) {
-        if (nav.classList.contains('open') && !nav.contains(e.target) && !burger.contains(e.target)) {
+        if (nav.classList.contains('open') &&
+            !nav.contains(e.target) &&
+            !burger.contains(e.target)) {
           closeNav();
         }
       });
+
       // close on resize to desktop
       window.addEventListener('resize', function () {
         if (window.innerWidth > 900) closeNav();
@@ -99,14 +127,14 @@
 
     document.addEventListener('keydown', function (e) {
       if (modal.style.display !== 'flex') return;
-      if (e.key === 'Escape') closeModal();
-      if (e.key === 'ArrowRight') openModal((current + 1) % popups.length);
-      if (e.key === 'ArrowLeft')  openModal((current - 1 + popups.length) % popups.length);
+      if (e.key === 'Escape')      closeModal();
+      if (e.key === 'ArrowRight')  openModal((current + 1) % popups.length);
+      if (e.key === 'ArrowLeft')   openModal((current - 1 + popups.length) % popups.length);
     });
 
     var swipeX = 0;
     modal.addEventListener('touchstart', function (e) { swipeX = e.touches[0].clientX; }, { passive: true });
-    modal.addEventListener('touchend',   function (e) {
+    modal.addEventListener('touchend', function (e) {
       if (modal.style.display !== 'flex') return;
       var d = swipeX - e.changedTouches[0].clientX;
       if (d >  50) openModal((current + 1) % popups.length);
