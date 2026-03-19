@@ -18,11 +18,11 @@
     header.site-header{position:sticky;top:0;z-index:60;background:rgba(7,5,15,.92);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border)}
     .site-top{display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;min-height:var(--header-height);gap:20px;overflow:visible}
     /* Brand: logo + text side by side, clickable, g never clips */
-    .brand-link{display:inline-flex;flex-direction:row;align-items:center;gap:13px;flex-shrink:0;text-decoration:none;color:inherit;overflow:visible;line-height:1}
+    .brand-link{display:inline-flex;flex-direction:row;align-items:center;gap:13px;flex-shrink:0;text-decoration:none;color:inherit;overflow:visible;line-height:normal;padding-bottom:3px}
     .brand-link:hover,.brand-link:focus{color:inherit;text-decoration:none}
     .site-logo{width:52px;height:52px;object-fit:contain;border-radius:var(--radius-sm);flex-shrink:0;display:block}
     .brand-text{display:flex;flex-direction:column;justify-content:center;overflow:visible}
-    .brand-text h1{font-family:var(--font-display);font-size:1.15rem;font-weight:800;letter-spacing:.04em;color:var(--text);line-height:1.3;white-space:nowrap;overflow:visible;padding-bottom:2px}
+    .brand-text h1{font-family:var(--font-display);font-size:1.15rem;font-weight:800;letter-spacing:.04em;color:var(--text);line-height:1.5;white-space:nowrap;display:block;padding-bottom:3px;margin-bottom:-1px}
     .brand-text .tagline{font-size:.7rem;font-weight:400;color:var(--text-dim);letter-spacing:.12em;text-transform:uppercase;margin-top:1px;white-space:nowrap}
     /* Primary nav */
     nav.primary{display:flex;align-items:center;gap:2px;flex-shrink:0}
@@ -161,7 +161,6 @@
     <a href="https://app.treforged.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
   </nav>
 </header>
-
 <main class="page-main">
   <div class="container">
     <section class="page-hero reveal">
@@ -209,7 +208,6 @@
     </div>
   </div>
 </main>
-
 <footer class="site-footer">
   <div class="container footer-inner">
     <div>
