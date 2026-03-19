@@ -45,14 +45,12 @@ a:hover { color: var(--text); }
 main { flex: 1 0 auto; }
 .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
 
-/* ── DESCENDER FIX — THE CORRECT APPROACH ───────────────────────────
-   overflow:hidden clips at the PARENT container boundary.
-   Padding on a child heading does NOT move the parent's clip point.
-   The correct fix is:
-   1. Extra bottom padding on every container that has overflow:hidden
-   2. line-height: normal on headings (lets Syne's own metrics set
-      the line box — avoids squeezing the line box below descenders)
-   3. The header brand uses overflow:visible so no clip there at all
+/* ── DESCENDER FIX — DEFINITIVE ─────────────────────────────────────
+   overflow:hidden clips BOTH layout overflow AND ink overflow (glyphs).
+   overflow:clip clips layout overflow ONLY — ink (descenders) can paint
+   outside the box freely. This is the correct value for containers that
+   hold text. Supported: Chrome 90+, Firefox 81+, Safari 15.4+ (all modern).
+   Fallback: overflow:hidden then overflow:clip — older browsers get hidden.
 ────────────────────────────────────────────────────────────────────── */
 
 /* ── HEADER ──────────────────────────────────────────────────────── */
@@ -216,9 +214,9 @@ nav.primary a.active { color: var(--text); background: var(--surf-2); }
   border-radius: var(--r2);
   box-shadow: 0 20px 60px rgba(0,0,0,.75);
   z-index: 9999;
-  /* overflow:hidden needed for border-radius clipping of background */
-  /* Safe here: text won't reach container edge because of link padding */
-  overflow: hidden;
+  /* overflow:clip lets nav link descenders paint freely while still
+     visually clipping the border-radius of the dropdown container */
+  overflow: hidden; overflow: clip;
 }
 #mobileNav.open { display: block; }
 #mobileNav a {
@@ -301,7 +299,7 @@ nav.primary a.active { color: var(--text); background: var(--surf-2); }
   padding: 36px 36px 44px;
   margin-bottom: 24px;
   position: relative;
-  overflow: hidden;   /* needed for ::before gradient + border-radius */
+  overflow: hidden; overflow: clip; /* clip=ink-safe; hidden=fallback */
 }
 .block::before {
   content: '';
@@ -494,7 +492,7 @@ nav.primary a.active { color: var(--text); background: var(--surf-2); }
   /* Extra bottom padding = descender safe in this overflow:hidden card */
   padding: 24px 24px 30px;
   transition: border-color .18s, transform .18s;
-  overflow: hidden;
+  overflow: hidden; overflow: clip; /* clip=ink-safe; hidden=fallback */
 }
 .feature-card:hover { border-color: var(--border-hi); transform: translateY(-2px); }
 .feature-card h4 {
@@ -524,7 +522,7 @@ nav.primary a.active { color: var(--text); background: var(--surf-2); }
   padding: 40px 40px 48px;
   margin-bottom: 24px;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; overflow: clip; /* clip=ink-safe; hidden=fallback */
 }
 .app-block::before {
   content: '';
@@ -606,7 +604,7 @@ nav.primary a.active { color: var(--text); background: var(--surf-2); }
   border-radius: var(--r2);
   padding: 28px 28px 34px;
   transition: border-color .18s;
-  overflow: hidden;
+  overflow: hidden; overflow: clip; /* clip=ink-safe; hidden=fallback */
 }
 .contact-card:hover { border-color: var(--border-hi); }
 .contact-card h4 { font-family: var(--fd); font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 8px; line-height: normal; }
