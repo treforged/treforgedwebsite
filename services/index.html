@@ -1,93 +1,145 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Services — TRE Forged</title>
-<link rel="stylesheet" href="/styles.css">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Services — TRE Forged</title>
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
-</head><body>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
 <header class="site-header">
   <div class="container site-top">
-    <div class="brand">
+    <a href="/" class="brand-link" aria-label="TRE Forged home">
       <img src="/assets/logo.png" alt="TRE Forged logo" class="site-logo">
-      <div>
+      <div class="brand-text">
         <h1>TRE Forged</h1>
-        <div class="muted">Wealth • Cars • Strategy</div>
+        <div class="tagline">Wealth · Cars · Strategy</div>
       </div>
-    </div>
+    </a>
     <nav class="primary" aria-label="Primary">
       <a href="/">Home</a>
-      <a href="/services/">Services</a>
+      <a href="/services/" class="active">Services</a>
       <a href="/cars/">Cars</a>
       <a href="/contact/">Contact</a>
+      <a href="https://app.treforged.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
     </nav>
-
-    <div id="burger" class="hamburger" aria-label="Open menu">
-      <div></div><div></div><div></div>
-    </div>
+    <button id="burger" class="hamburger"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-
-  <!-- Mobile nav -->
-  <nav id="mobileNav" style="display:none;">
-    <div class="container" style="background:linear-gradient(135deg,var(--purple-2),var(--black));padding:12px;border-top:1px solid rgba(255,255,255,0.04)">
-      <a href="/">Home</a>
-      <a href="/services/">Services</a>
-      <a href="/cars/">Cars</a>
-      <a href="/contact/">Contact</a>
-    </div>
+  <nav id="mobileNav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/services/" class="active">Services</a>
+    <a href="/cars/">Cars</a>
+    <a href="/contact/">Contact</a>
+    <a href="https://app.treforged.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
   </nav>
-
-  <style>
-    #mobileNav{position:fixed;left:0;right:0;top:var(--header-height);z-index:70;display:none;transition:all .25s}
-    #mobileNav.open{display:block}
-  </style>
 </header>
 
-<main class="container">
-  <section class="card reveal">
-    <div class="section-title"><h2>Services & Content</h2></div>
-    <p class="muted">We produce media and collaborations centered on wealth and automotive culture. Not legal or financial advice.</p>
-    <div class="grid-3" style="margin-top:18px">
-      <div class="feature reveal"><h4>Educational Content</h4><p class="muted">Explainers, video series, and threads simplifying finance concepts.</p></div>
-      <div class="feature reveal"><h4>Automotive Features</h4><p class="muted">Vehicle spotlights, buying guides, and care walkthroughs.</p></div>
-      <div class="feature reveal"><h4>Brand Collaborations</h4><p class="muted">Partnerships for creators, products, and events in finance & auto spaces.</p></div>
-    </div>
-  </section>
+<main class="page-main">
+  <div class="container">
 
-  <section class="card reveal">
-    <div class="section-title"><h2>Business Website Builds</h2></div>
-    <p class="muted">Clean, professional landing pages built for small businesses and LLCs that need a legitimate web presence — fast.</p>
+    <section class="page-hero reveal">
+      <div class="page-hero-label">What We Do</div>
+      <h2>Services &amp; Content</h2>
+      <p>Media and collaborations centered on wealth and automotive culture. Not legal or financial advice.</p>
+    </section>
 
-    <div class="grid-3" style="margin-top:18px">
-      <div class="feature reveal">
-        <h4>Business Credibility Pages</h4>
-        <p class="muted">A professional web presence that satisfies what banks, lenders, and partners want to see when verifying your business is real and operational.</p>
+    <!-- Existing offerings -->
+    <div class="block reveal">
+      <div class="block-title">Offerings</div>
+      <h2>How We Work</h2>
+      <div class="grid-3">
+        <div class="feature-card reveal">
+          <div class="feature-icon">🎓</div>
+          <h4>Educational Content</h4>
+          <p>Explainers, video series, and threads simplifying finance concepts for everyday people.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🚗</div>
+          <h4>Automotive Features</h4>
+          <p>Vehicle spotlights, buying guides, and care walkthroughs with real-world context.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🤝</div>
+          <h4>Brand Collaborations</h4>
+          <p>Partnerships for creators, products, and events in the finance &amp; automotive spaces.</p>
+        </div>
       </div>
-      <div class="feature reveal">
-        <h4>Customer Directory & Info</h4>
-        <p class="muted">Simple, organized pages where your customers can find your services, contact info, hours, and location — all in one place.</p>
+    </div>
+
+    <!-- Website Builds — new section -->
+    <div class="block reveal">
+      <div class="block-title">New Service</div>
+      <h2>Business Website Builds</h2>
+      <p class="lead">Clean, professional landing pages for small businesses and LLCs that need a legitimate web presence — fast.</p>
+      <div class="grid-3" style="margin-top:24px">
+        <div class="feature-card reveal">
+          <div class="feature-icon">🏦</div>
+          <h4>Business Credibility Pages</h4>
+          <p>A professional web presence that satisfies what banks, lenders, and partners want to see when verifying your business is real and operational.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">📋</div>
+          <h4>Customer Directory &amp; Info</h4>
+          <p>Simple, organized pages where your customers can find your services, contact info, hours, and location — all in one place.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">⚡</div>
+          <h4>Quick Turnaround</h4>
+          <p>No bloated agencies or long timelines. A clean, mobile-friendly site built to purpose and delivered efficiently.</p>
+        </div>
       </div>
-      <div class="feature reveal">
-        <h4>Quick Turnaround</h4>
-        <p class="muted">No bloated agencies or long timelines. You get a clean, mobile-friendly site built to purpose and delivered efficiently.</p>
+      <div style="margin-top:28px;padding:20px 24px;background:rgba(58,12,163,0.06);border-radius:12px;border:1px solid rgba(181,139,255,0.12)">
+        <div class="block-title" style="margin-bottom:8px">Who This Is For</div>
+        <p style="margin:0">New or existing LLCs, sole proprietors, and small businesses that need a straightforward site for banking approval, licensing, or simply getting found online. No unnecessary extras — just what you need to look legitimate and professional.</p>
+      </div>
+      <div style="margin-top:24px">
+        <a href="/contact/" class="btn btn-primary">Inquire About a Build</a>
       </div>
     </div>
 
-    <div style="margin-top:24px;padding:20px;background:rgba(58,12,163,0.04);border-radius:10px;border:1px solid rgba(58,12,163,0.10)">
-      <h4 style="margin:0 0 8px;color:var(--purple-2)">Who This Is For</h4>
-      <p class="muted" style="margin:0">New or existing LLCs, sole proprietors, and small businesses that need a straightforward site for banking approval, licensing, or simply getting found online. No unnecessary extras — just what you need to look legitimate and professional.</p>
+    <!-- App block -->
+    <div class="app-block reveal">
+      <div class="app-inner">
+        <div>
+          <div class="app-label">New · Web App</div>
+          <h2>Access All Resources in the App</h2>
+          <p>The TRE Forged app brings together wealth tools, vehicle features, and curated content in one clean platform.</p>
+        </div>
+        <div class="app-cta-stack">
+          <a href="https://app.treforged.com/" target="_blank" rel="noopener" class="btn btn-gold">Open App ↗</a>
+          <div class="app-url">app.treforged.com</div>
+        </div>
+      </div>
     </div>
 
-    <div style="margin-top:18px">
-      <a href="/contact/" class="btn btn-primary">Inquire About a Build</a>
+    <!-- Partnerships -->
+    <div class="block reveal">
+      <div class="block-title">Partnerships</div>
+      <h2>Work With Us</h2>
+      <p class="lead">Interested in a collaboration, sponsorship, or brand feature? We work with select partners whose products align with our audience.</p>
+      <div style="margin-top:24px">
+        <a href="/contact/" class="btn btn-primary">Get in Touch</a>
+      </div>
     </div>
-  </section>
+
+  </div>
 </main>
 
 <footer class="site-footer">
-  <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-    <div>© 2026 TRE Forged. All rights reserved.</div>
-    <div style="opacity:0.9">Designed for collectors, investors, and enthusiasts.</div>
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand">TRE Forged</div>
+      <div class="footer-copy">© 2026 TRE Forged LLC. All rights reserved.</div>
+    </div>
+    <div class="footer-right">Designed for collectors, investors &amp; enthusiasts.</div>
   </div>
 </footer>
-
 <script src="/main.js"></script>
-</body></html>
+</body>
+</html>
