@@ -1,0 +1,45 @@
+name: Publish daily blog article
+
+# Publishes the next queued article once per day and pushes the
+# regenerated blog index, homepage teaser, and sitemap back to the repo.
+# Runs entirely on GitHub's free Actions minutes — no API calls, no cost.
+
+on:
+  schedule:
+    # 13:00 UTC daily (~9:00 AM Eastern). Adjust as you like.
+    - cron: '0 13 * * *'
+  workflow_dispatch: {}  # allows manual "Run workflow" from the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-article
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Publish next queued article
+        run: node scripts/publish-next.mjs
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "treforged-bot"
+          git config user.email "bot@treforged.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "[blog]: auto-publish next queued article ($(date -u +%Y-%m-%d))"
+            git push
+          else
+            echo "No changes to publish (queue may be empty)."
+          fi

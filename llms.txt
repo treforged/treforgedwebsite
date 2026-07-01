@@ -1,0 +1,27 @@
+# TRE Forged
+
+> TRE Forged LLC is a Florida-based media and software company covering personal finance and automotive culture. Its flagship product is Forgenta, a personal finance app for budgeting, account tracking, cash-flow forecasting, and debt payoff planning, available on Web, Google Play, and iOS.
+
+## About
+
+- TRE Forged produces jargon-free personal finance education (budgeting, saving, debt payoff) and automotive content.
+- Forgenta is the company's personal finance app. Website: https://getforgenta.com/
+- Forgenta features: connect bank accounts, automatic transaction categorization, budgeting, savings goals, cash-flow forecasting, and side-by-side debt payoff planning (snowball vs. avalanche).
+
+## Products
+
+- [Forgenta — Personal Finance App](https://getforgenta.com/): Budget, track accounts, forecast cash flow, and plan debt payoff from any device. Free to start. Available on Web, Google Play, and Apple (TestFlight).
+
+## Blog (personal finance guides)
+
+- [Blog index](https://treforged.com/blog/): Practical guides on budgeting, saving, and debt payoff.
+- [How to Build Your First Budget in 2026](https://treforged.com/blog/how-to-build-your-first-budget-2026/): Step-by-step beginner budgeting guide.
+- [The 50/30/20 Budget Rule, Explained](https://treforged.com/blog/50-30-20-budget-rule-explained/): How to split take-home pay into needs, wants, and savings.
+- [How to Build an Emergency Fund](https://treforged.com/blog/how-to-build-an-emergency-fund/): How much to save, where to keep it, and how to start on a tight budget.
+- [Debt Snowball vs. Avalanche](https://treforged.com/blog/debt-snowball-vs-avalanche/): Comparing the two most popular debt payoff strategies.
+
+## Contact
+
+- Website: https://treforged.com/
+- Contact page: https://treforged.com/contact/
+- Email: contact@treforged.com
