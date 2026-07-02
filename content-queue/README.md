@@ -1,16 +1,39 @@
 # Blog content queue
 
 This folder drives the TRE Forged blog. A daily GitHub Action
-(`.github/workflows/daily-article.yml`) publishes **one queued article per day**,
-then regenerates the blog index, the homepage teaser, and the sitemap — all for
-free (no API calls, just GitHub's included Actions minutes).
+(`.github/workflows/daily-article.yml`) does two things each run:
+
+1. **Generates** a fresh, unique article with the Claude API from the next
+   unused topic (`scripts/generate-article.mjs`) and appends it to the queue.
+2. **Publishes** the oldest queued article (`scripts/publish-next.mjs`) and
+   regenerates the blog index, homepage teaser, and sitemap.
+
+Generation costs a few cents per article (Claude API). Publishing is free. The
+generate + publish pair keeps a small buffer in the queue so the blog keeps
+running even if a generation fails on some day.
 
 ## Files
 
+- **`topics.json`** — Backlog of topic ideas (`slug`, `title`, `angle`). The
+  generator picks the first topic whose slug isn't already used. Add more to
+  keep the generator fed.
 - **`queue.json`** — Pending articles, published oldest-first (top of the array
-  goes out next). Add new articles here.
+  goes out next). Generated articles are appended here; you can also hand-write
+  entries.
 - **`published.json`** — Articles already live. Generated automatically; don't
   edit by hand.
+
+## Setup: the ANTHROPIC_API_KEY secret (one-time)
+
+The generator needs an Anthropic API key. Add it as a repo secret:
+
+1. Get a key at https://console.anthropic.com → API Keys.
+2. In this repo: **Settings → Secrets and variables → Actions → New repository
+   secret**. Name it exactly `ANTHROPIC_API_KEY`, paste the key, save.
+
+Without the secret, generation is skipped (a notice is logged) and the Action
+still publishes whatever is already queued. Optional: set an `ARTICLE_MODEL`
+repo **variable** to override the model (default `claude-sonnet-5`).
 
 ## How publishing works
 

@@ -29,6 +29,11 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Generate a fresh article with Claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate-article.mjs
+
       - name: Publish next queued article
         run: node scripts/publish-next.mjs
 

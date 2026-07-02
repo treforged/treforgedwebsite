@@ -255,7 +255,7 @@ ${item.bodyHtml}
       </div>
     </article>
 
-${appCta()}
+${item.promoteApp === false ? '' : appCta()}
 ${faqSection}
 ${relatedSection}
   </div>
