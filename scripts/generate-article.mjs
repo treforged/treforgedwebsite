@@ -32,6 +32,12 @@ const MODEL = process.env.ARTICLE_MODEL || 'claude-sonnet-5';
 const MAX_BUFFER = 10; // don't let the queue grow unbounded if publishing stalls
 const APP_URL = 'https://getforgenta.com/';
 
+// DIY car-maintenance references (topics with category "car-maintenance").
+// YOUR_PAGE is the brand page these articles point readers to.
+const YOUR_PAGE = 'https://www.instagram.com/treforged/';
+const YOUR_PAGE_LABEL = 'TRE Forged on Instagram (@treforged)';
+const CARCAREKIOSK = 'https://www.carcarekiosk.com';
+
 const readJson = async (p, fallback) => {
   if (!existsSync(p)) return fallback;
   return JSON.parse(await readFile(p, 'utf8'));
@@ -72,6 +78,39 @@ const ARTICLE_SCHEMA = {
   required: ['slug', 'title', 'description', 'tags', 'readMins', 'promoteApp', 'bodyHtml', 'faqs'],
   additionalProperties: false,
 };
+
+const buildMaintenancePrompt = (topic, recentTitles) => `You are writing one article for The Forge, the TRE Forged blog (treforged.com). TRE Forged covers wealth AND car culture, so this piece is a practical do-it-yourself car maintenance guide for everyday car owners.
+
+Write a complete, original how-to article on this topic:
+- Working title: "${topic.title}"
+- Angle: ${topic.angle}
+- Suggested URL slug: "${topic.slug}"
+
+STRICT REQUIREMENTS:
+- Audience: regular car owners doing this themselves for the first time. Clear, encouraging, safety-conscious. No condescension, no filler.
+- Length: 900-1400 words of real, specific substance.
+- Structure the body as clean semantic HTML using only these tags: <p>, <h2>, <h3>, <ul>, <li>, <ol>, <blockquote>, <strong>, <em>, <a>. Start directly with a <p> lead paragraph (do NOT include an <h1> or the title). Use several <h2> sections.
+- Include these sections where they fit: a quick "what you'll need" tools & materials list, an estimated difficulty / time / rough cost, a numbered step-by-step, at least one clear safety warning (in a <blockquote> or <strong>), and a short "when to see a mechanic instead" note.
+- Do NOT use em dashes (—) anywhere. Use commas, periods, or "to"/"and" instead.
+- American English, 2026 as the current year where relevant. Generic to most cars; remind readers that exact steps and specs vary by year, make, and model.
+- IMPORTANT resource references (include both, naturally in the body):
+  - Point readers to <a href="${CARCAREKIOSK}" target="_blank" rel="noopener">CarCareKiosk</a> for free, model-specific step-by-step how-to videos (they can look up their exact year/make/model there).
+  - Link once to the brand page as <a href="${YOUR_PAGE}" target="_blank" rel="noopener">${YOUR_PAGE_LABEL}</a> for more car content.
+- Also include one internal link to a related money article using a relative URL, e.g. <a href="/blog/how-to-build-your-first-budget-2026/">budgeting basics</a>, since maintaining your own car saves money.
+- Do NOT mention or pitch Forgenta in this article. Set "promoteApp": false.
+- Include a 2-4 item FAQ answering real questions a searcher would type (e.g. "how often should I...", "can I do this myself...").
+
+Avoid overlapping with these recently published titles: ${recentTitles.length ? recentTitles.join('; ') : '(none yet)'}.
+
+Return ONLY the article as JSON matching the required schema:
+- slug: url-friendly, lowercase, hyphenated (use the suggested slug unless a better one fits)
+- title: a compelling, SEO-friendly how-to headline
+- description: one meta-description sentence, roughly 150-160 characters
+- tags: 2 short tags, e.g. ["Car Care","DIY"]
+- readMins: estimated reading time in minutes (integer)
+- promoteApp: false
+- bodyHtml: the article body as the HTML described above
+- faqs: array of {q, a}`;
 
 const buildPrompt = (topic, recentTitles, mentionForgenta) => `You are writing one article for the TRE Forged blog (treforged.com), a personal finance blog by TRE Forged LLC. The blog exists to help everyday people with budgeting, saving, and paying off debt, and to introduce Forgenta, the company's personal finance app.
 
@@ -162,12 +201,16 @@ const main = async () => {
   }
 
   const recentTitles = published.slice(0, 8).map((a) => a.title);
-  // Roughly 2 in 3 articles mention Forgenta, so promotion feels natural, not constant.
-  const mentionForgenta = Math.random() < 0.66;
+  const isMaintenance = topic.category === 'car-maintenance';
+  // Finance posts mention Forgenta ~2 in 3 times; DIY car posts never pitch it.
+  const mentionForgenta = !isMaintenance && Math.random() < 0.66;
+  const prompt = isMaintenance
+    ? buildMaintenancePrompt(topic, recentTitles)
+    : buildPrompt(topic, recentTitles, mentionForgenta);
 
   let article;
   try {
-    article = await callClaude(apiKey, buildPrompt(topic, recentTitles, mentionForgenta));
+    article = await callClaude(apiKey, prompt);
   } catch (err) {
     softFail(`Generation failed: ${err.message}`);
   }
