@@ -215,7 +215,13 @@ Brainstorm ${count} fresh, specific, evergreen blog topic ideas that do NOT dupl
 Mix guidance:
 - About 60% personal finance (budgeting, saving, debt, credit, cash flow, goals, insurance, everyday money skills) with "category": "finance".
 - About 40% cars: some car-money topics (buying, financing, insurance, cost of ownership) with "category": "finance", and some hands-on DIY maintenance how-tos, ONE specific job per topic, with "category": "car-maintenance".
-- Keep everything practical and beginner-friendly. Avoid investing-heavy or region-specific tax topics.
+- Keep everything practical and beginner-friendly. Avoid investing-heavy or region-specific tax topics. Assume readers have already seen the absolute basics (what a budget is, 50/30/20), so bring fresh angles rather than re-teaching square one.
+
+SEQUENCING (important): Return the topics as an ORDERED reading progression, because they will be published one per day in exactly the order you return them. Order the array so it flows naturally:
+- Start lighter and more foundational, then build toward more advanced or situational topics.
+- Interleave finance and car topics rather than grouping all of one type together, so the reader gets variety day to day.
+- Arrange the DIY car-maintenance ("category": "car-maintenance") topics from easiest/quickest jobs to the more involved or safety-critical ones, and spread them through the list (not all at the end).
+- Each topic should feel like a sensible next step after the previous one.
 
 Do NOT reuse or reword any of these existing slugs:
 ${existingSlugs.join(', ')}
@@ -229,7 +235,7 @@ For each topic return:
 - angle: one sentence on what the article should cover
 - category: "finance" or "car-maintenance" (use "car-maintenance" ONLY for hands-on DIY repair/maintenance how-tos)
 
-Return ONLY JSON: {"topics": [ ... ${count} items ... ]}`;
+Return ONLY JSON: {"topics": [ ... ${count} items, already in the intended publish order ... ]}`;
 
 const refillTopics = async (apiKey, topics, usedSlugs, published) => {
   const existingSlugs = topics.map((t) => t.slug);
