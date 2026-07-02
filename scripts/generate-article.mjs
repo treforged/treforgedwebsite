@@ -30,6 +30,8 @@ const PUBLISHED_PATH = join(ROOT, 'content-queue', 'published.json');
 
 const MODEL = process.env.ARTICLE_MODEL || 'claude-sonnet-5';
 const MAX_BUFFER = 10; // don't let the queue grow unbounded if publishing stalls
+const REFILL_THRESHOLD = 7; // when fewer unused topics than this remain...
+const REFILL_COUNT = 28; // ...brainstorm this many fresh topics (~4 weeks)
 const APP_URL = 'https://getforgenta.com/';
 
 // DIY car-maintenance references (topics with category "car-maintenance").
@@ -143,7 +145,7 @@ Return ONLY the article as JSON matching the required schema:
 - bodyHtml: the article body as the HTML described above
 - faqs: array of {q, a}`;
 
-const callClaude = async (apiKey, prompt) => {
+const callClaude = async (apiKey, prompt, schema, maxTokens = 8000) => {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -153,11 +155,11 @@ const callClaude = async (apiKey, prompt) => {
     },
     body: JSON.stringify({
       model: MODEL,
-      max_tokens: 8000,
+      max_tokens: maxTokens,
       thinking: { type: 'adaptive' },
       output_config: {
         effort: 'medium',
-        format: { type: 'json_schema', schema: ARTICLE_SCHEMA },
+        format: { type: 'json_schema', schema },
       },
       messages: [{ role: 'user', content: prompt }],
     }),
@@ -182,6 +184,78 @@ const slugify = (s) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
+/* ── topic backlog auto-refill ──────────────────────────── */
+
+const TOPICS_SCHEMA = {
+  type: 'object',
+  properties: {
+    topics: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          slug: { type: 'string' },
+          title: { type: 'string' },
+          angle: { type: 'string' },
+          category: { type: 'string', enum: ['finance', 'car-maintenance'] },
+        },
+        required: ['slug', 'title', 'angle', 'category'],
+        additionalProperties: false,
+      },
+    },
+  },
+  required: ['topics'],
+  additionalProperties: false,
+};
+
+const buildTopicsPrompt = (count, existingSlugs, publishedTitles) => `You are refilling the editorial backlog for The Forge, the TRE Forged blog (treforged.com). The Forge covers personal finance AND car culture: budgeting and money skills, plus car buying, financing, ownership, and hands-on do-it-yourself maintenance.
+
+Brainstorm ${count} fresh, specific, evergreen blog topic ideas that do NOT duplicate or lightly reword anything already covered.
+
+Mix guidance:
+- About 60% personal finance (budgeting, saving, debt, credit, cash flow, goals, insurance, everyday money skills) with "category": "finance".
+- About 40% cars: some car-money topics (buying, financing, insurance, cost of ownership) with "category": "finance", and some hands-on DIY maintenance how-tos, ONE specific job per topic, with "category": "car-maintenance".
+- Keep everything practical and beginner-friendly. Avoid investing-heavy or region-specific tax topics.
+
+Do NOT reuse or reword any of these existing slugs:
+${existingSlugs.join(', ')}
+
+Do NOT overlap these already-published titles:
+${publishedTitles.join('; ') || '(none yet)'}
+
+For each topic return:
+- slug: url-friendly, lowercase, hyphenated, unique, not in the existing list
+- title: a compelling, specific, SEO-friendly headline
+- angle: one sentence on what the article should cover
+- category: "finance" or "car-maintenance" (use "car-maintenance" ONLY for hands-on DIY repair/maintenance how-tos)
+
+Return ONLY JSON: {"topics": [ ... ${count} items ... ]}`;
+
+const refillTopics = async (apiKey, topics, usedSlugs, published) => {
+  const existingSlugs = topics.map((t) => t.slug);
+  const publishedTitles = published.map((a) => a.title);
+  const result = await callClaude(
+    apiKey,
+    buildTopicsPrompt(REFILL_COUNT, existingSlugs, publishedTitles),
+    TOPICS_SCHEMA,
+    4000,
+  );
+  const raw = Array.isArray(result && result.topics) ? result.topics : [];
+  const seen = new Set([...existingSlugs, ...usedSlugs]);
+  const added = [];
+  for (const t of raw) {
+    if (!t || !t.slug || !t.title || !t.angle) continue;
+    const slug = slugify(t.slug);
+    if (!slug || seen.has(slug)) continue;
+    seen.add(slug);
+    const topic = { slug, title: String(t.title), angle: String(t.angle) };
+    // Keep file style consistent: only DIY posts carry an explicit category.
+    if (t.category === 'car-maintenance') topic.category = 'car-maintenance';
+    added.push(topic);
+  }
+  return added;
+};
+
 const main = async () => {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) softFail('ANTHROPIC_API_KEY is not set — skipping generation.');
@@ -195,7 +269,24 @@ const main = async () => {
   }
 
   const usedSlugs = new Set([...queue, ...published].map((a) => a.slug));
-  const topic = topics.find((t) => !usedSlugs.has(t.slug));
+  let unused = topics.filter((t) => !usedSlugs.has(t.slug));
+
+  // Auto-refill: when the backlog runs low, brainstorm a fresh batch so it never dries up.
+  if (unused.length < REFILL_THRESHOLD) {
+    try {
+      const added = await refillTopics(apiKey, topics, usedSlugs, published);
+      if (added.length) {
+        topics.push(...added);
+        await writeFile(TOPICS_PATH, JSON.stringify(topics, null, 2) + '\n', 'utf8');
+        unused = topics.filter((t) => !usedSlugs.has(t.slug));
+        console.log(`::notice::Auto-refilled backlog with ${added.length} new topics (now ${unused.length} unused).`);
+      }
+    } catch (err) {
+      console.log(`::error::Topic refill failed: ${err.message}`);
+    }
+  }
+
+  const topic = unused[0];
   if (!topic) {
     done('::notice::No unused topics left in topics.json — add more to keep generating.');
   }
@@ -210,7 +301,7 @@ const main = async () => {
 
   let article;
   try {
-    article = await callClaude(apiKey, prompt);
+    article = await callClaude(apiKey, prompt, ARTICLE_SCHEMA);
   } catch (err) {
     softFail(`Generation failed: ${err.message}`);
   }
