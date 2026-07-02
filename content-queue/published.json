@@ -1,5 +1,32 @@
 [
   {
+    "slug": "50-30-20-budget-rule-explained",
+    "title": "The 50/30/20 Budget Rule, Explained (With Real Examples)",
+    "description": "The 50/30/20 rule is the simplest way to budget your take-home pay. Here's exactly what counts as needs, wants, and savings — with real dollar examples.",
+    "date": "2026-07-02",
+    "tags": [
+      "Budgeting",
+      "Money Basics"
+    ],
+    "readMins": 6,
+    "bodyHtml": "        <p>If you want one budgeting rule that's simple enough to remember and flexible enough to actually use, it's this one: <strong>50/30/20</strong>. It splits your take-home pay into three buckets and nothing more.</p>\n\n        <h2>The three buckets</h2>\n        <ul>\n          <li><strong>50% — Needs.</strong> Rent, utilities, groceries, insurance, minimum debt payments, transportation. The things you truly can't skip.</li>\n          <li><strong>30% — Wants.</strong> Dining out, streaming, hobbies, travel, upgrades. The stuff that makes life enjoyable but isn't essential.</li>\n          <li><strong>20% — Savings &amp; debt.</strong> Emergency fund, retirement, and any extra debt payments beyond the minimum.</li>\n        </ul>\n\n        <h2>A real example</h2>\n        <p>Say you take home <strong>$4,000</strong> a month. Under 50/30/20 that's:</p>\n        <ul>\n          <li><strong>$2,000</strong> for needs</li>\n          <li><strong>$1,200</strong> for wants</li>\n          <li><strong>$800</strong> for savings and extra debt payoff</li>\n        </ul>\n        <p>If your needs are running closer to $2,400, that's a signal — not a failure. It usually means housing or transportation is eating a bigger share than the rule assumes, and your wants bucket has to shrink to compensate.</p>\n\n        <h2>What counts as a &ldquo;need&rdquo; vs. a &ldquo;want&rdquo;?</h2>\n        <p>This trips people up. A useful test: if skipping it for a month would cause a real problem — eviction, a missed payment, no food — it's a need. If skipping it would just be annoying, it's a want. Your phone plan is a need; the premium unlimited tier might be a want.</p>\n        <blockquote>Groceries are a need. Ordering delivery three nights a week is a want wearing a need's costume.</blockquote>\n\n        <h2>When to bend the rule</h2>\n        <p>50/30/20 is a starting point, not a law. If you're aggressively paying off high-interest debt, you might run 50/20/30 for a while — cutting wants to throw more at balances. If you live in a high-cost city, your needs may simply be higher, and that's okay as long as you know it.</p>\n\n        <h2>Making it automatic</h2>\n        <p>The rule only works if you can see which bucket your spending is landing in. Manually sorting transactions is where most people quit. <a href=\"https://getforgenta.com/\" target=\"_blank\" rel=\"noopener\">Forgenta</a> categorizes your spending automatically and shows your needs/wants/savings split in real time, so you know mid-month whether you're on track instead of finding out too late.</p>\n        <p>New to budgeting entirely? Start with our <a href=\"/blog/how-to-build-your-first-budget-2026/\">step-by-step guide to building your first budget</a>, then come back and apply 50/30/20 to it.</p>",
+    "faqs": [
+      {
+        "q": "Is 50/30/20 based on gross or net income?",
+        "a": "Net income — your take-home pay after taxes and deductions. Budgeting off gross income leads to overspending because you never actually receive that money."
+      },
+      {
+        "q": "What if my needs are more than 50%?",
+        "a": "That's common in high-cost areas. It usually means housing or transportation is oversized. Shrink your wants bucket to compensate, and over time look for ways to lower your biggest fixed costs."
+      },
+      {
+        "q": "Can I use 50/30/20 while paying off debt?",
+        "a": "Yes. Minimum debt payments count as needs, and any extra payments come from the 20% savings-and-debt bucket. If you want to pay off debt faster, temporarily shift money from wants into that bucket."
+      }
+    ],
+    "published": "2026-07-02"
+  },
+  {
     "slug": "how-to-build-your-first-budget-2026",
     "title": "How to Build Your First Budget in 2026 (Step-by-Step)",
     "description": "A beginner-friendly, step-by-step guide to building your first budget in 2026 — how to track income, sort expenses, pick a budgeting method, and actually stick to it.",
