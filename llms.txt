@@ -10,7 +10,7 @@
 
 ## Products
 
-- [Forgenta — Personal Finance App](https://getforgenta.com/): Budget, track accounts, forecast cash flow, and plan debt payoff from any device. Free to start. Available on Web, Google Play, and Apple (TestFlight).
+- [Forgenta — Personal Finance App](https://getforgenta.com/): Budget, track accounts, forecast cash flow, and plan debt payoff from any device. Free to start. Available on the Apple App Store, Google Play, and Web. App Store: https://apps.apple.com/us/app/forgenta-track-build-wealth/id6762540239
 
 ## Blog (personal finance guides)
 

@@ -138,9 +138,9 @@ const appCta = () => `    <div class="app-block reveal">
           <p>Forgenta is TRE Forged's personal finance app — build a budget, track every account, forecast your cash flow, and plan debt payoff from any device. Free to start.</p>
         </div>
         <div class="app-cta-stack">
-          <a href="${APP}" target="_blank" rel="noopener" class="btn btn-gold">Try Forgenta Free ↗</a>
+          <a href="https://apps.apple.com/us/app/forgenta-track-build-wealth/id6762540239" target="_blank" rel="noopener" class="btn btn-gold">App Store ↗</a>
           <a href="https://play.google.com/store/apps/details?id=com.treforged.forged" target="_blank" rel="noopener" class="btn btn-ghost">Google Play ↗</a>
-          <a href="https://testflight.apple.com/join/P8AvKXr4" target="_blank" rel="noopener" class="btn btn-ghost">Apple TestFlight ↗</a>
+          <a href="${APP}" target="_blank" rel="noopener" class="btn btn-ghost">Try Forgenta Free ↗</a>
         </div>
       </div>
     </div>`;
@@ -283,18 +283,18 @@ const renderBlogIndex = (published) => {
     : '      <p class="lead">New articles are on the way. Check back soon.</p>';
 
   return `${head({
-    title: 'Blog — Money Basics & Budgeting Guides | TRE Forged',
+    title: 'The Forge: Money Basics & Budgeting Guides | TRE Forged',
     description: 'Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of the Forgenta app.',
     canonical: `${SITE}/blog/`,
     extra: `  <meta property="og:type" content="website">
-  <meta property="og:title" content="TRE Forged Blog — Money Basics & Budgeting Guides">
+  <meta property="og:title" content="The Forge: Personal Finance Guides by TRE Forged">
   <meta property="og:description" content="Practical, jargon-free personal finance guides: budgeting, saving, and debt payoff.">
   <meta property="og:url" content="${SITE}/blog/">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "TRE Forged Blog",
+    "name": "The Forge",
     "url": "${SITE}/blog/",
     "description": "Practical personal finance guides: budgeting, saving, and debt payoff.",
     "publisher": {"@type":"Organization","name":"TRE Forged","url":"${SITE}/"}
@@ -307,8 +307,8 @@ ${nav('blog')}
   <div class="container">
     <section class="page-hero reveal">
       <div class="page-hero-label">Money Basics</div>
-      <h2>The TRE Forged Blog</h2>
-      <p>Practical, jargon-free guides on budgeting, saving, and paying down debt — plus tips for getting the most out of <a href="${APP}" target="_blank" rel="noopener">Forgenta</a>, our personal finance app.</p>
+      <h2>The Forge</h2>
+      <p>Practical, jargon-free guides on budgeting, saving, and paying down debt, plus tips for getting the most out of <a href="${APP}" target="_blank" rel="noopener">Forgenta</a>, our personal finance app.</p>
     </section>
 
     <div class="blog-grid">
