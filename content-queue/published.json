@@ -1,5 +1,32 @@
 [
   {
+    "slug": "debt-snowball-vs-avalanche",
+    "title": "Debt Snowball vs. Avalanche: Which Payoff Method Wins?",
+    "description": "The snowball and avalanche methods both get you out of debt — but they work very differently. Here's how to choose the right one for how your brain actually works.",
+    "date": "2026-07-04",
+    "tags": [
+      "Debt Payoff",
+      "Strategy"
+    ],
+    "readMins": 7,
+    "bodyHtml": "        <p>If you have more than one debt, you need an order to pay them off in. The two most popular strategies — the <strong>snowball</strong> and the <strong>avalanche</strong> — agree on one thing: pay minimums on everything, then throw every extra dollar at one target debt until it's gone. They only disagree on <em>which</em> debt to attack first.</p>\n\n        <h2>The debt snowball</h2>\n        <p>Pay off your <strong>smallest balance first</strong>, regardless of interest rate. When it's gone, roll its payment into the next-smallest, and so on. Each payoff is a quick, visible win.</p>\n        <ul>\n          <li><strong>Pro:</strong> Fast wins build momentum and keep you motivated.</li>\n          <li><strong>Con:</strong> You may pay slightly more interest overall.</li>\n        </ul>\n\n        <h2>The debt avalanche</h2>\n        <p>Pay off your <strong>highest-interest debt first</strong>, regardless of balance. Then move to the next-highest rate. This minimizes the total interest you pay.</p>\n        <ul>\n          <li><strong>Pro:</strong> Mathematically cheapest — you pay the least interest and often finish sooner.</li>\n          <li><strong>Con:</strong> If your highest-rate debt is also large, it can take a while to see your first win, which is where motivation dies.</li>\n        </ul>\n\n        <h2>A quick comparison</h2>\n        <p>Imagine three debts: a $500 store card at 22%, a $3,000 credit card at 19%, and a $6,000 loan at 9%.</p>\n        <ul>\n          <li><strong>Snowball order:</strong> $500 card → $3,000 card → $6,000 loan. You clear a debt almost immediately.</li>\n          <li><strong>Avalanche order:</strong> $500 card (22%) → $3,000 card (19%) → $6,000 loan (9%). Here they happen to line up closely, but when a big balance carries the highest rate, avalanche puts it first.</li>\n        </ul>\n        <blockquote>The best method is the one you'll actually finish. A slightly more expensive plan you stick with beats an optimal plan you abandon.</blockquote>\n\n        <h2>So which should you choose?</h2>\n        <p>Be honest about what motivates you. If you've started and quit before, the <strong>snowball</strong>'s early wins are probably worth the small extra interest. If you're driven by numbers and want the cheapest path, go <strong>avalanche</strong>. Many people do a hybrid: knock out one tiny balance for the morale boost, then switch to avalanche for the rest.</p>\n\n        <h2>See your payoff date before you start</h2>\n        <p>Both methods are far more motivating when you can see the finish line. <a href=\"https://getforgenta.com/\" target=\"_blank\" rel=\"noopener\">Forgenta</a>'s debt payoff planner lets you compare snowball and avalanche side by side, add an extra monthly payment, and watch your debt-free date move earlier in real time.</p>\n        <p>Need the extra payment to come from somewhere? Free it up with a budget first — start with our <a href=\"/blog/how-to-build-your-first-budget-2026/\">first-budget guide</a>.</p>",
+    "faqs": [
+      {
+        "q": "Is the snowball or avalanche method better?",
+        "a": "The avalanche saves the most money because it targets the highest interest rate first. But the snowball's quick wins help more people actually finish. Choose based on whether you're motivated more by math or by momentum."
+      },
+      {
+        "q": "Can I switch methods partway through?",
+        "a": "Absolutely. A popular hybrid is to clear one small balance first for the motivation, then switch to the avalanche to minimize interest on the rest."
+      },
+      {
+        "q": "What is the extra payment, and where does it come from?",
+        "a": "It's any amount above the minimum payments, applied to your one target debt. It typically comes from your budget's savings-and-debt bucket, or from cutting a variable expense temporarily."
+      }
+    ],
+    "published": "2026-07-04"
+  },
+  {
     "slug": "how-to-build-an-emergency-fund",
     "title": "How to Build an Emergency Fund (Even on a Tight Budget)",
     "description": "An emergency fund is the foundation of financial stability. Here's how much you need, where to keep it, and how to build one even when money is tight.",
