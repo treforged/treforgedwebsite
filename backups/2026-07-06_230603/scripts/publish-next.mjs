@@ -17,7 +17,7 @@
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -49,7 +49,7 @@ const prettyDate = (iso) => {
 };
 
 /** Replace the region between START/END markers, keeping the markers. */
-export const injectBetween = (source, name, replacement) => {
+const injectBetween = (source, name, replacement) => {
   const start = `<!-- ${name}:START -->`;
   const end = `<!-- ${name}:END -->`;
   const re = new RegExp(`${start}[\\s\\S]*?${end}`);
@@ -269,7 +269,7 @@ ${footer()}
 
 /* ── blog index (listing) ───────────────────────────────── */
 
-export const renderBlogIndex = (published) => {
+const renderBlogIndex = (published) => {
   const cards = published.length
     ? published.map((p, i) => `      <a class="blog-card reveal${i === 0 ? ' blog-card-feature' : ''}" href="/blog/${p.slug}/">
         <div class="blog-card-tag">${esc((p.tags || [])[0] || 'Guide')}</div>
@@ -325,7 +325,7 @@ ${footer()}
 
 /* ── homepage teaser (injected between markers) ─────────── */
 
-export const renderTeaser = (latest) => {
+const renderTeaser = (latest) => {
   if (!latest) return '    <!-- no articles yet -->';
   return `    <div class="block reveal blog-teaser">
       <div class="block-title">From the Blog</div>
@@ -341,7 +341,7 @@ export const renderTeaser = (latest) => {
 
 /* ── sitemap urls (injected between markers) ────────────── */
 
-export const renderSitemapUrls = (published) => {
+const renderSitemapUrls = (published) => {
   const blogIndex = `  <url>
     <loc>${SITE}/blog/</loc>
     <changefreq>daily</changefreq>
@@ -401,15 +401,7 @@ const main = async () => {
   console.log(`::notice::Published "${item.title}" → /blog/${item.slug}/ (${queue.length} left in queue)`);
 };
 
-// Only auto-publish when run directly (e.g. `node scripts/publish-next.mjs`).
-// When imported (e.g. by a rebuild script) the render helpers above are reused
-// without triggering a publish.
-const invokedDirectly =
-  process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
-
-if (invokedDirectly) {
-  main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
-}
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

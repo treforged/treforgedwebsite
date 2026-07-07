@@ -145,7 +145,7 @@ Return ONLY the article as JSON matching the required schema:
 - bodyHtml: the article body as the HTML described above
 - faqs: array of {q, a}`;
 
-const callClaude = async (apiKey, prompt, schema, maxTokens = 16000) => {
+const callClaude = async (apiKey, prompt, schema, maxTokens = 8000) => {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -173,13 +173,6 @@ const callClaude = async (apiKey, prompt, schema, maxTokens = 16000) => {
   const data = await res.json();
   if (data.stop_reason === 'refusal') {
     throw new Error('Claude declined the request (refusal).');
-  }
-  // Guard against truncation: with adaptive thinking sharing the max_tokens
-  // budget, a long article can hit the output cap. Structured output then
-  // force-closes the JSON, yielding a parseable-but-cut-off article (body
-  // ends mid-sentence, empty faqs). Never queue a truncated result.
-  if (data.stop_reason === 'max_tokens') {
-    throw new Error(`Response hit max_tokens (${maxTokens}) — output truncated; not queuing.`);
   }
   const textBlock = (data.content || []).find((b) => b.type === 'text');
   if (!textBlock) throw new Error('No text block in Claude response.');
@@ -251,7 +244,7 @@ const refillTopics = async (apiKey, topics, usedSlugs, published) => {
     apiKey,
     buildTopicsPrompt(REFILL_COUNT, existingSlugs, publishedTitles),
     TOPICS_SCHEMA,
-    12000,
+    4000,
   );
   const raw = Array.isArray(result && result.topics) ? result.topics : [];
   const seen = new Set([...existingSlugs, ...usedSlugs]);
