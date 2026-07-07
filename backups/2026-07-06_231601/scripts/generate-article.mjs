@@ -90,8 +90,8 @@ Write a complete, original how-to article on this topic:
 
 STRICT REQUIREMENTS:
 - Audience: regular car owners doing this themselves for the first time. Clear, encouraging, safety-conscious. No condescension, no filler.
-- Length: this is a long-form how-to. The bodyHtml MUST contain at least 1000 words of actual body prose (HTML tags do not count toward the word total). Aim for 1100-1400 words. A thin or short guide is a failure even if it reads well, so do NOT wrap up early; explain each step fully with specific detail, real numbers, and what to watch out for.
-- Structure the body as clean semantic HTML using only these tags: <p>, <h2>, <h3>, <ul>, <li>, <ol>, <blockquote>, <strong>, <em>, <a>. Start directly with a <p> lead paragraph (do NOT include an <h1> or the title). Write 5 to 7 <h2> sections; give each 2 to 3 substantial paragraphs of at least 3 sentences, plus lists where they genuinely help.
+- Length: 900-1400 words of real, specific substance.
+- Structure the body as clean semantic HTML using only these tags: <p>, <h2>, <h3>, <ul>, <li>, <ol>, <blockquote>, <strong>, <em>, <a>. Start directly with a <p> lead paragraph (do NOT include an <h1> or the title). Use several <h2> sections.
 - Include these sections where they fit: a quick "what you'll need" tools & materials list, an estimated difficulty / time / rough cost, a numbered step-by-step, at least one clear safety warning (in a <blockquote> or <strong>), and a short "when to see a mechanic instead" note.
 - Do NOT use em dashes (—) anywhere. Use commas, periods, or "to"/"and" instead.
 - American English, 2026 as the current year where relevant. Generic to most cars; remind readers that exact steps and specs vary by year, make, and model.
@@ -111,7 +111,7 @@ Return ONLY the article as JSON matching the required schema:
 - tags: 2 short tags, e.g. ["Car Care","DIY"]
 - readMins: estimated reading time in minutes (integer)
 - promoteApp: false
-- bodyHtml: the article body as the HTML described above, at least 1000 words of real prose across 5 to 7 <h2> sections
+- bodyHtml: the article body as the HTML described above
 - faqs: array of {q, a}`;
 
 const buildPrompt = (topic, recentTitles, mentionForgenta) => `You are writing one article for the TRE Forged blog (treforged.com), a personal finance blog by TRE Forged LLC. The blog exists to help everyday people with budgeting, saving, and paying off debt, and to introduce Forgenta, the company's personal finance app.
@@ -123,8 +123,8 @@ Write a complete, original, SEO-optimized article on this topic:
 
 STRICT REQUIREMENTS:
 - Audience: beginners and everyday people. Clear, warm, jargon-free, genuinely useful. No fluff, no filler intros.
-- Length: this is a long-form guide. The bodyHtml MUST contain at least 1000 words of actual body prose (HTML tags do not count toward the word total). Aim for 1100-1400 words. A thin or short article is a failure even if it reads well, so do NOT wrap up early or compress to save space; develop each point fully with concrete examples, specific numbers, and real scenarios.
-- Structure the body as clean semantic HTML using only these tags: <p>, <h2>, <h3>, <ul>, <li>, <ol>, <blockquote>, <strong>, <em>, <a>. Start directly with a <p> lead paragraph (do NOT include an <h1> or the title — the page template adds those). Write 5 to 7 <h2> sections; give each section 2 to 3 substantial paragraphs of at least 3 sentences, plus lists where they genuinely help.
+- Length: 900-1400 words of real substance.
+- Structure the body as clean semantic HTML using only these tags: <p>, <h2>, <h3>, <ul>, <li>, <ol>, <blockquote>, <strong>, <em>, <a>. Start directly with a <p> lead paragraph (do NOT include an <h1> or the title — the page template adds those). Use several <h2> sections.
 - Do NOT use em dashes (—) anywhere. Use commas, periods, or "to"/"and" instead. Em dashes read as AI-generated.
 - Use American English and 2026 as the current year where a year is relevant.
 - Include a 2-4 item FAQ that answers real questions a reader would search for. These become FAQ rich-result schema, so make questions natural search queries.
@@ -142,7 +142,7 @@ Return ONLY the article as JSON matching the required schema:
 - tags: 2 short topic tags (e.g. ["Budgeting","Saving"])
 - readMins: estimated reading time in minutes (integer)
 - promoteApp: boolean per the Forgenta instruction above
-- bodyHtml: the article body as the HTML described above, at least 1000 words of real prose across 5 to 7 <h2> sections
+- bodyHtml: the article body as the HTML described above
 - faqs: array of {q, a}`;
 
 const callClaude = async (apiKey, prompt, schema, maxTokens = 16000) => {
@@ -158,7 +158,7 @@ const callClaude = async (apiKey, prompt, schema, maxTokens = 16000) => {
       max_tokens: maxTokens,
       thinking: { type: 'adaptive' },
       output_config: {
-        effort: 'high',
+        effort: 'medium',
         format: { type: 'json_schema', schema },
       },
       messages: [{ role: 'user', content: prompt }],
@@ -330,19 +330,10 @@ const main = async () => {
   article.promoteApp = article.promoteApp !== false;
   article.faqs = Array.isArray(article.faqs) ? article.faqs : [];
 
-  // Rough body prose word count (strip HTML tags) for length monitoring.
-  const wordCount = String(article.bodyHtml || '')
-    .replace(/<[^>]+>/g, ' ')
-    .split(/\s+/)
-    .filter(Boolean).length;
-  if (wordCount < 700) {
-    console.log(`::warning::Generated article "${article.slug}" is short (${wordCount} words of prose); target is 1000+.`);
-  }
-
   queue.push(article);
   await writeFile(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf8');
 
-  console.log(`::notice::Generated "${article.title}" → queued as ${article.slug} (${MODEL}, ${wordCount} words, promoteApp=${article.promoteApp}). Queue length: ${queue.length}.`);
+  console.log(`::notice::Generated "${article.title}" → queued as ${article.slug} (${MODEL}, promoteApp=${article.promoteApp}). Queue length: ${queue.length}.`);
 };
 
 main().catch((err) => softFail(err.message));
