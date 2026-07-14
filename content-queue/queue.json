@@ -1,18 +1,5 @@
 [
   {
-    "slug": "how-to-check-tire-pressure-and-tread",
-    "title": "How to Check Your Tire Pressure and Tread (The Right Way)",
-    "description": "Learn how to check tire pressure and tread depth at home in under 15 minutes, save on gas and tires, and know when it's time to see a mechanic.",
-    "tags": [
-      "Car Care",
-      "DIY"
-    ],
-    "readMins": 8,
-    "promoteApp": false,
-    "bodyHtml": "<p>Your tires are the only part of your car actually touching the road, yet most drivers never check them until something feels wrong. That's a mistake, and an expensive one. Underinflated tires quietly drain your fuel economy, wear out faster, and can fail at highway speed. Bald tread turns a rainy commute into a hydroplaning nightmare. The good news: checking both pressure and tread takes less than 15 minutes, costs almost nothing, and is one of the easiest ways to protect your family and your wallet at the same time.</p><p>This guide walks you through exactly how to do it, no mechanic required. As always, exact tire size and recommended pressure vary by year, make, and model, so if you want a video walkthrough for your specific vehicle, <a href=\"https://www.carcarekiosk.com\" target=\"_blank\" rel=\"noopener\">CarCareKiosk</a> has free step-by-step videos you can search by plate or VIN.</p><h2>What You'll Need</h2><p>You don't need a garage full of tools for this job. A basic tire pressure gauge, a penny (or a tread depth gauge if you want to be extra precise), and a tire chalk or marker if you want to track wear over time are all it takes. Most gauges, whether the dial type, digital type, or simple pen-style stick gauge, cost between $8 and $20 at any auto parts store. If your car has a tire inflation kit or an air compressor at home, that's a bonus but not required since gas stations almost always have coin-operated air pumps.</p><ul><li>Tire pressure gauge (digital or dial, $8 to $20)</li><li>A penny for the tread test (free)</li><li>Tire chalk or a piece of tape (optional, for tracking)</li><li>Your owner's manual or the sticker inside the driver's door jamb</li><li>Access to an air source (home compressor or gas station air pump, often $1 to $2)</li></ul><p><strong>Estimated time:</strong> 10 to 15 minutes for all four tires. <strong>Difficulty:</strong> Beginner-friendly, no lifting or tools beyond a gauge. <strong>Cost:</strong> Under $25 total if you're buying a gauge for the first time, and closer to free after that.</p><h2>Step 1: Find Your Correct PSI</h2><p>Here's a detail that trips up a lot of new car owners: the number printed on the tire's sidewall is <em>not</em> your recommended pressure. That number is the maximum pressure the tire can safely hold, not what your vehicle manufacturer recommends for ride comfort, handling, and even tire wear. The actual number you want is almost always printed on a sticker inside the driver's side door jamb, or listed in your owner's manual.</p><p>Most passenger cars recommend somewhere between 30 and 35 PSI (pounds per square inch), but trucks, SUVs, and vehicles that carry heavier loads can call for higher numbers, sometimes with a different front and rear spec. Some vehicles even list a separate pressure for when you're carrying extra passengers or towing. Write this number down or snap a photo of the door jamb sticker with your phone so you always have it handy.</p><h2>Step 2: Check Pressure the Right Way</h2><p>Tire pressure should always be checked when tires are ",
-    "faqs": []
-  },
-  {
     "slug": "sinking-funds-explained",
     "title": "Sinking Funds Explained: The Budgeting Trick That Ends Money Surprises",
     "description": "Learn what sinking funds are, which expenses need one, and how to set them up so irregular bills stop wrecking your budget in 2026.",
@@ -54,5 +41,18 @@
         "a": "No, automation just handles the routine decisions so you can focus your attention on bigger financial choices. You can review and adjust every automated transfer at any time, and most banks let you pause or change amounts instantly if your situation changes."
       }
     ]
+  },
+  {
+    "slug": "how-to-cut-monthly-expenses",
+    "title": "20 Realistic Ways to Cut Your Monthly Expenses in 2026",
+    "description": "20 practical, no-extreme-frugality ways to lower your monthly bills, ranked by effort versus impact, so you can start saving money this week.",
+    "tags": [
+      "Budgeting",
+      "Saving"
+    ],
+    "readMins": 8,
+    "promoteApp": false,
+    "bodyHtml": "<p>Cutting your monthly expenses doesn't have to mean giving up coffee, canceling every subscription, or living on rice and beans. Most people can free up $200 to $500 a month by making a handful of smart, low-drama changes. The trick is knowing which cuts are worth your time and which ones cost more effort than they're worth. Below are 20 realistic ways to lower your bills in 2026, organized from the fastest, easiest wins to the bigger moves that take more planning but pay off for years.</p><h2>Quick Wins You Can Do Today (Low Effort, Immediate Impact)</h2><p>These are the cuts you can knock out in an afternoon without changing your lifestyle at all. Start here because the momentum matters as much as the money.</p><ul><li><strong>Cancel unused subscriptions.</strong> Pull up your last two bank and credit card statements and circle every recurring charge. The average household pays for at least one streaming service, app, or membership they forgot about, often $10 to $20 a month each.</li><li><strong>Call to cancel or downgrade cable and streaming bundles.</strong> Ask for the ",
+    "faqs": []
   }
 ]
