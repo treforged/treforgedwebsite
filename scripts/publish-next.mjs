@@ -147,7 +147,7 @@ const appCta = () => `    <div class="app-block reveal">
 
 /* ── article page ───────────────────────────────────────── */
 
-const renderArticle = (item, related) => {
+export const renderArticle = (item, related) => {
   const url = `${SITE}/blog/${item.slug}/`;
   const pubDate = item.published || item.date;
   const tags = item.tags || [];

@@ -1,0 +1,50 @@
+name: Backfill pruned blog articles
+
+# One-off maintenance: regenerates articles that were pruned for truncation
+# and republishes them on their original dates. Trigger manually from the
+# Actions tab (or `gh workflow run`) with the slug=date list.
+
+on:
+  workflow_dispatch:
+    inputs:
+      articles:
+        description: 'Space-separated slug=YYYY-MM-DD pairs'
+        required: true
+        default: 'zero-based-budgeting-guide=2026-07-07 how-to-replace-windshield-wiper-blades=2026-07-08 needs-vs-wants=2026-07-12 how-to-check-tire-pressure-and-tread=2026-07-14 sinking-funds-explained=2026-07-15 how-to-cut-monthly-expenses=2026-07-16'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-article
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Regenerate and republish articles
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/backfill-articles.mjs ${{ inputs.articles }}
+
+      - name: Commit & push if changed
+        if: always()
+        run: |
+          git config user.name "treforged-bot"
+          git config user.email "bot@treforged.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "[blog]: backfill regenerated articles onto original dates"
+            git push
+          else
+            echo "No changes."
+          fi

@@ -20,7 +20,7 @@
 
 import { readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -30,7 +30,7 @@ const PUBLISHED_PATH = join(ROOT, 'content-queue', 'published.json');
 
 const MODEL = process.env.ARTICLE_MODEL || 'claude-sonnet-5';
 const MAX_BUFFER = 10; // don't let the queue grow unbounded if publishing stalls
-const MIN_WORDS = 850; // hard floor of body prose words — below this the article is rejected
+export const MIN_WORDS = 850; // hard floor of body prose words — below this the article is rejected
 const REFILL_THRESHOLD = 7; // when fewer unused topics than this remain...
 const REFILL_COUNT = 28; // ...brainstorm this many fresh topics (~4 weeks)
 const APP_URL = 'https://getforgenta.com/';
@@ -58,7 +58,7 @@ const softFail = (msg) => {
 
 /* ── JSON schema for a guaranteed-parseable article ─────── */
 
-const ARTICLE_SCHEMA = {
+export const ARTICLE_SCHEMA = {
   type: 'object',
   properties: {
     slug: { type: 'string' },
@@ -82,7 +82,7 @@ const ARTICLE_SCHEMA = {
   additionalProperties: false,
 };
 
-const buildMaintenancePrompt = (topic, recentTitles) => `You are writing one article for The Forge, the TRE Forged blog (treforged.com). TRE Forged covers wealth AND car culture, so this piece is a practical do-it-yourself car maintenance guide for everyday car owners.
+export const buildMaintenancePrompt = (topic, recentTitles) => `You are writing one article for The Forge, the TRE Forged blog (treforged.com). TRE Forged covers wealth AND car culture, so this piece is a practical do-it-yourself car maintenance guide for everyday car owners.
 
 Write a complete, original how-to article on this topic:
 - Working title: "${topic.title}"
@@ -115,7 +115,7 @@ Return ONLY the article as JSON matching the required schema:
 - bodyHtml: the article body as the HTML described above, at least 1000 words of real prose across 5 to 7 <h2> sections
 - faqs: array of {q, a}`;
 
-const buildPrompt = (topic, recentTitles, mentionForgenta) => `You are writing one article for the TRE Forged blog (treforged.com), a personal finance blog by TRE Forged LLC. The blog exists to help everyday people with budgeting, saving, and paying off debt, and to introduce Forgenta, the company's personal finance app.
+export const buildPrompt = (topic, recentTitles, mentionForgenta) => `You are writing one article for the TRE Forged blog (treforged.com), a personal finance blog by TRE Forged LLC. The blog exists to help everyday people with budgeting, saving, and paying off debt, and to introduce Forgenta, the company's personal finance app.
 
 Write a complete, original, SEO-optimized article on this topic:
 - Working title: "${topic.title}"
@@ -146,7 +146,7 @@ Return ONLY the article as JSON matching the required schema:
 - bodyHtml: the article body as the HTML described above, at least 1000 words of real prose across 5 to 7 <h2> sections
 - faqs: array of {q, a}`;
 
-const callClaude = async (apiKey, prompt, schema, maxTokens = 28000) => {
+export const callClaude = async (apiKey, prompt, schema, maxTokens = 28000) => {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -187,7 +187,7 @@ const callClaude = async (apiKey, prompt, schema, maxTokens = 28000) => {
   return JSON.parse(textBlock.text);
 };
 
-const slugify = (s) =>
+export const slugify = (s) =>
   String(s).toLowerCase().trim()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
@@ -351,4 +351,11 @@ const main = async () => {
   console.log(`::notice::Generated "${article.title}" → queued as ${article.slug} (${MODEL}, ${wordCount} words, promoteApp=${article.promoteApp}). Queue length: ${queue.length}.`);
 };
 
-main().catch((err) => softFail(err.message));
+// Only run the daily generate flow when executed directly; when imported
+// (e.g. by backfill-articles.mjs) only the exported helpers are used.
+const invokedDirectly =
+  process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+
+if (invokedDirectly) {
+  main().catch((err) => softFail(err.message));
+}
