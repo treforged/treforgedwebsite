@@ -36,20 +36,8 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://treforged.com/blog/needs-vs-wants/</loc>
-    <lastmod>2026-07-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://treforged.com/blog/how-to-stop-living-paycheck-to-paycheck/</loc>
     <lastmod>2026-07-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://treforged.com/blog/how-to-track-expenses/</loc>
-    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -62,12 +50,6 @@
   <url>
     <loc>https://treforged.com/blog/how-to-replace-windshield-wiper-blades/</loc>
     <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://treforged.com/blog/zero-based-budgeting-guide/</loc>
-    <lastmod>2026-07-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

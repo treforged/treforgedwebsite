@@ -187,6 +187,28 @@ export const callClaude = async (apiKey, prompt, schema, maxTokens = 28000) => {
   return JSON.parse(textBlock.text);
 };
 
+/**
+ * Returns a defect description if the article looks incomplete, else null.
+ * Length/FAQ checks alone are not enough: the model can end the bodyHtml
+ * string mid-sentence and still emit complete FAQs and a clean end_turn.
+ */
+export const articleDefect = (article) => {
+  const body = String(article.bodyHtml || '').trim();
+  const words = body
+    .replace(/<[^>]+>/g, ' ')
+    .split(/\s+/)
+    .filter(Boolean).length;
+  if (words < MIN_WORDS) return `only ${words} words of prose (min ${MIN_WORDS})`;
+  if (!Array.isArray(article.faqs) || !article.faqs.length) return 'no FAQs — likely truncated';
+  // Body must end on a closed block element, not a heading (a trailing
+  // "<h2>FAQ</h2>" means the model stopped before writing the section).
+  if (!/<\/(p|ul|ol|blockquote)>$/i.test(body)) return 'body does not end with a closed block element';
+  // The final prose must end like a sentence, not mid-thought.
+  const prose = body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!/[.!?:"”'’)\]]$/.test(prose)) return `body ends mid-sentence ("...${prose.slice(-60)}")`;
+  return null;
+};
+
 export const slugify = (s) =>
   String(s).toLowerCase().trim()
     .replace(/[^a-z0-9]+/g, '-')
@@ -331,19 +353,16 @@ const main = async () => {
   article.promoteApp = article.promoteApp !== false;
   article.faqs = Array.isArray(article.faqs) ? article.faqs : [];
 
-  // Rough body prose word count (strip HTML tags). A short article means the
-  // output was cut off or the model under-delivered — never publish it. The
-  // topic stays unused, so tomorrow's run retries it.
+  // Completeness gate: reject short, truncated, or mid-sentence output.
+  // The topic stays unused, so tomorrow's run retries it.
+  const defect = articleDefect(article);
+  if (defect) {
+    softFail(`Generated article "${article.slug}" rejected: ${defect} — will retry next run.`);
+  }
   const wordCount = String(article.bodyHtml || '')
     .replace(/<[^>]+>/g, ' ')
     .split(/\s+/)
     .filter(Boolean).length;
-  if (wordCount < MIN_WORDS) {
-    softFail(`Generated article "${article.slug}" has only ${wordCount} words of prose (min ${MIN_WORDS}); rejecting — will retry next run.`);
-  }
-  if (!article.faqs.length) {
-    softFail(`Generated article "${article.slug}" has no FAQs — likely truncated; rejecting — will retry next run.`);
-  }
 
   queue.push(article);
   await writeFile(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf8');

@@ -24,7 +24,7 @@ import { dirname, join } from 'node:path';
 
 import {
   ARTICLE_SCHEMA,
-  MIN_WORDS,
+  articleDefect,
   buildMaintenancePrompt,
   buildPrompt,
   callClaude,
@@ -73,17 +73,15 @@ const generateOne = async (topic, recentTitles) => {
   for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
     try {
       const article = await callClaude(apiKey, prompt, ARTICLE_SCHEMA);
-      const words = proseWords(article.bodyHtml);
-      const faqs = Array.isArray(article.faqs) ? article.faqs : [];
-      if (words < MIN_WORDS) throw new Error(`only ${words} words of prose (min ${MIN_WORDS})`);
-      if (!faqs.length) throw new Error('no FAQs — likely truncated');
+      const defect = articleDefect(article);
+      if (defect) throw new Error(defect);
 
       article.slug = topic.slug; // keep the original slug so URLs are restored
       article.tags = Array.isArray(article.tags) ? article.tags.slice(0, 3) : ['Money Basics'];
       article.readMins = Number.isInteger(article.readMins) ? article.readMins : 6;
       article.promoteApp = article.promoteApp !== false;
-      article.faqs = faqs;
-      console.log(`  ✓ generated "${article.title}" (${words} words, ${faqs.length} FAQs, attempt ${attempt})`);
+      const words = proseWords(article.bodyHtml);
+      console.log(`  ✓ generated "${article.title}" (${words} words, ${article.faqs.length} FAQs, attempt ${attempt})`);
       return article;
     } catch (err) {
       lastError = err;
