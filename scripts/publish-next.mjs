@@ -367,8 +367,20 @@ const main = async () => {
     return;
   }
 
+  // One post per calendar day: if an article is already dated today (or
+  // later, e.g. a backfill/re-date), skip this run and resume tomorrow.
+  const today = new Date().toISOString().slice(0, 10);
+  const latest = published.reduce((m, a) => {
+    const d = String(a.published || a.date || '');
+    return d > m ? d : m;
+  }, '');
+  if (latest >= today) {
+    console.log(`::notice::An article is already published for ${latest} — skipping today's publish.`);
+    return;
+  }
+
   const item = queue.shift();
-  item.published = item.date || new Date().toISOString().slice(0, 10);
+  item.published = item.date || today;
 
   // newest first
   published.unshift(item);
