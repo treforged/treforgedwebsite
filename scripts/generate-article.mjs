@@ -94,6 +94,7 @@ STRICT REQUIREMENTS:
 - Length: this is a long-form how-to. The bodyHtml MUST contain at least 1000 words of actual body prose (HTML tags do not count toward the word total). Aim for 1100-1400 words. A thin or short guide is a failure even if it reads well, so do NOT wrap up early; explain each step fully with specific detail, real numbers, and what to watch out for.
 - Structure the body as clean semantic HTML using only these tags: <p>, <h2>, <h3>, <ul>, <li>, <ol>, <blockquote>, <strong>, <em>, <a>. Start directly with a <p> lead paragraph (do NOT include an <h1> or the title). Write 5 to 7 <h2> sections; give each 2 to 3 substantial paragraphs of at least 3 sentences, plus lists where they genuinely help.
 - Include these sections where they fit: a quick "what you'll need" tools & materials list, an estimated difficulty / time / rough cost, a numbered step-by-step, at least one clear safety warning (in a <blockquote> or <strong>), and a short "when to see a mechanic instead" note.
+- END the body with a final <h2> section titled "Quick Recap" (or similar) containing a single <ol> that restates every step in one short line each, so a reader can follow the whole job at a glance.
 - Do NOT use em dashes (—) anywhere. Use commas, periods, or "to"/"and" instead.
 - American English, 2026 as the current year where relevant. Generic to most cars; remind readers that exact steps and specs vary by year, make, and model.
 - IMPORTANT resource references (include both, naturally in the body):
@@ -127,6 +128,7 @@ STRICT REQUIREMENTS:
 - Length: this is a long-form guide. The bodyHtml MUST contain at least 1000 words of actual body prose (HTML tags do not count toward the word total). Aim for 1100-1400 words. A thin or short article is a failure even if it reads well, so do NOT wrap up early or compress to save space; develop each point fully with concrete examples, specific numbers, and real scenarios.
 - Structure the body as clean semantic HTML using only these tags: <p>, <h2>, <h3>, <ul>, <li>, <ol>, <blockquote>, <strong>, <em>, <a>. Start directly with a <p> lead paragraph (do NOT include an <h1> or the title — the page template adds those). Write 5 to 7 <h2> sections; give each section 2 to 3 substantial paragraphs of at least 3 sentences, plus lists where they genuinely help.
 - Do NOT use em dashes (—) anywhere. Use commas, periods, or "to"/"and" instead. Em dashes read as AI-generated.
+- If the article is built around a set of steps, ways, tips, or rules (e.g. "20 ways to...", "how to... in 5 steps"), END the body with a final <h2> section titled "Quick Recap" (or similar) containing a single <ol> that lists every step or item in one short line each, so a reader can act on the whole article at a glance.
 - Use American English and 2026 as the current year where a year is relevant.
 - Include a 2-4 item FAQ that answers real questions a reader would search for. These become FAQ rich-result schema, so make questions natural search queries.
 - Internal linking: include at least one in-body link to a related blog article using a relative URL like <a href="/blog/some-slug/">anchor text</a>. Invent a plausible related slug from these known/likely posts if helpful: /blog/how-to-build-your-first-budget-2026/, /blog/50-30-20-budget-rule-explained/, /blog/how-to-build-an-emergency-fund/, /blog/debt-snowball-vs-avalanche/.
@@ -203,9 +205,13 @@ export const articleDefect = (article) => {
   // Body must end on a closed block element, not a heading (a trailing
   // "<h2>FAQ</h2>" means the model stopped before writing the section).
   if (!/<\/(p|ul|ol|blockquote)>$/i.test(body)) return 'body does not end with a closed block element';
-  // The final prose must end like a sentence, not mid-thought.
-  const prose = body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-  if (!/[.!?:"”'’)\]]$/.test(prose)) return `body ends mid-sentence ("...${prose.slice(-60)}")`;
+  // When the body ends in a paragraph, the final prose must end like a
+  // sentence, not mid-thought. (List/blockquote endings are exempt — recap
+  // list items legitimately omit terminal punctuation.)
+  if (/<\/p>$/i.test(body)) {
+    const prose = body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!/[.!?:"”'’)\]]$/.test(prose)) return `body ends mid-sentence ("...${prose.slice(-60)}")`;
+  }
   return null;
 };
 
