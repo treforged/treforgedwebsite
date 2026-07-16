@@ -30,6 +30,7 @@ const PUBLISHED_PATH = join(ROOT, 'content-queue', 'published.json');
 
 const MODEL = process.env.ARTICLE_MODEL || 'claude-sonnet-5';
 const MAX_BUFFER = 10; // don't let the queue grow unbounded if publishing stalls
+const MIN_WORDS = 850; // hard floor of body prose words — below this the article is rejected
 const REFILL_THRESHOLD = 7; // when fewer unused topics than this remain...
 const REFILL_COUNT = 28; // ...brainstorm this many fresh topics (~4 weeks)
 const APP_URL = 'https://getforgenta.com/';
@@ -145,7 +146,7 @@ Return ONLY the article as JSON matching the required schema:
 - bodyHtml: the article body as the HTML described above, at least 1000 words of real prose across 5 to 7 <h2> sections
 - faqs: array of {q, a}`;
 
-const callClaude = async (apiKey, prompt, schema, maxTokens = 16000) => {
+const callClaude = async (apiKey, prompt, schema, maxTokens = 28000) => {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -171,15 +172,15 @@ const callClaude = async (apiKey, prompt, schema, maxTokens = 16000) => {
   }
 
   const data = await res.json();
-  if (data.stop_reason === 'refusal') {
-    throw new Error('Claude declined the request (refusal).');
-  }
   // Guard against truncation: with adaptive thinking sharing the max_tokens
-  // budget, a long article can hit the output cap. Structured output then
+  // budget, a long article can exhaust the output cap. Structured output then
   // force-closes the JSON, yielding a parseable-but-cut-off article (body
-  // ends mid-sentence, empty faqs). Never queue a truncated result.
-  if (data.stop_reason === 'max_tokens') {
-    throw new Error(`Response hit max_tokens (${maxTokens}) — output truncated; not queuing.`);
+  // ends mid-sentence, empty faqs). Truncation is not always reported as
+  // "max_tokens" (pause_turn / model_context_window_exceeded slip through a
+  // narrow check), so accept ONLY a clean end_turn.
+  if (data.stop_reason !== 'end_turn') {
+    const usage = data.usage ? ` (output_tokens=${data.usage.output_tokens})` : '';
+    throw new Error(`stop_reason "${data.stop_reason}" != end_turn — output may be truncated; not queuing${usage}.`);
   }
   const textBlock = (data.content || []).find((b) => b.type === 'text');
   if (!textBlock) throw new Error('No text block in Claude response.');
@@ -330,13 +331,18 @@ const main = async () => {
   article.promoteApp = article.promoteApp !== false;
   article.faqs = Array.isArray(article.faqs) ? article.faqs : [];
 
-  // Rough body prose word count (strip HTML tags) for length monitoring.
+  // Rough body prose word count (strip HTML tags). A short article means the
+  // output was cut off or the model under-delivered — never publish it. The
+  // topic stays unused, so tomorrow's run retries it.
   const wordCount = String(article.bodyHtml || '')
     .replace(/<[^>]+>/g, ' ')
     .split(/\s+/)
     .filter(Boolean).length;
-  if (wordCount < 700) {
-    console.log(`::warning::Generated article "${article.slug}" is short (${wordCount} words of prose); target is 1000+.`);
+  if (wordCount < MIN_WORDS) {
+    softFail(`Generated article "${article.slug}" has only ${wordCount} words of prose (min ${MIN_WORDS}); rejecting — will retry next run.`);
+  }
+  if (!article.faqs.length) {
+    softFail(`Generated article "${article.slug}" has no FAQs — likely truncated; rejecting — will retry next run.`);
   }
 
   queue.push(article);
