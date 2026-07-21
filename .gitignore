@@ -1,0 +1,4 @@
+# Local Claude Code config & session handoff — this is a PUBLIC GitHub Pages
+# repo, so these must never be committed/pushed (they'd be served at treforged.com).
+.claude/
+handoff.md

@@ -132,6 +132,7 @@ const head = ({ title, description, canonical, extra = '' }) => `<!doctype html>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap"></noscript>
   <link rel="canonical" href="${canonical}">
+  <link rel="alternate" type="application/rss+xml" title="The Forge — TRE Forged" href="${SITE}/feed.xml">
   <link rel="stylesheet" href="/styles.css">
 ${extra}</head>
 <body>`;
@@ -385,6 +386,38 @@ export const renderSitemapUrls = (published) => {
   return published.length ? `${blogIndex}\n${articles}` : blogIndex;
 };
 
+/* ── RSS feed ───────────────────────────────────────────────
+   Free, ESP-agnostic. A free email tool (MailerLite / Kit / Brevo) points its
+   RSS-to-email automation at ${SITE}/feed.xml to auto-send new posts — no code
+   or ongoing cost. Also useful for readers and discovery. */
+
+export const renderRssFeed = (published) => {
+  const rfc822 = (d) => new Date(`${d}T12:00:00Z`).toUTCString();
+  const items = published.slice(0, 20).map((p) => {
+    const url = `${SITE}/blog/${p.slug}/`;
+    return `    <item>
+      <title>${esc(p.title)}</title>
+      <link>${url}</link>
+      <guid isPermaLink="true">${url}</guid>
+      <pubDate>${rfc822(p.published || p.date)}</pubDate>
+      <description>${esc(p.description)}</description>
+    </item>`;
+  }).join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Forge — TRE Forged</title>
+    <link>${SITE}/blog/</link>
+    <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
+    <language>en-us</language>
+    <lastBuildDate>${published.length ? rfc822(published[0].published || published[0].date) : new Date().toUTCString()}</lastBuildDate>
+${items}
+  </channel>
+</rss>
+`;
+};
+
 /* ── main ───────────────────────────────────────────────── */
 
 const main = async () => {
@@ -434,6 +467,9 @@ const main = async () => {
   let sitemap = await readFile(sitemapPath, 'utf8');
   sitemap = injectBetween(sitemap, 'BLOG_URLS', renderSitemapUrls(published));
   await writeFile(sitemapPath, sitemap, 'utf8');
+
+  // RSS feed (drives the free RSS-to-email newsletter digest)
+  await writeFile(join(ROOT, 'feed.xml'), renderRssFeed(published), 'utf8');
 
   // persist queue + published
   await writeFile(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf8');
