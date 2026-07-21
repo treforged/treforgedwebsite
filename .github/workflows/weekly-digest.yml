@@ -1,0 +1,35 @@
+name: Weekly newsletter digest
+
+# Emails subscribers the posts published in the last 7 days, via Resend.
+# Requires two repo secrets: RESEND_API_KEY and SUPABASE_SERVICE_ROLE_KEY.
+# Skips cleanly (no error) if secrets are missing or there are no new posts.
+
+on:
+  schedule:
+    - cron: '0 14 * * 1'   # Mondays 14:00 UTC (~10:00 AM Eastern)
+  workflow_dispatch: {}     # allow manual "Run workflow" from the Actions tab
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weekly-digest
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Send digest
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/send-digest.mjs
