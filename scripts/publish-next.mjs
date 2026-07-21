@@ -23,6 +23,13 @@ import { dirname, join } from 'node:path';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://treforged.com';
 const APP = 'https://getforgenta.com/';
+const BUILD = 'https://getforgenta.com/builds/share/5311e587-27e4-44b9-8c16-d386775dd94d';
+
+/* UTM tag so we can attribute Forgenta signups back to the blog post. */
+const utm = (slug) => `utm_source=blog&utm_medium=article&utm_campaign=${slug}`;
+/* Posts tagged as automotive get the build-tracker CTA instead of the budgeting one. */
+const CAR_RE = /car care|automotive|\bdiy\b|maintenance|tires?|wiper|windshield|engine|brake|wheel/i;
+const isCarPost = (item) => (item.tags || []).some((t) => CAR_RE.test(t));
 
 const QUEUE_PATH = join(ROOT, 'content-queue', 'queue.json');
 const PUBLISHED_PATH = join(ROOT, 'content-queue', 'published.json');
@@ -131,7 +138,7 @@ ${extra}</head>
 
 /* ── CTA block reused inside every article ──────────────── */
 
-const appCta = () => `    <div class="app-block reveal">
+const appCta = (slug) => `    <div class="app-block reveal">
       <div class="app-inner">
         <div>
           <div class="app-label">Android · iOS · Web</div>
@@ -139,12 +146,33 @@ const appCta = () => `    <div class="app-block reveal">
           <p>Forgenta is TRE Forged's personal finance app — build a budget, track every account, forecast your cash flow, and plan debt payoff from any device. Free to start.</p>
         </div>
         <div class="app-cta-stack">
-          <a href="https://apps.apple.com/us/app/forgenta-track-build-wealth/id6762540239" target="_blank" rel="noopener" class="btn btn-gold">App Store ↗</a>
-          <a href="https://play.google.com/store/apps/details?id=com.treforged.forged" target="_blank" rel="noopener" class="btn btn-ghost">Google Play ↗</a>
-          <a href="${APP}" target="_blank" rel="noopener" class="btn btn-ghost">Try Forgenta Free ↗</a>
+          <a href="https://apps.apple.com/us/app/forgenta-track-build-wealth/id6762540239?ct=blog_${slug}" target="_blank" rel="noopener" class="btn btn-gold">App Store ↗</a>
+          <a href="https://play.google.com/store/apps/details?id=com.treforged.forged&referrer=${encodeURIComponent(utm(slug))}" target="_blank" rel="noopener" class="btn btn-ghost">Google Play ↗</a>
+          <a href="${APP}?${utm(slug)}" target="_blank" rel="noopener" class="btn btn-ghost">Try Forgenta Free ↗</a>
         </div>
       </div>
     </div>`;
+
+/* Automotive posts: point at the C5 build + the build tracker, not budgeting. */
+const buildCta = (slug) => `    <div class="app-block reveal">
+      <div class="app-inner">
+        <div>
+          <div class="app-label">Build Tracker · Forgenta</div>
+          <h2>Track your build's every dollar in Forgenta&#8482;</h2>
+          <p>Forgenta lets you log a car build phase by phase — every mod, every part, every dollar — right next to your budget. See the C5 build in action, or start tracking your own.</p>
+        </div>
+        <div class="app-cta-stack">
+          <a href="${BUILD}?${utm(slug)}" target="_blank" rel="noopener" class="btn btn-gold">View the C5 Build ↗</a>
+          <a href="${APP}?${utm(slug)}" target="_blank" rel="noopener" class="btn btn-ghost">Track Your Own Build ↗</a>
+        </div>
+      </div>
+    </div>`;
+
+/* Choose the right CTA: build for car posts, app for finance, none if suppressed. */
+const ctaFor = (item) =>
+  isCarPost(item) ? buildCta(item.slug)
+  : item.promoteApp === false ? ''
+  : appCta(item.slug);
 
 /* ── article page ───────────────────────────────────────── */
 
@@ -256,7 +284,7 @@ ${item.bodyHtml}
       </div>
     </article>
 
-${item.promoteApp === false ? '' : appCta()}
+${ctaFor(item)}
 ${faqSection}
 ${relatedSection}
   </div>
