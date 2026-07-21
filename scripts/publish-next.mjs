@@ -344,6 +344,24 @@ ${nav('blog')}
     <div class="blog-grid">
 ${cards}
     </div>
+
+    <div class="newsletter reveal">
+      <div class="newsletter-inner">
+        <div class="newsletter-copy">
+          <div class="block-title">The Forge Newsletter</div>
+          <h2>Never miss a guide.</h2>
+          <p>New money guides, C5 build updates, and Forgenta tips — straight to your inbox. No spam, unsubscribe anytime.</p>
+        </div>
+        <form class="newsletter-form" id="newsletter-form" novalidate>
+          <div class="newsletter-fields">
+            <input type="email" id="newsletter-email" name="email" placeholder="you@example.com" autocomplete="email" required aria-label="Your email address">
+            <button type="submit" class="btn btn-gold">Subscribe →</button>
+          </div>
+          <input type="text" class="nl-hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="newsletter-msg" id="newsletter-msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
   </div>
 </main>
 ${footer()}

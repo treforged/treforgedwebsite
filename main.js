@@ -98,6 +98,56 @@
       }
     });
 
+    // ── Newsletter capture ────────────────────────────────────────
+    // Posts to a locked-down Supabase table (anon may INSERT only; RLS blocks
+    // reads). The publishable key is public by design — safe to ship here.
+    var nlForm = document.getElementById('newsletter-form');
+    if (nlForm) {
+      var SB_URL = 'https://mdtosrbfkextcaezuclh.supabase.co/rest/v1/newsletter_subscribers';
+      var SB_KEY = 'sb_publishable_UVsFbmZ2h9rXN0WBf1iQVA_6d8-Yyr7';
+      var nlMsg  = document.getElementById('newsletter-msg');
+
+      function setNlMsg(text, kind) {
+        if (!nlMsg) return;
+        nlMsg.textContent = text;
+        nlMsg.className = 'newsletter-msg' + (kind ? ' is-' + kind : '');
+      }
+
+      nlForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var input = document.getElementById('newsletter-email');
+        var email = (input && input.value || '').trim();
+        var hp = nlForm.querySelector('.nl-hp');
+        if (hp && hp.value) return;                 // honeypot: silently drop bots
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+          setNlMsg('Please enter a valid email address.', 'err');
+          return;
+        }
+        var btn = nlForm.querySelector('button[type="submit"]');
+        if (btn) btn.disabled = true;
+        setNlMsg('Subscribing…', '');
+
+        fetch(SB_URL, {
+          method: 'POST',
+          headers: {
+            apikey: SB_KEY,
+            Authorization: 'Bearer ' + SB_KEY,
+            'Content-Type': 'application/json',
+            Prefer: 'return=minimal'
+          },
+          body: JSON.stringify({ email: email, source: 'treforged.com' })
+        }).then(function (r) {
+          if (r.status === 201) { setNlMsg("You're in — watch your inbox.", 'ok'); nlForm.reset(); }
+          else if (r.status === 409) { setNlMsg("You're already subscribed — thanks!", 'ok'); nlForm.reset(); }
+          else { setNlMsg('Something went wrong. Please try again later.', 'err'); }
+        }).catch(function () {
+          setNlMsg('Something went wrong. Please try again later.', 'err');
+        }).finally(function () {
+          if (btn) btn.disabled = false;
+        });
+      });
+    }
+
     // ── Lightbox ──────────────────────────────────────────────────
     var modal    = document.getElementById('imgModal');
     var modalImg = document.getElementById('modalImage');
