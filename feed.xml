@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Change Your Engine Air Filter in 10 Minutes (Beginner-Friendly Guide)</title>
+      <link>https://treforged.com/blog/how-to-change-your-engine-air-filter/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-change-your-engine-air-filter/</guid>
+      <pubDate>Wed, 22 Jul 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to change your engine air filter yourself in about 10 minutes, save money on maintenance, and know exactly when it's time for a fresh one.</description>
+    </item>
     <item>
       <title>The Monthly Money Review: A 30-Minute Habit That Changes Everything</title>
       <link>https://treforged.com/blog/how-to-do-a-monthly-money-review/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/50-30-20-budget-rule-explained/</guid>
       <pubDate>Thu, 02 Jul 2026 12:00:00 GMT</pubDate>
       <description>The 50/30/20 rule is the simplest way to budget your take-home pay. Here's exactly what counts as needs, wants, and savings — with real dollar examples.</description>
-    </item>
-    <item>
-      <title>How to Build Your First Budget in 2026 (Step-by-Step)</title>
-      <link>https://treforged.com/blog/how-to-build-your-first-budget-2026/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-build-your-first-budget-2026/</guid>
-      <pubDate>Wed, 01 Jul 2026 12:00:00 GMT</pubDate>
-      <description>A beginner-friendly, step-by-step guide to building your first budget in 2026 — how to track income, sort expenses, pick a budgeting method, and actually stick to it.</description>
     </item>
   </channel>
 </rss>
