@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Prioritize Multiple Savings Goals at Once (Emergency Fund, Debt, Retirement, and More)</title>
+      <link>https://treforged.com/blog/how-to-prioritize-savings-goals/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-prioritize-savings-goals/</guid>
+      <pubDate>Thu, 23 Jul 2026 12:00:00 GMT</pubDate>
+      <description>Juggling an emergency fund, debt payoff, retirement, and a big purchase? Here's the order that actually works and why, step by step.</description>
+    </item>
     <item>
       <title>How to Change Your Engine Air Filter in 10 Minutes (Beginner-Friendly Guide)</title>
       <link>https://treforged.com/blog/how-to-change-your-engine-air-filter/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-build-an-emergency-fund/</guid>
       <pubDate>Fri, 03 Jul 2026 12:00:00 GMT</pubDate>
       <description>An emergency fund is the foundation of financial stability. Here's how much you need, where to keep it, and how to build one even when money is tight.</description>
-    </item>
-    <item>
-      <title>The 50/30/20 Budget Rule, Explained (With Real Examples)</title>
-      <link>https://treforged.com/blog/50-30-20-budget-rule-explained/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/50-30-20-budget-rule-explained/</guid>
-      <pubDate>Thu, 02 Jul 2026 12:00:00 GMT</pubDate>
-      <description>The 50/30/20 rule is the simplest way to budget your take-home pay. Here's exactly what counts as needs, wants, and savings — with real dollar examples.</description>
     </item>
   </channel>
 </rss>
