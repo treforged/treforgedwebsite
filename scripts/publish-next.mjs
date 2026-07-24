@@ -56,6 +56,13 @@ const prettyDate = (iso) => {
   return `${months[m - 1]} ${d}, ${y}`;
 };
 
+/** Add n days to a YYYY-MM-DD date (UTC), returning YYYY-MM-DD. */
+const addDays = (iso, n) => {
+  const dt = new Date(`${iso}T00:00:00Z`);
+  dt.setUTCDate(dt.getUTCDate() + n);
+  return dt.toISOString().slice(0, 10);
+};
+
 /** Replace the region between START/END markers, keeping the markers. */
 export const injectBetween = (source, name, replacement) => {
   const start = `<!-- ${name}:START -->`;
@@ -459,36 +466,54 @@ const main = async () => {
     return;
   }
 
-  // A publish IS due today, but the queue is empty → a day would be skipped.
+  // Days that still need a post: from the day after `latest` up to and
+  // including today. Normally that's just [today]. But GitHub's scheduled cron
+  // is best-effort and can DROP a run entirely — when that happens the next
+  // run finds several missing days. Catch up by publishing one queued article
+  // per missing day (oldest first) instead of only ever posting "today" and
+  // leaving the skipped day a permanent hole.
+  const missingDates = [];
+  let cursor = latest ? addDays(latest, 1) : today;
+  while (cursor <= today) {
+    missingDates.push(cursor);
+    cursor = addDays(cursor, 1);
+  }
+
+  // A publish IS due but the queue is empty → day(s) would be skipped.
   // Fail loudly (exit 1 → workflow goes red) instead of silently exiting 0.
   // This is the guard that would have caught the 2026-07-21 skip.
   if (!queue.length) {
-    console.log('::error::Article queue is empty but no post is published for today — a publish day would be skipped. Failing loudly so this is noticed. Fix: run generate-article.mjs (needs ANTHROPIC_API_KEY) or backfill.');
+    const span = missingDates.length > 1 ? `${missingDates[0]}..${today} (${missingDates.length} days)` : today;
+    console.log(`::error::Article queue is empty but no post exists for ${span} — publish day(s) would be skipped. Failing loudly so this is noticed. Fix: run generate-article.mjs (needs ANTHROPIC_API_KEY) or backfill.`);
     process.exit(1);
   }
 
-  const item = queue.shift();
-  item.published = item.date || today;
+  // Publish one article per missing day, oldest first, until we reach today or
+  // run out of queued articles. The buffer generate-article keeps is what makes
+  // multi-day catch-up possible within a single run.
+  const publishedNow = [];
+  for (const date of missingDates) {
+    if (!queue.length) break;
+    const item = queue.shift();
+    item.published = item.date || date;
+    // newest-first: ascending dates mean the last unshift (today) stays at index 0.
+    published.unshift(item);
 
-  // newest first
-  published.unshift(item);
+    const related = published.filter((p) => p.slug !== item.slug).slice(0, 3);
+    const dir = join(ROOT, 'blog', item.slug);
+    await mkdir(dir, { recursive: true });
+    await writeFile(join(dir, 'index.html'), renderArticle(item, related), 'utf8');
+    publishedNow.push(item);
+  }
 
-  // article page
-  const related = published.filter((p) => p.slug !== item.slug).slice(0, 3);
-  const dir = join(ROOT, 'blog', item.slug);
-  await mkdir(dir, { recursive: true });
-  await writeFile(join(dir, 'index.html'), renderArticle(item, related), 'utf8');
-
-  // blog listing
+  // Rebuild every derived file ONCE from the final published set.
   await writeFile(join(ROOT, 'blog', 'index.html'), renderBlogIndex(published), 'utf8');
 
-  // homepage teaser
   const homePath = join(ROOT, 'index.html');
   let home = await readFile(homePath, 'utf8');
   home = injectBetween(home, 'BLOG_TEASER', renderTeaser(published[0]));
   await writeFile(homePath, home, 'utf8');
 
-  // sitemap
   const sitemapPath = join(ROOT, 'sitemap.xml');
   let sitemap = await readFile(sitemapPath, 'utf8');
   sitemap = injectBetween(sitemap, 'BLOG_URLS', renderSitemapUrls(published));
@@ -497,11 +522,20 @@ const main = async () => {
   // RSS feed (drives the free RSS-to-email newsletter digest)
   await writeFile(join(ROOT, 'feed.xml'), renderRssFeed(published), 'utf8');
 
-  // persist queue + published
+  // persist queue + published (before any loud exit, so progress is saved)
   await writeFile(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf8');
   await writeFile(PUBLISHED_PATH, JSON.stringify(published, null, 2) + '\n', 'utf8');
 
-  console.log(`::notice::Published "${item.title}" → /blog/${item.slug}/ (${queue.length} left in queue)`);
+  const filled = publishedNow.map((p) => p.published).join(', ');
+  console.log(`::notice::Published ${publishedNow.length} article(s) for ${filled} (${queue.length} left in queue).`);
+
+  // If the queue ran dry before covering every missing day, the earlier gap is
+  // still open. Fail loudly so it gets backfilled rather than lingering silently.
+  const remaining = missingDates.length - publishedNow.length;
+  if (remaining > 0) {
+    console.log(`::error::${remaining} missing day(s) up to ${today} still have NO post — the queue ran dry mid-catch-up. Backfill (scripts/backfill-articles.mjs) or add topics and let generation refill the buffer.`);
+    process.exit(1);
+  }
 };
 
 // Only auto-publish when run directly (e.g. `node scripts/publish-next.mjs`).
