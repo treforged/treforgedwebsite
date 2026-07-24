@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 24 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Change Your Own Oil (Step by Step)</title>
+      <link>https://treforged.com/blog/how-to-change-your-own-oil/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-change-your-own-oil/</guid>
+      <pubDate>Fri, 24 Jul 2026 12:00:00 GMT</pubDate>
+      <description>A beginner-friendly, step-by-step guide to changing your car's oil at home, including tools, oil selection, draining, refilling, and disposal tips.</description>
+    </item>
     <item>
       <title>How to Prioritize Multiple Savings Goals at Once (Emergency Fund, Debt, Retirement, and More)</title>
       <link>https://treforged.com/blog/how-to-prioritize-savings-goals/</link>
@@ -20,6 +27,13 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-change-your-engine-air-filter/</guid>
       <pubDate>Wed, 22 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn how to change your engine air filter yourself in about 10 minutes, save money on maintenance, and know exactly when it's time for a fresh one.</description>
+    </item>
+    <item>
+      <title>How Credit Card Interest Actually Works: APR, Grace Periods, and Minimum Payments Explained</title>
+      <link>https://treforged.com/blog/understanding-credit-card-interest/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/understanding-credit-card-interest/</guid>
+      <pubDate>Tue, 21 Jul 2026 12:00:00 GMT</pubDate>
+      <description>A plain-English breakdown of credit card APR, daily interest, grace periods, and minimum payments, with real math so you can see where your money goes.</description>
     </item>
     <item>
       <title>The Monthly Money Review: A 30-Minute Habit That Changes Everything</title>
@@ -132,20 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-set-financial-goals/</guid>
       <pubDate>Sun, 05 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn how to set SMART financial goals for 2026, balance short and long term priorities, and track progress so your money goals actually stick.</description>
-    </item>
-    <item>
-      <title>Debt Snowball vs. Avalanche: Which Payoff Method Wins?</title>
-      <link>https://treforged.com/blog/debt-snowball-vs-avalanche/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/debt-snowball-vs-avalanche/</guid>
-      <pubDate>Sat, 04 Jul 2026 12:00:00 GMT</pubDate>
-      <description>The snowball and avalanche methods both get you out of debt — but they work very differently. Here's how to choose the right one for how your brain actually works.</description>
-    </item>
-    <item>
-      <title>How to Build an Emergency Fund (Even on a Tight Budget)</title>
-      <link>https://treforged.com/blog/how-to-build-an-emergency-fund/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-build-an-emergency-fund/</guid>
-      <pubDate>Fri, 03 Jul 2026 12:00:00 GMT</pubDate>
-      <description>An emergency fund is the foundation of financial stability. Here's how much you need, where to keep it, and how to build one even when money is tight.</description>
     </item>
   </channel>
 </rss>
