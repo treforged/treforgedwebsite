@@ -10,7 +10,8 @@
  *   - sitemap.xml               (blog URLs)
  *
  * No external dependencies. No API calls. Safe to run in CI.
- * Exit 0 with a notice when the queue is empty (never fails the build).
+ * Exit 0 when today's post already exists (nothing to do). Exit 1 (loud) when a
+ * publish is due today but the queue is empty, so a skipped day is never silent.
  *
  * Usage:  node scripts/publish-next.mjs
  */
@@ -442,21 +443,28 @@ const main = async () => {
   const queue = await readJson(QUEUE_PATH, []);
   const published = await readJson(PUBLISHED_PATH, []);
 
-  if (!queue.length) {
-    console.log('::notice::Article queue is empty — nothing to publish today.');
-    return;
-  }
-
-  // One post per calendar day: if an article is already dated today (or
-  // later, e.g. a backfill/re-date), skip this run and resume tomorrow.
+  // Determine today's state FIRST. Order matters: an empty queue must only be
+  // treated as "nothing to do" when today's post already exists — otherwise an
+  // empty queue means a publish day WOULD be skipped, and that must fail loudly.
   const today = new Date().toISOString().slice(0, 10);
   const latest = published.reduce((m, a) => {
     const d = String(a.published || a.date || '');
     return d > m ? d : m;
   }, '');
+
+  // One post per calendar day: if an article is already dated today (or later,
+  // e.g. a backfill/re-date), there is nothing to do — exit 0 and resume tomorrow.
   if (latest >= today) {
     console.log(`::notice::An article is already published for ${latest} — skipping today's publish.`);
     return;
+  }
+
+  // A publish IS due today, but the queue is empty → a day would be skipped.
+  // Fail loudly (exit 1 → workflow goes red) instead of silently exiting 0.
+  // This is the guard that would have caught the 2026-07-21 skip.
+  if (!queue.length) {
+    console.log('::error::Article queue is empty but no post is published for today — a publish day would be skipped. Failing loudly so this is noticed. Fix: run generate-article.mjs (needs ANTHROPIC_API_KEY) or backfill.');
+    process.exit(1);
   }
 
   const item = queue.shift();

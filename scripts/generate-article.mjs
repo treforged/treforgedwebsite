@@ -33,6 +33,8 @@ const MAX_BUFFER = 10; // don't let the queue grow unbounded if publishing stall
 export const MIN_WORDS = 850; // hard floor of body prose words — below this the article is rejected
 const REFILL_THRESHOLD = 7; // when fewer unused topics than this remain...
 const REFILL_COUNT = 28; // ...brainstorm this many fresh topics (~4 weeks)
+const TARGET_BUFFER = 5; // fill the queue up to this depth each run, so a single rejection can't leave it empty
+const MAX_FAILURES = 3; // give up after this many failed topics in one run — keeps API cost bounded on an outage
 const APP_URL = 'https://getforgenta.com/';
 
 // DIY car-maintenance references (topics with category "car-maintenance").
@@ -220,6 +222,12 @@ export const slugify = (s) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
+const proseWords = (html) =>
+  String(html || '')
+    .replace(/<[^>]+>/g, ' ')
+    .split(/\s+/)
+    .filter(Boolean).length;
+
 /* ── topic backlog auto-refill ──────────────────────────── */
 
 const TOPICS_SCHEMA = {
@@ -298,6 +306,37 @@ const refillTopics = async (apiKey, topics, usedSlugs, published) => {
   return added;
 };
 
+/**
+ * Generate ONE publishable article for a topic. Returns the normalized article,
+ * or throws with a reason (API error, slug collision, or completeness defect) so
+ * the caller can move on and try a different topic instead of skipping the day.
+ */
+const generateArticle = async (apiKey, topic, published, usedSlugs) => {
+  const recentTitles = published.slice(0, 8).map((a) => a.title);
+  const isMaintenance = topic.category === 'car-maintenance';
+  // Finance posts mention Forgenta ~2 in 3 times; DIY car posts never pitch it.
+  const mentionForgenta = !isMaintenance && Math.random() < 0.66;
+  const prompt = isMaintenance
+    ? buildMaintenancePrompt(topic, recentTitles)
+    : buildPrompt(topic, recentTitles, mentionForgenta);
+
+  const article = await callClaude(apiKey, prompt, ARTICLE_SCHEMA);
+
+  // Normalize + guard against slug collisions.
+  article.slug = slugify(article.slug || topic.slug);
+  if (usedSlugs.has(article.slug)) article.slug = slugify(topic.slug);
+  if (usedSlugs.has(article.slug)) throw new Error(`generated slug "${article.slug}" already exists`);
+  article.tags = Array.isArray(article.tags) ? article.tags.slice(0, 3) : ['Money Basics'];
+  article.readMins = Number.isInteger(article.readMins) ? article.readMins : 6;
+  article.promoteApp = article.promoteApp !== false;
+  article.faqs = Array.isArray(article.faqs) ? article.faqs : [];
+
+  // Completeness gate: reject short, truncated, or mid-sentence output.
+  const defect = articleDefect(article);
+  if (defect) throw new Error(defect);
+  return article;
+};
+
 const main = async () => {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) softFail('ANTHROPIC_API_KEY is not set — skipping generation.');
@@ -328,52 +367,42 @@ const main = async () => {
     }
   }
 
-  const topic = unused[0];
-  if (!topic) {
-    done('::notice::No unused topics left in topics.json — add more to keep generating.');
+  // Fill the queue up to TARGET_BUFFER. A single rejected or failed topic no
+  // longer skips the day: we move on to the NEXT topic (that IS the retry) and
+  // keep a buffer so an empty queue can never silently drop a publish day.
+  // Bounded by MAX_FAILURES so a systemic API outage can't burn the backlog.
+  const triedThisRun = new Set();
+  let failures = 0;
+  let generated = 0;
+
+  while (queue.length < TARGET_BUFFER && failures < MAX_FAILURES) {
+    const topic = topics.find((t) => !usedSlugs.has(t.slug) && !triedThisRun.has(t.slug));
+    if (!topic) {
+      console.log('::notice::No more unused topics available this run.');
+      break;
+    }
+    triedThisRun.add(topic.slug);
+
+    try {
+      const article = await generateArticle(apiKey, topic, published, usedSlugs);
+      queue.push(article);
+      usedSlugs.add(article.slug);
+      // Persist after every success so a later failure never loses generated work.
+      await writeFile(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf8');
+      generated++;
+      console.log(`::notice::Generated "${article.title}" → queued as ${article.slug} (${MODEL}, ${proseWords(article.bodyHtml)} words, promoteApp=${article.promoteApp}). Queue length: ${queue.length}.`);
+    } catch (err) {
+      failures++;
+      // Soft warning, not an error: generation must never break the build. The
+      // topic stays unused so a future run can retry it.
+      console.log(`::warning::Topic "${topic.slug}" skipped (${failures}/${MAX_FAILURES}): ${err.message} — trying another topic.`);
+    }
   }
 
-  const recentTitles = published.slice(0, 8).map((a) => a.title);
-  const isMaintenance = topic.category === 'car-maintenance';
-  // Finance posts mention Forgenta ~2 in 3 times; DIY car posts never pitch it.
-  const mentionForgenta = !isMaintenance && Math.random() < 0.66;
-  const prompt = isMaintenance
-    ? buildMaintenancePrompt(topic, recentTitles)
-    : buildPrompt(topic, recentTitles, mentionForgenta);
-
-  let article;
-  try {
-    article = await callClaude(apiKey, prompt, ARTICLE_SCHEMA);
-  } catch (err) {
-    softFail(`Generation failed: ${err.message}`);
+  if (failures >= MAX_FAILURES && queue.length < TARGET_BUFFER) {
+    console.log(`::error::Generation stopped after ${MAX_FAILURES} failed topics; queue depth ${queue.length}/${TARGET_BUFFER}.`);
   }
-
-  // Normalize + guard against slug collisions.
-  article.slug = slugify(article.slug || topic.slug);
-  if (usedSlugs.has(article.slug)) article.slug = slugify(topic.slug);
-  if (usedSlugs.has(article.slug)) {
-    done(`::notice::Generated slug "${article.slug}" already exists; skipping.`);
-  }
-  article.tags = Array.isArray(article.tags) ? article.tags.slice(0, 3) : ['Money Basics'];
-  article.readMins = Number.isInteger(article.readMins) ? article.readMins : 6;
-  article.promoteApp = article.promoteApp !== false;
-  article.faqs = Array.isArray(article.faqs) ? article.faqs : [];
-
-  // Completeness gate: reject short, truncated, or mid-sentence output.
-  // The topic stays unused, so tomorrow's run retries it.
-  const defect = articleDefect(article);
-  if (defect) {
-    softFail(`Generated article "${article.slug}" rejected: ${defect} — will retry next run.`);
-  }
-  const wordCount = String(article.bodyHtml || '')
-    .replace(/<[^>]+>/g, ' ')
-    .split(/\s+/)
-    .filter(Boolean).length;
-
-  queue.push(article);
-  await writeFile(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf8');
-
-  console.log(`::notice::Generated "${article.title}" → queued as ${article.slug} (${MODEL}, ${wordCount} words, promoteApp=${article.promoteApp}). Queue length: ${queue.length}.`);
+  console.log(`::notice::Generation run complete — added ${generated} article(s); queue depth now ${queue.length}.`);
 };
 
 // Only run the daily generate flow when executed directly; when imported
