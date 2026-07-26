@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Build Credit From Scratch: A Beginner's Guide for 2026</title>
+      <link>https://treforged.com/blog/how-to-build-credit-from-scratch/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-build-credit-from-scratch/</guid>
+      <pubDate>Sun, 26 Jul 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to build credit from scratch in 2026 with secured cards, credit builder loans, smart utilization habits, and patience that pays off.</description>
+    </item>
     <item>
       <title>The 5 Things That Actually Affect Your Credit Score (and What to Fix First)</title>
       <link>https://treforged.com/blog/what-affects-your-credit-score/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/zero-based-budgeting-guide/</guid>
       <pubDate>Tue, 07 Jul 2026 12:00:00 GMT</pubDate>
       <description>A practical guide to zero-based budgeting for beginners, covering who it suits, how to set one up, and how to stick with it in 2026.</description>
-    </item>
-    <item>
-      <title>How to Save Money on Groceries Without Coupons</title>
-      <link>https://treforged.com/blog/how-to-save-money-on-groceries/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-save-money-on-groceries/</guid>
-      <pubDate>Mon, 06 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Cut your grocery bill in 2026 with meal planning, unit pricing, and waste reduction strategies that work better than clipping coupons.</description>
     </item>
   </channel>
 </rss>
