@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Good Debt vs. Bad Debt: Does the Distinction Hold Up?</title>
+      <link>https://treforged.com/blog/good-debt-vs-bad-debt/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/good-debt-vs-bad-debt/</guid>
+      <pubDate>Mon, 27 Jul 2026 12:00:00 GMT</pubDate>
+      <description>A grounded look at the good debt vs. bad debt idea, why it oversimplifies real life, and a better framework for deciding when borrowing helps or hurts.</description>
+    </item>
     <item>
       <title>How to Build Credit From Scratch: A Beginner's Guide for 2026</title>
       <link>https://treforged.com/blog/how-to-build-credit-from-scratch/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-windshield-wiper-blades/</guid>
       <pubDate>Wed, 08 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn how to pick the right wiper blades, remove the old ones, and install new blades in minutes with this beginner-friendly, step-by-step DIY guide.</description>
-    </item>
-    <item>
-      <title>Zero-Based Budgeting: How to Give Every Dollar a Job (Without Burning Out)</title>
-      <link>https://treforged.com/blog/zero-based-budgeting-guide/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/zero-based-budgeting-guide/</guid>
-      <pubDate>Tue, 07 Jul 2026 12:00:00 GMT</pubDate>
-      <description>A practical guide to zero-based budgeting for beginners, covering who it suits, how to set one up, and how to stick with it in 2026.</description>
     </item>
   </channel>
 </rss>
