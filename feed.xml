@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 27 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Rotate Your Tires at Home: A Beginner's Step-by-Step Guide</title>
+      <link>https://treforged.com/blog/how-to-rotate-your-tires-at-home/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-rotate-your-tires-at-home/</guid>
+      <pubDate>Tue, 28 Jul 2026 12:00:00 GMT</pubDate>
+      <description>Learn why tire rotation matters, which pattern fits your drivetrain, and how to jack up your car safely to rotate tires at home in 2026.</description>
+    </item>
     <item>
       <title>Good Debt vs. Bad Debt: Does the Distinction Hold Up?</title>
       <link>https://treforged.com/blog/good-debt-vs-bad-debt/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-much-emergency-fund-do-i-need/</guid>
       <pubDate>Thu, 09 Jul 2026 12:00:00 GMT</pubDate>
       <description>Find out exactly how much emergency savings you need based on your life situation, plus the best places to keep your fund in 2026.</description>
-    </item>
-    <item>
-      <title>How to Replace Your Windshield Wiper Blades (The Easiest DIY Car Job You'll Ever Do)</title>
-      <link>https://treforged.com/blog/how-to-replace-windshield-wiper-blades/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-windshield-wiper-blades/</guid>
-      <pubDate>Wed, 08 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to pick the right wiper blades, remove the old ones, and install new blades in minutes with this beginner-friendly, step-by-step DIY guide.</description>
     </item>
   </channel>
 </rss>
