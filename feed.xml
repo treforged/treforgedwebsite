@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 29 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Cash Flow Forecasting for Regular People: How to Stop Overdrafts Before They Start</title>
+      <link>https://treforged.com/blog/cash-flow-forecasting-personal-finance/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/cash-flow-forecasting-personal-finance/</guid>
+      <pubDate>Wed, 29 Jul 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to forecast your bank balance forward a few weeks so you can spot overdrafts, avoid fees, and stop financial stress before it starts.</description>
+    </item>
     <item>
       <title>How to Rotate Your Tires at Home: A Beginner's Step-by-Step Guide</title>
       <link>https://treforged.com/blog/how-to-rotate-your-tires-at-home/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-track-expenses/</guid>
       <pubDate>Fri, 10 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn the real methods for tracking expenses, why most people quit within weeks, and a simple system that actually sticks in 2026.</description>
-    </item>
-    <item>
-      <title>How Much Should You Really Have in an Emergency Fund?</title>
-      <link>https://treforged.com/blog/how-much-emergency-fund-do-i-need/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-much-emergency-fund-do-i-need/</guid>
-      <pubDate>Thu, 09 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Find out exactly how much emergency savings you need based on your life situation, plus the best places to keep your fund in 2026.</description>
     </item>
   </channel>
 </rss>
