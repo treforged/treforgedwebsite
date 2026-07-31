@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 30 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 31 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Budget When Your Income Is Irregular: A Guide for Freelancers and Gig Workers</title>
+      <link>https://treforged.com/blog/how-to-budget-on-an-irregular-income/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-budget-on-an-irregular-income/</guid>
+      <pubDate>Fri, 31 Jul 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to budget on an irregular income by planning off your lowest month, building a buffer account, and smoothing out feast-or-famine cash flow.</description>
+    </item>
     <item>
       <title>How to Pay Off Credit Card Debt Faster: The Math, the Strategy, and How to Avoid Relapse</title>
       <link>https://treforged.com/blog/how-to-pay-off-credit-card-debt-faster/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/needs-vs-wants/</guid>
       <pubDate>Sun, 12 Jul 2026 12:00:00 GMT</pubDate>
       <description>A practical framework for sorting needs from wants in your budget, with real edge cases like cars, subscriptions, and gym memberships.</description>
-    </item>
-    <item>
-      <title>How to Stop Living Paycheck to Paycheck: A Real-World Plan for 2026</title>
-      <link>https://treforged.com/blog/how-to-stop-living-paycheck-to-paycheck/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-stop-living-paycheck-to-paycheck/</guid>
-      <pubDate>Sat, 11 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to stop living paycheck to paycheck with a practical plan: find the leak in your spending, build a small buffer, and automate savings.</description>
     </item>
   </channel>
 </rss>
