@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 31 Jul 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 01 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Safely Jump-Start a Car (Correct Cable Order, Step by Step)</title>
+      <link>https://treforged.com/blog/how-to-jump-start-a-car-safely/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-jump-start-a-car-safely/</guid>
+      <pubDate>Sat, 01 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn the correct jumper cable order, key safety warnings, what to do if your car still won't start, and how to tell a dead battery from a bad alternator.</description>
+    </item>
     <item>
       <title>How to Budget When Your Income Is Irregular: A Guide for Freelancers and Gig Workers</title>
       <link>https://treforged.com/blog/how-to-budget-on-an-irregular-income/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/high-yield-savings-account-guide/</guid>
       <pubDate>Mon, 13 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn how high-yield savings accounts work, what to compare before opening one, and how they fit into a solid emergency fund plan in 2026.</description>
-    </item>
-    <item>
-      <title>Needs vs. Wants: How to Tell the Difference When It Matters</title>
-      <link>https://treforged.com/blog/needs-vs-wants/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/needs-vs-wants/</guid>
-      <pubDate>Sun, 12 Jul 2026 12:00:00 GMT</pubDate>
-      <description>A practical framework for sorting needs from wants in your budget, with real edge cases like cars, subscriptions, and gym memberships.</description>
     </item>
   </channel>
 </rss>
