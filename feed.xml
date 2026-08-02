@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 01 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 02 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Budgeting Apps vs. Spreadsheets: Which Is Right for You?</title>
+      <link>https://treforged.com/blog/budgeting-apps-vs-spreadsheets/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/budgeting-apps-vs-spreadsheets/</guid>
+      <pubDate>Sun, 02 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Compare budgeting apps and spreadsheets on control, effort, and accuracy to find the money-tracking method that actually fits your life in 2026.</description>
+    </item>
     <item>
       <title>How to Safely Jump-Start a Car (Correct Cable Order, Step by Step)</title>
       <link>https://treforged.com/blog/how-to-jump-start-a-car-safely/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-check-tire-pressure-and-tread/</guid>
       <pubDate>Tue, 14 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn to check tire PSI and tread depth in minutes with a simple gauge and the penny test, and see how proper pressure saves fuel and extends tire life.</description>
-    </item>
-    <item>
-      <title>High-Yield Savings Accounts: What They Are and Why They Matter</title>
-      <link>https://treforged.com/blog/high-yield-savings-account-guide/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/high-yield-savings-account-guide/</guid>
-      <pubDate>Mon, 13 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Learn how high-yield savings accounts work, what to compare before opening one, and how they fit into a solid emergency fund plan in 2026.</description>
     </item>
   </channel>
 </rss>
