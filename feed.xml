@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 03 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Budget as a Couple Without Fighting About Money</title>
+      <link>https://treforged.com/blog/budgeting-for-couples/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/budgeting-for-couples/</guid>
+      <pubDate>Mon, 03 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to budget as a couple using joint, separate, or hybrid accounts, plus money dates and shared goals that actually reduce fights.</description>
+    </item>
     <item>
       <title>Budgeting Apps vs. Spreadsheets: Which Is Right for You?</title>
       <link>https://treforged.com/blog/budgeting-apps-vs-spreadsheets/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/sinking-funds-explained/</guid>
       <pubDate>Wed, 15 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn what sinking funds are, which budget categories need one, and how to set them up so irregular expenses never blow up your budget again.</description>
-    </item>
-    <item>
-      <title>How to Check Your Tire Pressure and Tread (And Why It Saves You Real Money)</title>
-      <link>https://treforged.com/blog/how-to-check-tire-pressure-and-tread/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-check-tire-pressure-and-tread/</guid>
-      <pubDate>Tue, 14 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Learn to check tire PSI and tread depth in minutes with a simple gauge and the penny test, and see how proper pressure saves fuel and extends tire life.</description>
     </item>
   </channel>
 </rss>
