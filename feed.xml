@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 05 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Envelope Budgeting in 2026: The Classic Method, Modernized</title>
+      <link>https://treforged.com/blog/envelope-budgeting-in-2026/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/envelope-budgeting-in-2026/</guid>
+      <pubDate>Wed, 05 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn how the cash envelope system works and how budgeting apps in 2026 replicate it digitally so you can control spending without carrying cash.</description>
+    </item>
     <item>
       <title>How to Change a Flat Tire (Every Driver Should Know This)</title>
       <link>https://treforged.com/blog/how-to-change-a-flat-tire/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-automate-your-finances/</guid>
       <pubDate>Fri, 17 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn how to automate bills, savings, and debt payments in 2026 so your money moves on schedule without relying on willpower or memory.</description>
-    </item>
-    <item>
-      <title>20 Realistic Ways to Cut Your Monthly Expenses in 2026</title>
-      <link>https://treforged.com/blog/how-to-cut-monthly-expenses/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-cut-monthly-expenses/</guid>
-      <pubDate>Thu, 16 Jul 2026 12:00:00 GMT</pubDate>
-      <description>20 practical, no-extreme-frugality ways to lower your monthly bills, ranked from easy quick wins to bigger changes with the biggest payoff.</description>
     </item>
   </channel>
 </rss>
