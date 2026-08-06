@@ -868,6 +868,19 @@ a:focus-visible, button:focus-visible {
   color: var(--text-faint);
 }
 
+.view-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-variant-numeric: tabular-nums;
+}
+.view-count[hidden] { display: none; }
+.view-count-icon {
+  flex: none;
+  opacity: 0.75;
+  transform: translateY(0.5px);
+}
+
 .article-body { max-width: 760px; margin: 0 auto; }
 .article-body h2 {
   font-family: var(--fd);

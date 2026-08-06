@@ -148,6 +148,91 @@
       });
     }
 
+    // ── Blog view counter ─────────────────────────────────────────
+    // Increments a counter in the treforged-site Supabase project and renders
+    // the total in the article meta line. The counter table lives in a schema
+    // that isn't exposed over REST — these two RPCs are the only reachable
+    // surface. The publishable key is public by design.
+    var articleMeta = document.querySelector('.article .article-meta');
+    var slugMatch   = location.pathname.match(/^\/blog\/([a-z0-9-]+)\/?$/);
+
+    if (articleMeta && slugMatch) {
+      var VIEWS_URL = 'https://zyvqoefbgsgkbdoydopt.supabase.co/rest/v1/rpc/';
+      var VIEWS_KEY = 'sb_publishable_cQee-ghzL5qqItuHfGJRKA_ME5FRMyg';
+      var slug      = slugMatch[1];
+
+      var sep = document.createElement('span');
+      sep.textContent = '·';
+
+      var counter = document.createElement('span');
+      counter.className = 'view-count';
+      counter.hidden = true;
+      counter.innerHTML =
+        '<svg class="view-count-icon" viewBox="0 0 24 24" width="15" height="15" ' +
+        'fill="none" stroke="currentColor" stroke-width="1.8" ' +
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<path d="M1.5 12S5 5.5 12 5.5 22.5 12 22.5 12 19 18.5 12 18.5 1.5 12 1.5 12Z"/>' +
+        '<circle cx="12" cy="12" r="3.2"/>' +
+        '</svg><span class="view-count-num"></span>';
+
+      articleMeta.appendChild(sep);
+      articleMeta.appendChild(counter);
+
+      function formatViews(n) {
+        if (n >= 1000000) return (n / 1000000).toFixed(n % 1000000 >= 100000 ? 1 : 0) + 'M';
+        if (n >= 1000)    return (n / 1000).toFixed(n % 1000 >= 100 ? 1 : 0) + 'K';
+        return String(n);
+      }
+
+      function showViews(n) {
+        counter.querySelector('.view-count-num').textContent = formatViews(n);
+        counter.setAttribute('aria-label', n.toLocaleString('en-US') + ' views');
+        counter.title = n.toLocaleString('en-US') + ' views';
+        counter.hidden = false;
+      }
+
+      // Only count one view per slug per browser session; on repeat visits we
+      // still read the current total without inflating it.
+      var seenKey = 'tf_viewed_' + slug;
+      var alreadySeen = false;
+      try { alreadySeen = sessionStorage.getItem(seenKey) === '1'; } catch (err) { /* private mode */ }
+
+      function callRpc(fn, body) {
+        return fetch(VIEWS_URL + fn, {
+          method: 'POST',
+          headers: {
+            apikey: VIEWS_KEY,
+            Authorization: 'Bearer ' + VIEWS_KEY,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        }).then(function (r) {
+          if (!r.ok) throw new Error(fn + ' failed');
+          return r.json();
+        });
+      }
+
+      var request = alreadySeen
+        ? callRpc('get_page_views', { p_slug: slug }).then(Number)
+        : callRpc('increment_page_view', { p_slug: slug }).then(function (n) {
+            try { sessionStorage.setItem(seenKey, '1'); } catch (err) { /* private mode */ }
+            return Number(n);
+          });
+
+      request.then(function (n) {
+        if (Number.isFinite(n) && n > 0) {
+          showViews(n);
+        } else {
+          counter.remove();
+          sep.remove();
+        }
+      }).catch(function () {
+        // Counter is non-essential — fail silently rather than showing a broken chip.
+        counter.remove();
+        sep.remove();
+      });
+    }
+
     // ── Lightbox ──────────────────────────────────────────────────
     var modal    = document.getElementById('imgModal');
     var modalImg = document.getElementById('modalImage');
