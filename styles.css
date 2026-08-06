@@ -875,6 +875,10 @@ a:focus-visible, button:focus-visible {
   font-variant-numeric: tabular-nums;
 }
 .view-count[hidden] { display: none; }
+/* On preview cards the chip sits just after the date. The read link is pinned
+   right on its own so cards line up whether or not a count is showing. */
+.view-count-push { margin-left: 10px; }
+.blog-card-foot .blog-card-more { margin-left: auto; }
 .view-count-icon {
   flex: none;
   opacity: 0.75;

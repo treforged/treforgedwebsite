@@ -149,79 +149,87 @@
     }
 
     // ── Blog view counter ─────────────────────────────────────────
-    // Increments a counter in the treforged-site Supabase project and renders
-    // the total in the article meta line. The counter table lives in a schema
-    // that isn't exposed over REST — these two RPCs are the only reachable
-    // surface. The publishable key is public by design.
-    var articleMeta = document.querySelector('.article .article-meta');
-    var slugMatch   = location.pathname.match(/^\/blog\/([a-z0-9-]+)\/?$/);
+    // Counts live in the treforged-site Supabase project. The counter table
+    // sits in a schema that isn't exposed over REST — the RPCs below are the
+    // only reachable surface. The publishable key is public by design.
+    //
+    // Two surfaces: the article meta line (increments, once per session) and
+    // blog preview cards (read-only, one batched request per page).
+    var VIEWS_URL = 'https://zyvqoefbgsgkbdoydopt.supabase.co/rest/v1/rpc/';
+    var VIEWS_KEY = 'sb_publishable_cQee-ghzL5qqItuHfGJRKA_ME5FRMyg';
 
-    if (articleMeta && slugMatch) {
-      var VIEWS_URL = 'https://zyvqoefbgsgkbdoydopt.supabase.co/rest/v1/rpc/';
-      var VIEWS_KEY = 'sb_publishable_cQee-ghzL5qqItuHfGJRKA_ME5FRMyg';
-      var slug      = slugMatch[1];
+    function viewsRpc(fn, body) {
+      return fetch(VIEWS_URL + fn, {
+        method: 'POST',
+        headers: {
+          apikey: VIEWS_KEY,
+          Authorization: 'Bearer ' + VIEWS_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      }).then(function (r) {
+        if (!r.ok) throw new Error(fn + ' failed');
+        return r.json();
+      });
+    }
 
-      var sep = document.createElement('span');
-      sep.textContent = '·';
+    function formatViews(n) {
+      if (n >= 1000000) return (n / 1000000).toFixed(n % 1000000 >= 100000 ? 1 : 0) + 'M';
+      if (n >= 1000)    return (n / 1000).toFixed(n % 1000 >= 100 ? 1 : 0) + 'K';
+      return String(n);
+    }
 
-      var counter = document.createElement('span');
-      counter.className = 'view-count';
-      counter.hidden = true;
-      counter.innerHTML =
+    // Builds a hidden eye-icon chip; call fillViewChip() once a count arrives.
+    function makeViewChip() {
+      var chip = document.createElement('span');
+      chip.className = 'view-count';
+      chip.hidden = true;
+      chip.innerHTML =
         '<svg class="view-count-icon" viewBox="0 0 24 24" width="15" height="15" ' +
         'fill="none" stroke="currentColor" stroke-width="1.8" ' +
         'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
         '<path d="M1.5 12S5 5.5 12 5.5 22.5 12 22.5 12 19 18.5 12 18.5 1.5 12 1.5 12Z"/>' +
         '<circle cx="12" cy="12" r="3.2"/>' +
         '</svg><span class="view-count-num"></span>';
+      return chip;
+    }
 
+    function fillViewChip(chip, n) {
+      chip.querySelector('.view-count-num').textContent = formatViews(n);
+      chip.setAttribute('aria-label', n.toLocaleString('en-US') + ' views');
+      chip.title = n.toLocaleString('en-US') + ' views';
+      chip.hidden = false;
+    }
+
+    // ── Article page: increment and show in the meta line ──────────
+    var articleMeta = document.querySelector('.article .article-meta');
+    var slugMatch   = location.pathname.match(/^\/blog\/([a-z0-9-]+)\/?$/);
+
+    if (articleMeta && slugMatch) {
+      var slug    = slugMatch[1];
+      var sep     = document.createElement('span');
+      var counter = makeViewChip();
+      sep.textContent = '·';
       articleMeta.appendChild(sep);
       articleMeta.appendChild(counter);
 
-      function formatViews(n) {
-        if (n >= 1000000) return (n / 1000000).toFixed(n % 1000000 >= 100000 ? 1 : 0) + 'M';
-        if (n >= 1000)    return (n / 1000).toFixed(n % 1000 >= 100 ? 1 : 0) + 'K';
-        return String(n);
-      }
-
-      function showViews(n) {
-        counter.querySelector('.view-count-num').textContent = formatViews(n);
-        counter.setAttribute('aria-label', n.toLocaleString('en-US') + ' views');
-        counter.title = n.toLocaleString('en-US') + ' views';
-        counter.hidden = false;
-      }
-
       // Only count one view per slug per browser session; on repeat visits we
-      // still read the current total without inflating it.
+      // still read the current total without inflating it. (The server also
+      // enforces its own per-visitor cooldown.)
       var seenKey = 'tf_viewed_' + slug;
       var alreadySeen = false;
       try { alreadySeen = sessionStorage.getItem(seenKey) === '1'; } catch (err) { /* private mode */ }
 
-      function callRpc(fn, body) {
-        return fetch(VIEWS_URL + fn, {
-          method: 'POST',
-          headers: {
-            apikey: VIEWS_KEY,
-            Authorization: 'Bearer ' + VIEWS_KEY,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(body)
-        }).then(function (r) {
-          if (!r.ok) throw new Error(fn + ' failed');
-          return r.json();
-        });
-      }
-
       var request = alreadySeen
-        ? callRpc('get_page_views', { p_slug: slug }).then(Number)
-        : callRpc('increment_page_view', { p_slug: slug }).then(function (n) {
+        ? viewsRpc('get_page_views', { p_slug: slug }).then(Number)
+        : viewsRpc('increment_page_view', { p_slug: slug }).then(function (n) {
             try { sessionStorage.setItem(seenKey, '1'); } catch (err) { /* private mode */ }
             return Number(n);
           });
 
       request.then(function (n) {
         if (Number.isFinite(n) && n > 0) {
-          showViews(n);
+          fillViewChip(counter, n);
         } else {
           counter.remove();
           sep.remove();
@@ -231,6 +239,55 @@
         counter.remove();
         sep.remove();
       });
+    }
+
+    // ── Preview cards: one batched read for every card on the page ─
+    var cards = Array.prototype.slice.call(
+      document.querySelectorAll('a.blog-card[href^="/blog/"]')
+    );
+
+    if (cards.length) {
+      var bySlug = {};
+
+      cards.forEach(function (card) {
+        var m = card.getAttribute('href').match(/^\/blog\/([a-z0-9-]+)\/?$/);
+        if (!m) return;
+
+        var chip = makeViewChip();
+        var foot = card.querySelector('.blog-card-foot');
+
+        if (foot) {
+          // Listing cards: sit next to the date, keeping "Read more" hard right.
+          var time = foot.querySelector('time');
+          chip.classList.add('view-count-push');
+          time ? time.insertAdjacentElement('afterend', chip) : foot.insertBefore(chip, foot.firstChild);
+        } else {
+          // Related-post cards have no foot — build one so both look the same.
+          var more = card.querySelector('.blog-card-more');
+          var row  = document.createElement('div');
+          row.className = 'blog-card-foot';
+          chip.classList.add('view-count-push');
+          row.appendChild(chip);
+          if (more) row.appendChild(more);
+          card.appendChild(row);
+        }
+
+        (bySlug[m[1]] = bySlug[m[1]] || []).push(chip);
+      });
+
+      var slugs = Object.keys(bySlug);
+
+      if (slugs.length) {
+        viewsRpc('get_page_views_batch', { p_slugs: slugs }).then(function (rows) {
+          (rows || []).forEach(function (row) {
+            var n = Number(row.views);
+            if (!Number.isFinite(n) || n <= 0) return;
+            (bySlug[row.slug] || []).forEach(function (chip) { fillViewChip(chip, n); });
+          });
+        }).catch(function () {
+          // Leave the chips hidden; the cards read fine without a count.
+        });
+      }
     }
 
     // ── Lightbox ──────────────────────────────────────────────────
