@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 06 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Recover From a Month of Overspending: A No-Shame Reset Plan</title>
+      <link>https://treforged.com/blog/how-to-recover-from-overspending/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-recover-from-overspending/</guid>
+      <pubDate>Thu, 06 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Blew your budget this month? Here's a calm, judgment-free plan to recover from overspending, cover your bills, and reset for next month.</description>
+    </item>
     <item>
       <title>Envelope Budgeting in 2026: The Classic Method, Modernized</title>
       <link>https://treforged.com/blog/envelope-budgeting-in-2026/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-check-your-cars-fluids/</guid>
       <pubDate>Sat, 18 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn where to find and how to check your car's oil, coolant, brake, power steering, transmission, and washer fluid in about 20 minutes.</description>
-    </item>
-    <item>
-      <title>How to Automate Your Finances So Saving Happens on Its Own</title>
-      <link>https://treforged.com/blog/how-to-automate-your-finances/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-automate-your-finances/</guid>
-      <pubDate>Fri, 17 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to automate bills, savings, and debt payments in 2026 so your money moves on schedule without relying on willpower or memory.</description>
     </item>
   </channel>
 </rss>
