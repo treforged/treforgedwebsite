@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 07 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>What Is Net Worth and Why You Should Track It in 2026</title>
+      <link>https://treforged.com/blog/what-is-net-worth-and-how-to-track-it/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/what-is-net-worth-and-how-to-track-it/</guid>
+      <pubDate>Fri, 07 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn what net worth really means, how to calculate it step by step, and why tracking it regularly is the single best way to measure your financial progress.</description>
+    </item>
     <item>
       <title>How to Recover From a Month of Overspending: A No-Shame Reset Plan</title>
       <link>https://treforged.com/blog/how-to-recover-from-overspending/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/subscription-audit-guide/</guid>
       <pubDate>Sun, 19 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn how to find and cancel forgotten subscriptions in just 15 minutes with this step-by-step audit that can save you hundreds of dollars a year.</description>
-    </item>
-    <item>
-      <title>How to Check All Your Car's Fluids: A Beginner's Guide</title>
-      <link>https://treforged.com/blog/how-to-check-your-cars-fluids/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-check-your-cars-fluids/</guid>
-      <pubDate>Sat, 18 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Learn where to find and how to check your car's oil, coolant, brake, power steering, transmission, and washer fluid in about 20 minutes.</description>
     </item>
   </channel>
 </rss>
