@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 08 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Budget for the Holidays: Start Now and Skip the January Debt Hangover</title>
+      <link>https://treforged.com/blog/how-to-budget-for-the-holidays/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-budget-for-the-holidays/</guid>
+      <pubDate>Sat, 08 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to budget for the holidays with a sinking fund, a real gift list, and simple tracking so you can avoid credit card debt in January 2026.</description>
+    </item>
     <item>
       <title>What Is Net Worth and Why You Should Track It in 2026</title>
       <link>https://treforged.com/blog/what-is-net-worth-and-how-to-track-it/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-do-a-monthly-money-review/</guid>
       <pubDate>Mon, 20 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn how to run a simple 30-minute monthly money review with this step-by-step checklist for tracking spending, savings, and debt in 2026.</description>
-    </item>
-    <item>
-      <title>The 15-Minute Subscription Audit That Saves You Hundreds</title>
-      <link>https://treforged.com/blog/subscription-audit-guide/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/subscription-audit-guide/</guid>
-      <pubDate>Sun, 19 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to find and cancel forgotten subscriptions in just 15 minutes with this step-by-step audit that can save you hundreds of dollars a year.</description>
     </item>
   </channel>
 </rss>
