@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 09 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Save for a Car Without Wrecking Your Budget</title>
+      <link>https://treforged.com/blog/how-to-save-for-a-car/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-save-for-a-car/</guid>
+      <pubDate>Sun, 09 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to set a realistic car savings target, build a timeline, automate your plan, and weigh new vs used tradeoffs without derailing your budget.</description>
+    </item>
     <item>
       <title>How to Budget for the Holidays: Start Now and Skip the January Debt Hangover</title>
       <link>https://treforged.com/blog/how-to-budget-for-the-holidays/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/understanding-credit-card-interest/</guid>
       <pubDate>Tue, 21 Jul 2026 12:00:00 GMT</pubDate>
       <description>A plain-English breakdown of credit card APR, daily interest, grace periods, and minimum payments, with real math so you can see where your money goes.</description>
-    </item>
-    <item>
-      <title>The Monthly Money Review: A 30-Minute Habit That Changes Everything</title>
-      <link>https://treforged.com/blog/how-to-do-a-monthly-money-review/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-do-a-monthly-money-review/</guid>
-      <pubDate>Mon, 20 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to run a simple 30-minute monthly money review with this step-by-step checklist for tracking spending, savings, and debt in 2026.</description>
     </item>
   </channel>
 </rss>
