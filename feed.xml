@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 10 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Car Loans Explained: APR, Terms, and What You'll Actually Pay</title>
+      <link>https://treforged.com/blog/car-loans-explained/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/car-loans-explained/</guid>
+      <pubDate>Tue, 11 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn how auto loan APR and loan length affect your total cost, with real numbers, so you can shop the rate instead of just the monthly payment.</description>
+    </item>
     <item>
       <title>New vs. Used Car: The Smarter Money Choice in 2026</title>
       <link>https://treforged.com/blog/new-vs-used-car-money/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-prioritize-savings-goals/</guid>
       <pubDate>Thu, 23 Jul 2026 12:00:00 GMT</pubDate>
       <description>Juggling an emergency fund, debt payoff, retirement, and a big purchase? Here's the order that actually works and why, step by step.</description>
-    </item>
-    <item>
-      <title>How to Change Your Engine Air Filter in 10 Minutes (Beginner-Friendly Guide)</title>
-      <link>https://treforged.com/blog/how-to-change-your-engine-air-filter/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-change-your-engine-air-filter/</guid>
-      <pubDate>Wed, 22 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to change your engine air filter yourself in about 10 minutes, save money on maintenance, and know exactly when it's time for a fresh one.</description>
     </item>
   </channel>
 </rss>
