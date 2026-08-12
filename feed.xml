@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 12 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>The True Cost of Owning a Car in 2026 (Beyond the Sticker Price)</title>
+      <link>https://treforged.com/blog/true-cost-of-car-ownership/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/true-cost-of-car-ownership/</guid>
+      <pubDate>Wed, 12 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn the real monthly cost of owning a car in 2026, including insurance, fuel, maintenance, registration, and depreciation, so you can budget accurately.</description>
+    </item>
     <item>
       <title>Car Loans Explained: APR, Terms, and What You'll Actually Pay</title>
       <link>https://treforged.com/blog/car-loans-explained/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-change-your-own-oil/</guid>
       <pubDate>Fri, 24 Jul 2026 12:00:00 GMT</pubDate>
       <description>A beginner-friendly, step-by-step guide to changing your car's oil at home, including tools, oil selection, draining, refilling, and disposal tips.</description>
-    </item>
-    <item>
-      <title>How to Prioritize Multiple Savings Goals at Once (Emergency Fund, Debt, Retirement, and More)</title>
-      <link>https://treforged.com/blog/how-to-prioritize-savings-goals/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-prioritize-savings-goals/</guid>
-      <pubDate>Thu, 23 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Juggling an emergency fund, debt payoff, retirement, and a big purchase? Here's the order that actually works and why, step by step.</description>
     </item>
   </channel>
 </rss>
