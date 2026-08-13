@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 13 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How Car Depreciation Works (and Why It Matters for Your Money)</title>
+      <link>https://treforged.com/blog/how-car-depreciation-works/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-car-depreciation-works/</guid>
+      <pubDate>Thu, 13 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn why cars lose value, when depreciation hits hardest, and how to buy smarter so you keep more money in your pocket over time.</description>
+    </item>
     <item>
       <title>The True Cost of Owning a Car in 2026 (Beyond the Sticker Price)</title>
       <link>https://treforged.com/blog/true-cost-of-car-ownership/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/what-affects-your-credit-score/</guid>
       <pubDate>Sat, 25 Jul 2026 12:00:00 GMT</pubDate>
       <description>Confused about your credit score? Here's a plain-English breakdown of the 5 FICO factors and exactly what to prioritize to see real improvement in 2026.</description>
-    </item>
-    <item>
-      <title>How to Change Your Own Oil (Step by Step)</title>
-      <link>https://treforged.com/blog/how-to-change-your-own-oil/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-change-your-own-oil/</guid>
-      <pubDate>Fri, 24 Jul 2026 12:00:00 GMT</pubDate>
-      <description>A beginner-friendly, step-by-step guide to changing your car's oil at home, including tools, oil selection, draining, refilling, and disposal tips.</description>
     </item>
   </channel>
 </rss>
