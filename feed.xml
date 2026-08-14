@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 14 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Lease vs. Buy a Car: Which Is Cheaper in the Long Run?</title>
+      <link>https://treforged.com/blog/lease-vs-buy-a-car/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/lease-vs-buy-a-car/</guid>
+      <pubDate>Fri, 14 Aug 2026 12:00:00 GMT</pubDate>
+      <description>An honest, numbers-based comparison of leasing, financing, and buying used, so you can pick the option that actually fits your budget in 2026.</description>
+    </item>
     <item>
       <title>How Car Depreciation Works (and Why It Matters for Your Money)</title>
       <link>https://treforged.com/blog/how-car-depreciation-works/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-build-credit-from-scratch/</guid>
       <pubDate>Sun, 26 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn how to build credit from scratch in 2026 with secured cards, credit builder loans, smart utilization habits, and patience that pays off.</description>
-    </item>
-    <item>
-      <title>The 5 Things That Actually Affect Your Credit Score (and What to Fix First)</title>
-      <link>https://treforged.com/blog/what-affects-your-credit-score/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/what-affects-your-credit-score/</guid>
-      <pubDate>Sat, 25 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Confused about your credit score? Here's a plain-English breakdown of the 5 FICO factors and exactly what to prioritize to see real improvement in 2026.</description>
     </item>
   </channel>
 </rss>
