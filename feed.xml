@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 15 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 16 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Should You Pay Off Your Car Loan Early? A Real-Numbers Guide</title>
+      <link>https://treforged.com/blog/should-you-pay-off-your-car-loan-early/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/should-you-pay-off-your-car-loan-early/</guid>
+      <pubDate>Sun, 16 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Wondering if you should pay off your car loan early in 2026? Compare interest rate vs opportunity cost and see where it fits your debt payoff plan.</description>
+    </item>
     <item>
       <title>How to Replace Your Car Battery: A Complete Beginner's Guide</title>
       <link>https://treforged.com/blog/how-to-replace-your-car-battery/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-rotate-your-tires-at-home/</guid>
       <pubDate>Tue, 28 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn why tire rotation matters, which pattern fits your drivetrain, and how to jack up your car safely to rotate tires at home in 2026.</description>
-    </item>
-    <item>
-      <title>Good Debt vs. Bad Debt: Does the Distinction Hold Up?</title>
-      <link>https://treforged.com/blog/good-debt-vs-bad-debt/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/good-debt-vs-bad-debt/</guid>
-      <pubDate>Mon, 27 Jul 2026 12:00:00 GMT</pubDate>
-      <description>A grounded look at the good debt vs. bad debt idea, why it oversimplifies real life, and a better framework for deciding when borrowing helps or hurts.</description>
     </item>
   </channel>
 </rss>
