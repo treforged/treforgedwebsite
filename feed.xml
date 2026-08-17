@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Change Your Brake Pads Yourself: A First-Timer's Guide</title>
+      <link>https://treforged.com/blog/how-to-change-your-brake-pads/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-change-your-brake-pads/</guid>
+      <pubDate>Mon, 17 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to safely replace your front brake pads at home, including warning signs, tools needed, step-by-step instructions, and key safety checks.</description>
+    </item>
     <item>
       <title>Should You Pay Off Your Car Loan Early? A Real-Numbers Guide</title>
       <link>https://treforged.com/blog/should-you-pay-off-your-car-loan-early/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/cash-flow-forecasting-personal-finance/</guid>
       <pubDate>Wed, 29 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn how to forecast your bank balance forward a few weeks so you can spot overdrafts, avoid fees, and stop financial stress before it starts.</description>
-    </item>
-    <item>
-      <title>How to Rotate Your Tires at Home: A Beginner's Step-by-Step Guide</title>
-      <link>https://treforged.com/blog/how-to-rotate-your-tires-at-home/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-rotate-your-tires-at-home/</guid>
-      <pubDate>Tue, 28 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Learn why tire rotation matters, which pattern fits your drivetrain, and how to jack up your car safely to rotate tires at home in 2026.</description>
     </item>
   </channel>
 </rss>
