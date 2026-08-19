@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 18 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Teach Yourself Personal Finance: A Beginner's Roadmap for 2026</title>
+      <link>https://treforged.com/blog/how-to-teach-yourself-personal-finance/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-teach-yourself-personal-finance/</guid>
+      <pubDate>Wed, 19 Aug 2026 12:00:00 GMT</pubDate>
+      <description>A step-by-step learning path for teaching yourself personal finance in 2026, from tracking spending to budgeting, debt payoff, credit, and investing.</description>
+    </item>
     <item>
       <title>How to Save for a House Down Payment: Timelines, Targets, and Staying on Track</title>
       <link>https://treforged.com/blog/how-to-save-for-a-house-down-payment/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-budget-on-an-irregular-income/</guid>
       <pubDate>Fri, 31 Jul 2026 12:00:00 GMT</pubDate>
       <description>Learn how to budget on an irregular income by planning off your lowest month, building a buffer account, and smoothing out feast-or-famine cash flow.</description>
-    </item>
-    <item>
-      <title>How to Pay Off Credit Card Debt Faster: The Math, the Strategy, and How to Avoid Relapse</title>
-      <link>https://treforged.com/blog/how-to-pay-off-credit-card-debt-faster/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-pay-off-credit-card-debt-faster/</guid>
-      <pubDate>Thu, 30 Jul 2026 12:00:00 GMT</pubDate>
-      <description>Learn the interest math behind credit card debt, a proven extra-payment strategy, when balance transfers actually help, and how to avoid falling back into debt in 2026.</description>
     </item>
   </channel>
 </rss>
