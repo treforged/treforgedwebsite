@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Replace a Headlight Bulb in Under 15 Minutes</title>
+      <link>https://treforged.com/blog/how-to-replace-a-headlight-bulb/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-a-headlight-bulb/</guid>
+      <pubDate>Sat, 22 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to identify the right bulb and safely swap a burnt-out headlight yourself in under 15 minutes, no special tools required.</description>
+    </item>
     <item>
       <title>How to Negotiate Lower Bills on Almost Anything (Without Switching Providers)</title>
       <link>https://treforged.com/blog/how-to-negotiate-lower-bills/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/budgeting-for-couples/</guid>
       <pubDate>Mon, 03 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn how to budget as a couple using joint, separate, or hybrid accounts, plus money dates and shared goals that actually reduce fights.</description>
-    </item>
-    <item>
-      <title>Budgeting Apps vs. Spreadsheets: Which Is Right for You?</title>
-      <link>https://treforged.com/blog/budgeting-apps-vs-spreadsheets/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/budgeting-apps-vs-spreadsheets/</guid>
-      <pubDate>Sun, 02 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Compare budgeting apps and spreadsheets on control, effort, and accuracy to find the money-tracking method that actually fits your life in 2026.</description>
     </item>
   </channel>
 </rss>
