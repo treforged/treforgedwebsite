@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 24 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Choose a Budgeting Method That Actually Fits Your Personality</title>
+      <link>https://treforged.com/blog/choosing-a-budgeting-method-for-your-personality/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/choosing-a-budgeting-method-for-your-personality/</guid>
+      <pubDate>Mon, 24 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Stop bouncing between budgeting apps and spreadsheets. Use this personality-based framework to pick a budgeting method you'll actually stick with in 2026.</description>
+    </item>
     <item>
       <title>The No-Spend Challenge: A Simple Reset for Your Spending Habits</title>
       <link>https://treforged.com/blog/no-spend-challenge-guide/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/envelope-budgeting-in-2026/</guid>
       <pubDate>Wed, 05 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn how the cash envelope system works and how budgeting apps in 2026 replicate it digitally so you can control spending without carrying cash.</description>
-    </item>
-    <item>
-      <title>How to Change a Flat Tire (Every Driver Should Know This)</title>
-      <link>https://treforged.com/blog/how-to-change-a-flat-tire/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-change-a-flat-tire/</guid>
-      <pubDate>Tue, 04 Aug 2026 12:00:00 GMT</pubDate>
-      <description>A clear, step-by-step guide to changing a flat tire safely, including jacking points, spare tire limits, and when to call a mechanic instead.</description>
     </item>
   </channel>
 </rss>
