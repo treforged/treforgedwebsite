@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 24 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Read Your Pay Stub (and Catch Costly Errors)</title>
+      <link>https://treforged.com/blog/how-to-read-your-pay-stub/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-read-your-pay-stub/</guid>
+      <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to read every line on your pay stub, from gross pay to deductions, so you can catch payroll mistakes before they cost you money.</description>
+    </item>
     <item>
       <title>How to Choose a Budgeting Method That Actually Fits Your Personality</title>
       <link>https://treforged.com/blog/choosing-a-budgeting-method-for-your-personality/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-recover-from-overspending/</guid>
       <pubDate>Thu, 06 Aug 2026 12:00:00 GMT</pubDate>
       <description>Blew your budget this month? Here's a calm, judgment-free plan to recover from overspending, cover your bills, and reset for next month.</description>
-    </item>
-    <item>
-      <title>Envelope Budgeting in 2026: The Classic Method, Modernized</title>
-      <link>https://treforged.com/blog/envelope-budgeting-in-2026/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/envelope-budgeting-in-2026/</guid>
-      <pubDate>Wed, 05 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn how the cash envelope system works and how budgeting apps in 2026 replicate it digitally so you can control spending without carrying cash.</description>
     </item>
   </channel>
 </rss>
