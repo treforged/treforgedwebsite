@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 25 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Checking vs. Savings vs. Money Market: Which Account Does What</title>
+      <link>https://treforged.com/blog/checking-vs-savings-vs-money-market-accounts/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/checking-vs-savings-vs-money-market-accounts/</guid>
+      <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
+      <description>A clear, beginner-friendly breakdown of checking, savings, and money market accounts and how to use all three together in 2026.</description>
+    </item>
     <item>
       <title>How to Read Your Pay Stub (and Catch Costly Errors)</title>
       <link>https://treforged.com/blog/how-to-read-your-pay-stub/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/what-is-net-worth-and-how-to-track-it/</guid>
       <pubDate>Fri, 07 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn what net worth really means, how to calculate it step by step, and why tracking it regularly is the single best way to measure your financial progress.</description>
-    </item>
-    <item>
-      <title>How to Recover From a Month of Overspending: A No-Shame Reset Plan</title>
-      <link>https://treforged.com/blog/how-to-recover-from-overspending/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-recover-from-overspending/</guid>
-      <pubDate>Thu, 06 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Blew your budget this month? Here's a calm, judgment-free plan to recover from overspending, cover your bills, and reset for next month.</description>
     </item>
   </channel>
 </rss>
