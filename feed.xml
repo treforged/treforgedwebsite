@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 26 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Negotiate the Price of a Car Without Feeling Intimidated</title>
+      <link>https://treforged.com/blog/how-to-negotiate-the-price-of-a-car/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-negotiate-the-price-of-a-car/</guid>
+      <pubDate>Thu, 27 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn practical research, timing, and in-person tactics to negotiate a lower car price confidently at a dealership or private sale.</description>
+    </item>
     <item>
       <title>Checking vs. Savings vs. Money Market: Which Account Does What</title>
       <link>https://treforged.com/blog/checking-vs-savings-vs-money-market-accounts/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-budget-for-the-holidays/</guid>
       <pubDate>Sat, 08 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn how to budget for the holidays with a sinking fund, a real gift list, and simple tracking so you can avoid credit card debt in January 2026.</description>
-    </item>
-    <item>
-      <title>What Is Net Worth and Why You Should Track It in 2026</title>
-      <link>https://treforged.com/blog/what-is-net-worth-and-how-to-track-it/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/what-is-net-worth-and-how-to-track-it/</guid>
-      <pubDate>Fri, 07 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn what net worth really means, how to calculate it step by step, and why tracking it regularly is the single best way to measure your financial progress.</description>
     </item>
   </channel>
 </rss>
