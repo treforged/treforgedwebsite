@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 27 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 28 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Credit Utilization Explained: The Fastest Lever to Move Your Score</title>
+      <link>https://treforged.com/blog/credit-utilization-explained/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/credit-utilization-explained/</guid>
+      <pubDate>Fri, 28 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn how credit utilization works, what ratio to aim for, and the statement-date timing trick that can raise your credit score in as little as one billing cycle.</description>
+    </item>
     <item>
       <title>How to Negotiate the Price of a Car Without Feeling Intimidated</title>
       <link>https://treforged.com/blog/how-to-negotiate-the-price-of-a-car/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-save-for-a-car/</guid>
       <pubDate>Sun, 09 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn how to set a realistic car savings target, build a timeline, automate your plan, and weigh new vs used tradeoffs without derailing your budget.</description>
-    </item>
-    <item>
-      <title>How to Budget for the Holidays: Start Now and Skip the January Debt Hangover</title>
-      <link>https://treforged.com/blog/how-to-budget-for-the-holidays/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-budget-for-the-holidays/</guid>
-      <pubDate>Sat, 08 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to budget for the holidays with a sinking fund, a real gift list, and simple tracking so you can avoid credit card debt in January 2026.</description>
     </item>
   </channel>
 </rss>
