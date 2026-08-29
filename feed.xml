@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 28 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 29 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Replace Your Cabin Air Filter (A 10-Minute Fix for Better Air)</title>
+      <link>https://treforged.com/blog/how-to-replace-your-cabin-air-filter/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-your-cabin-air-filter/</guid>
+      <pubDate>Sat, 29 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn where your cabin air filter hides and how to swap it yourself in about 10 minutes for fresher air, better airflow, and a small win for your wallet.</description>
+    </item>
     <item>
       <title>Credit Utilization Explained: The Fastest Lever to Move Your Score</title>
       <link>https://treforged.com/blog/credit-utilization-explained/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/new-vs-used-car-money/</guid>
       <pubDate>Mon, 10 Aug 2026 12:00:00 GMT</pubDate>
       <description>New or used car? Compare depreciation, reliability, warranties, and total cost of ownership to make the smarter financial choice for your budget.</description>
-    </item>
-    <item>
-      <title>How to Save for a Car Without Wrecking Your Budget</title>
-      <link>https://treforged.com/blog/how-to-save-for-a-car/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-save-for-a-car/</guid>
-      <pubDate>Sun, 09 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to set a realistic car savings target, build a timeline, automate your plan, and weigh new vs used tradeoffs without derailing your budget.</description>
     </item>
   </channel>
 </rss>
