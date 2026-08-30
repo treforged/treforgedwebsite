@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 29 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 30 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Build a Bill-Pay System You'll Never Miss</title>
+      <link>https://treforged.com/blog/how-to-never-miss-a-bill-payment/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-never-miss-a-bill-payment/</guid>
+      <pubDate>Sun, 30 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to build a simple bill-pay system with smart autopay and reminders so you never pay a late fee or take a credit hit again.</description>
+    </item>
     <item>
       <title>How to Replace Your Cabin Air Filter (A 10-Minute Fix for Better Air)</title>
       <link>https://treforged.com/blog/how-to-replace-your-cabin-air-filter/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/car-loans-explained/</guid>
       <pubDate>Tue, 11 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn how auto loan APR and loan length affect your total cost, with real numbers, so you can shop the rate instead of just the monthly payment.</description>
-    </item>
-    <item>
-      <title>New vs. Used Car: The Smarter Money Choice in 2026</title>
-      <link>https://treforged.com/blog/new-vs-used-car-money/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/new-vs-used-car-money/</guid>
-      <pubDate>Mon, 10 Aug 2026 12:00:00 GMT</pubDate>
-      <description>New or used car? Compare depreciation, reliability, warranties, and total cost of ownership to make the smarter financial choice for your budget.</description>
     </item>
   </channel>
 </rss>
