@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 30 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Restore Foggy Headlights in an Afternoon</title>
+      <link>https://treforged.com/blog/how-to-restore-foggy-headlights/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-restore-foggy-headlights/</guid>
+      <pubDate>Mon, 31 Aug 2026 12:00:00 GMT</pubDate>
+      <description>A step-by-step DIY guide to clearing oxidized, foggy headlights with a restoration kit, improving nighttime visibility and saving money on replacements.</description>
+    </item>
     <item>
       <title>How to Build a Bill-Pay System You'll Never Miss</title>
       <link>https://treforged.com/blog/how-to-never-miss-a-bill-payment/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/true-cost-of-car-ownership/</guid>
       <pubDate>Wed, 12 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn the real monthly cost of owning a car in 2026, including insurance, fuel, maintenance, registration, and depreciation, so you can budget accurately.</description>
-    </item>
-    <item>
-      <title>Car Loans Explained: APR, Terms, and What You'll Actually Pay</title>
-      <link>https://treforged.com/blog/car-loans-explained/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/car-loans-explained/</guid>
-      <pubDate>Tue, 11 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn how auto loan APR and loan length affect your total cost, with real numbers, so you can shop the rate instead of just the monthly payment.</description>
     </item>
   </channel>
 </rss>
