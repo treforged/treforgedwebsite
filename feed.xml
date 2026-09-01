@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 01 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>What to Do With a Financial Windfall Before You Spend It</title>
+      <link>https://treforged.com/blog/what-to-do-with-a-financial-windfall/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/what-to-do-with-a-financial-windfall/</guid>
+      <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
+      <description>A step-by-step framework for handling a bonus, tax refund, or inheritance in 2026 so it builds your future instead of disappearing in weeks.</description>
+    </item>
     <item>
       <title>How to Restore Foggy Headlights in an Afternoon</title>
       <link>https://treforged.com/blog/how-to-restore-foggy-headlights/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-car-depreciation-works/</guid>
       <pubDate>Thu, 13 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn why cars lose value, when depreciation hits hardest, and how to buy smarter so you keep more money in your pocket over time.</description>
-    </item>
-    <item>
-      <title>The True Cost of Owning a Car in 2026 (Beyond the Sticker Price)</title>
-      <link>https://treforged.com/blog/true-cost-of-car-ownership/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/true-cost-of-car-ownership/</guid>
-      <pubDate>Wed, 12 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn the real monthly cost of owning a car in 2026, including insurance, fuel, maintenance, registration, and depreciation, so you can budget accurately.</description>
     </item>
   </channel>
 </rss>
