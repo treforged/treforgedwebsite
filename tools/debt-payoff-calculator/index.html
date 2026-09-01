@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Debt Snowball vs Avalanche Calculator: Which Clears Your Cards First? &mdash; TRE Forged</title>
+  <meta name="description" content="Put in your card balances, rates and what you can pay each month, and see both strategies side by side: how long each takes, what each costs in interest, and when the first card actually dies.">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap"></noscript>
+  <link rel="canonical" href="https://treforged.com/tools/debt-payoff-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Debt Snowball vs Avalanche Calculator">
+  <meta property="og:description" content="See both payoff strategies side by side on your own cards: months, total interest, and when the first card clears.">
+  <meta property="og:url" content="https://treforged.com/tools/debt-payoff-calculator/">
+  <meta property="og:site_name" content="TRE Forged">
+  <meta property="og:image" content="https://treforged.com/assets/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Debt Snowball vs Avalanche Calculator">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Debt Snowball vs Avalanche Calculator">
+  <meta name="twitter:description" content="See both payoff strategies side by side on your own cards: months, total interest, and when the first card clears.">
+  <meta name="twitter:image" content="https://treforged.com/assets/og-default.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Debt Snowball vs Avalanche Calculator",
+    "url": "https://treforged.com/tools/debt-payoff-calculator/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher": {"@type":"Organization","name":"TRE Forged","url":"https://treforged.com/"}
+  }
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container site-top">
+    <a href="/" class="brand-link" aria-label="TRE Forged home">
+      <picture>
+        <source srcset="/assets/logo.webp" type="image/webp">
+        <img src="/assets/logo.png" alt="TRE Forged logo" class="site-logo" width="200" height="200">
+      </picture>
+      <div class="brand-text">
+        <span class="brand-name">TRE Forged</span>
+        <div class="tagline">Wealth · Cars · Strategy</div>
+      </div>
+    </a>
+    <nav class="primary" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/services/">Services</a>
+      <a href="/cars/">Cars</a>
+      <a href="/partnerships/">Partnerships</a>
+      <a href="/contact/">Contact</a>
+      <a href="https://getforgenta.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
+    </nav>
+    <button id="burger" class="hamburger"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav id="mobileNav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/blog/">Blog</a>
+    <a href="/services/">Services</a>
+    <a href="/cars/">Cars</a>
+    <a href="/partnerships/">Partnerships</a>
+    <a href="/contact/">Contact</a>
+    <a href="https://getforgenta.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
+  </nav>
+</header>
+
+
+<main class="page-main">
+  <div class="container">
+    <section class="page-hero reveal">
+      <div class="page-hero-label">Free Tool</div>
+      <h1>Debt Snowball vs Avalanche Calculator</h1>
+      <p>Avalanche pays the highest rate first and costs less. Snowball pays the smallest balance first and kills a card sooner, which is what keeps most people going. Put in your own cards and see both, side by side, on the same money. Nothing is sent anywhere: the math runs in your browser.</p>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">Your cards</div>
+      <h2>Balances, rates, and what you can pay</h2>
+      <p class="calc-note">Leave a card blank if you do not have it. The monthly amount is everything you put toward these cards combined, not per card.</p>
+      <form id="calcForm" class="calc-form" novalidate>
+        <label for="b1">Card 1 balance ($)
+          <input id="b1" name="b1" type="number" min="0" max="1000000" step="1" value="2400" inputmode="decimal">
+        </label>
+        <label for="a1">Card 1 APR (%)
+          <input id="a1" name="a1" type="number" min="0" max="100" step="0.01" value="16.99" inputmode="decimal">
+        </label>
+        <label for="b2">Card 2 balance ($)
+          <input id="b2" name="b2" type="number" min="0" max="1000000" step="1" value="8000" inputmode="decimal">
+        </label>
+        <label for="a2">Card 2 APR (%)
+          <input id="a2" name="a2" type="number" min="0" max="100" step="0.01" value="24.99" inputmode="decimal">
+        </label>
+        <label for="b3">Card 3 balance ($)
+          <input id="b3" name="b3" type="number" min="0" max="1000000" step="1" value="" inputmode="decimal">
+        </label>
+        <label for="a3">Card 3 APR (%)
+          <input id="a3" name="a3" type="number" min="0" max="100" step="0.01" value="" inputmode="decimal">
+        </label>
+        <label for="budget">Total paid per month ($)
+          <input id="budget" name="budget" type="number" min="0" max="1000000" step="1" value="400" inputmode="decimal">
+        </label>
+        <p class="calc-note" id="calcError" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">Avalanche</div>
+      <h2>Highest rate first</h2>
+      <div class="calc-grid">
+        <div class="calc-stat"><div class="calc-stat-label">Debt free in</div><div class="calc-stat-value" id="avaMonths">&mdash;</div></div>
+        <div class="calc-stat"><div class="calc-stat-label">Interest paid</div><div class="calc-stat-value" id="avaInterest">&mdash;</div></div>
+        <div class="calc-stat"><div class="calc-stat-label">First card cleared</div><div class="calc-stat-value" id="avaFirst">&mdash;</div></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">Snowball</div>
+      <h2>Smallest balance first</h2>
+      <div class="calc-grid">
+        <div class="calc-stat"><div class="calc-stat-label">Debt free in</div><div class="calc-stat-value" id="snoMonths">&mdash;</div></div>
+        <div class="calc-stat"><div class="calc-stat-label">Interest paid</div><div class="calc-stat-value" id="snoInterest">&mdash;</div></div>
+        <div class="calc-stat"><div class="calc-stat-label">First card cleared</div><div class="calc-stat-value" id="snoFirst">&mdash;</div></div>
+      </div>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">The trade</div>
+      <h2>What you are actually choosing between</h2>
+      <p id="verdict" class="calc-note"></p>
+      <p class="calc-note">Interest accrues monthly at APR divided by 12, and the minimum is 1% of the balance after that month's interest, floored at $25 &mdash; the method the published comparison used, so this tool and <a href="/blog/debt-snowball-vs-avalanche/">the article beside it</a> cannot disagree. Real issuers usually add the month's interest on top of the 1%, which makes minimums larger and payoff a little faster than shown here. Anything left after every minimum is paid goes to the target card, and spills to the next one the moment that card clears &mdash; no month's money is ever wasted.</p>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">Next step</div>
+      <h2>Run the plan, not just the comparison</h2>
+      <p>The strategy that works is the one you keep. <a href="https://getforgenta.com/?utm_source=blog&amp;utm_medium=tool&amp;utm_campaign=debt-payoff-calculator" target="_blank" rel="noopener">Forgenta</a> tracks the balances as they actually move, so the payoff order stays right when a rate changes or a month goes sideways, instead of being a plan you made once on a good day.</p>
+      <p class="calc-note">Related reading: <a href="/blog/debt-snowball-vs-avalanche/">snowball vs. avalanche, explained</a> &middot; <a href="/blog/how-to-pay-off-credit-card-debt-faster/">how to pay off credit card debt faster</a> &middot; <a href="/tools/credit-card-interest-calculator/">credit card interest calculator</a> &middot; <a href="/tools/emergency-fund-calculator/">emergency fund calculator</a></p>
+    </section>
+  </div>
+</main>
+
+<script type="module">
+  import { compare } from './calc.js';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var money0 = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
+  var months = function (n) { return n === 1 ? '1 month' : n + ' months'; };
+  var DASH = '—';
+  var ROWS = [['b1', 'a1'], ['b2', 'a2'], ['b3', 'a3']];
+  var VALUE_IDS = ['avaMonths', 'avaInterest', 'avaFirst', 'snoMonths', 'snoInterest', 'snoFirst'];
+
+  function num(id) {
+    var raw = $(id).value.trim();
+    return raw === '' ? null : parseFloat(raw);
+  }
+
+  function clear(message) {
+    VALUE_IDS.forEach(function (i) { $(i).textContent = DASH; });
+    $('verdict').textContent = message || '';
+  }
+
+  function render() {
+    var cards = [];
+    var bad = false;
+    ROWS.forEach(function (row, idx) {
+      var b = num(row[0]);
+      var a = num(row[1]);
+      if (b === null && a === null) return;
+      if (b === null || a === null) { bad = true; return; }
+      if (!isFinite(b) || b < 0 || b > 1000000 || !isFinite(a) || a < 0 || a > 100) { bad = true; return; }
+      if (b === 0) return;
+      cards.push({ name: 'card' + (idx + 1), balance: b, apr: a / 100 });
+    });
+    var budget = num('budget');
+    if (budget === null || !isFinite(budget) || budget < 0 || budget > 1000000) bad = true;
+
+    var err = $('calcError');
+    // Never draw a number we cannot stand behind: bad input clears every value
+    // rather than leaving a stale one on screen looking like an answer.
+    if (bad) {
+      err.textContent = 'Give each card you enter both a balance and a rate, with the balance under $1,000,000 and the rate between 0% and 100%, and a monthly amount that is not negative.';
+      err.hidden = false;
+      clear('');
+      return;
+    }
+    err.hidden = true;
+
+    if (!cards.length) {
+      clear('Enter at least one card balance and its rate.');
+      return;
+    }
+
+    var r = compare(cards, budget);
+    // A budget that cannot keep up never clears the debt. Say that, and say
+    // what it would take, rather than printing a payoff month that is fiction.
+    if (r.avalanche.neverEnds || r.snowball.neverEnds) {
+      var owed = cards.reduce(function (t, c) { return t + c.balance; }, 0);
+      var floor = cards.reduce(function (t, c) {
+        var i = c.balance * c.apr / 12;
+        return t + Math.max(25, 0.01 * (c.balance + i)) + i;
+      }, 0);
+      clear(money0(budget) + ' a month does not clear ' + money0(owed) + ' of debt at these rates — the balance grows faster than the payment. Roughly ' + money0(floor) + ' a month is where it starts moving in the right direction.');
+      return;
+    }
+
+    $('avaMonths').textContent = months(r.avalanche.months);
+    $('avaInterest').textContent = money0(r.avalanche.totalInterest);
+    $('avaFirst').textContent = 'Month ' + r.avalanche.firstCleared;
+    $('snoMonths').textContent = months(r.snowball.months);
+    $('snoInterest').textContent = money0(r.snowball.totalInterest);
+    $('snoFirst').textContent = 'Month ' + r.snowball.firstCleared;
+
+    if (cards.length === 1) {
+      $('verdict').textContent = 'With one card the two strategies are the same plan, so both columns match. Add a second card to see the trade.';
+      return;
+    }
+    var saved = r.interestSaved;
+    var sooner = r.firstWinSooner;
+    var parts = [];
+    parts.push(saved > 0
+      ? 'Avalanche costs ' + money0(saved) + ' less in interest'
+      : (saved < 0 ? 'Snowball costs ' + money0(-saved) + ' less in interest' : 'Both cost the same in interest'));
+    if (r.monthsSaved > 0) parts.push('and finishes ' + months(r.monthsSaved) + ' sooner');
+    else if (r.monthsSaved < 0) parts.push('though snowball finishes ' + months(-r.monthsSaved) + ' sooner');
+    else parts.push('and both finish in the same month');
+    var tail = sooner > 0
+      ? ' Snowball clears your first card ' + months(sooner) + ' earlier, which is the whole reason people stick with it.'
+      : (sooner < 0 ? ' Avalanche also clears the first card ' + months(-sooner) + ' earlier, so on these numbers it wins outright.'
+                    : ' Both clear the first card in the same month, so avalanche wins outright here.');
+    $('verdict').textContent = parts.join(' ') + '.' + tail;
+  }
+
+  $('calcForm').addEventListener('input', render);
+  $('calcForm').addEventListener('submit', function (e) { e.preventDefault(); });
+  render();
+</script>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand">TRE Forged</div>
+      <div class="footer-copy">© 2026 TRE Forged LLC. All rights reserved.</div>
+    </div>
+    <div class="footer-right">Designed for collectors, investors &amp; enthusiasts.</div>
+  </div>
+</footer>
+<script src="/main.js"></script>
+</body>
+</html>
