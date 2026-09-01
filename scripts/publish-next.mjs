@@ -212,6 +212,7 @@ export const renderArticle = (item, related) => {
     "dateModified": "${pubDate}",
     "author": {"@type":"Organization","name":"TRE Forged","url":"${SITE}/"},
     "publisher": {"@type":"Organization","name":"TRE Forged","logo":{"@type":"ImageObject","url":"${SITE}/assets/logo.png"}},
+    "image": {"@type":"ImageObject","url":"${SITE}/assets/og-default.png","width":1200,"height":630},
     "mainEntityOfPage": {"@type":"WebPage","@id":"${url}"},
     "url": "${url}",
     "keywords": ${JSON.stringify(tags.join(', '))}
@@ -233,10 +234,15 @@ export const renderArticle = (item, related) => {
   <meta property="og:description" content="${esc(item.description)}">
   <meta property="og:url" content="${url}">
   <meta property="og:site_name" content="TRE Forged">
+  <meta property="og:image" content="${SITE}/assets/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="${esc(item.title)}">
   <meta property="article:published_time" content="${pubDate}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${esc(item.title)}">
   <meta name="twitter:description" content="${esc(item.description)}">
+  <meta name="twitter:image" content="${SITE}/assets/og-default.png">
 `;
 
   const faqSection = (item.faqs && item.faqs.length)
@@ -498,6 +504,22 @@ const main = async () => {
     item.published = item.date || date;
     // newest-first: ascending dates mean the last unshift (today) stays at index 0.
     published.unshift(item);
+
+    // The generator is told to link a related post and sometimes invents a
+    // plausible-but-nonexistent slug (2 of the first 37 posts did). A link to
+    // a post that does not exist is a soft-404 Google crawls, so any unknown
+    // target is demoted to the blog index rather than shipped dead.
+    const knownSlugs = new Set(published.map((p) => p.slug));
+    if (item.bodyHtml) {
+      item.bodyHtml = item.bodyHtml.replace(
+        /href="\/blog\/([a-z0-9-]+)\/"/g,
+        (match, target) => {
+          if (knownSlugs.has(target)) return match;
+          console.log(`::warning::${item.slug}: link to unknown post /blog/${target}/ rewritten to /blog/`);
+          return 'href="/blog/"';
+        },
+      );
+    }
 
     const related = published.filter((p) => p.slug !== item.slug).slice(0, 3);
     const dir = join(ROOT, 'blog', item.slug);

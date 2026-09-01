@@ -37,11 +37,20 @@ jobs:
       - name: Publish next queued article
         run: node scripts/publish-next.mjs
 
+      # A post Google cannot index, or one linking to a post that does not
+      # exist, is worse than no post: it ships to production on commit and
+      # there is no staging. Gate runs even when publishing failed, so
+      # catch-up posts are checked too.
+      - name: SEO gate
+        id: seo
+        if: always()
+        run: node scripts/seo-check.mjs
+
       - name: Commit & push if changed
         # always(): a loud publish failure (empty/exhausted queue) still exits 1
         # so the run goes red, but any catch-up posts already written must be
-        # committed rather than lost.
-        if: always()
+        # committed rather than lost. Nothing commits if the SEO gate failed.
+        if: always() && steps.seo.outcome == 'success'
         run: |
           git config user.name "treforged-bot"
           git config user.email "bot@treforged.com"
