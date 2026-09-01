@@ -26,12 +26,19 @@ const slugs = entries
   .sort();
 const known = new Set(slugs);
 
-let withDesc = 0, withCanonical = 0, withOgImage = 0, withLd = 0, linkTotal = 0;
+let withDesc = 0, withCanonical = 0, withOgImage = 0, withLd = 0, linkTotal = 0, withOneH1 = 0;
 
 for (const slug of slugs) {
   const html = await readFile(join(ROOT, 'blog', slug, 'index.html'), 'utf8');
 
   if (!/<title>[^<]+<\/title>/.test(html)) note(slug, 'no <title>');
+
+  // Exactly one h1, and it must be the article's title. The site header's brand
+  // text was an <h1> until 2026-09-01, which made "TRE Forged" the strongest
+  // heading on all 63 posts instead of what the post is about.
+  const h1s = [...html.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').trim());
+  if (h1s.length !== 1) note(slug, `${h1s.length} <h1> tags, expected 1 (${h1s.join(' | ')})`);
+  else withOneH1++;
   if (/name="description" content="[^"]+"/.test(html)) withDesc++; else note(slug, 'no meta description');
 
   const canonical = html.match(/rel="canonical" href="([^"]+)"/);
@@ -82,6 +89,7 @@ for (const slug of slugs) if (!inMap.has(slug)) note(slug, 'missing from sitemap
 for (const slug of inMap) if (!known.has(slug)) note(slug, 'in sitemap.xml but not on disk');
 
 console.log(`posts:              ${slugs.length}`);
+console.log(`single <h1>:        ${withOneH1}/${slugs.length}`);
 console.log(`meta description:   ${withDesc}/${slugs.length}`);
 console.log(`canonical:          ${withCanonical}/${slugs.length}`);
 console.log(`og:image:           ${withOgImage}/${slugs.length}`);
