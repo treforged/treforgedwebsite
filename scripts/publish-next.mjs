@@ -97,7 +97,7 @@ const nav = (active) => {
         <img src="/assets/logo.png" alt="TRE Forged logo" class="site-logo" width="200" height="200">
       </picture>
       <div class="brand-text">
-        <h1>TRE Forged</h1>
+        <span class="brand-name">TRE Forged</span>
         <div class="tagline">Wealth · Cars · Strategy</div>
       </div>
     </a>

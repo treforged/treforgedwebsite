@@ -104,7 +104,7 @@ header.site-header {
   gap: 1px;
   overflow: visible;
 }
-.brand-text h1 {
+.brand-text .brand-name {
   font-family: var(--fd);
   font-size: 1.18rem;
   font-weight: 700;
@@ -741,7 +741,7 @@ img.smooth-img.is-loaded { opacity: 1; }
   .cta-row      { flex-direction: column; }
   .btn          { width: 100%; justify-content: center; }
   .app-cta-stack { flex-direction: column; }
-  .brand-text h1 { font-size: 1rem; }
+  .brand-text .brand-name { font-size: 1rem; }
   .brand-text .tagline { font-size: 0.6rem; }
   .site-logo { width: 42px; height: 42px; }
 }
