@@ -268,7 +268,7 @@ nav.primary a.active { color: var(--text); background: var(--surf-2); }
   margin-bottom: 14px;
   line-height: normal;
 }
-.page-hero h2 {
+.page-hero h1, .page-hero h2 {
   font-family: var(--fd);
   font-size: clamp(1.7rem, 3.5vw, 2.4rem);
   font-weight: 900;
@@ -737,7 +737,7 @@ img.smooth-img.is-loaded { opacity: 1; }
   .grid-3       { grid-template-columns: 1fr; }
   .gallery      { grid-template-columns: 1fr; }
   .hero-title   { font-size: 1.7rem; }
-  .page-hero h2 { font-size: 1.6rem; }
+  .page-hero h1, .page-hero h2 { font-size: 1.6rem; }
   .cta-row      { flex-direction: column; }
   .btn          { width: 100%; justify-content: center; }
   .app-cta-stack { flex-direction: column; }

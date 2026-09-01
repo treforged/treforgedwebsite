@@ -351,7 +351,7 @@ ${nav('blog')}
   <div class="container">
     <section class="page-hero reveal">
       <div class="page-hero-label">Money Basics</div>
-      <h2>The Forge</h2>
+      <h1>The Forge</h1>
       <p>Practical, jargon-free guides on budgeting, saving, and paying down debt, plus tips for getting the most out of <a href="${APP}" target="_blank" rel="noopener">Forgenta</a>, our personal finance app.</p>
     </section>
 

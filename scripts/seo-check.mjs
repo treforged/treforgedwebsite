@@ -88,7 +88,46 @@ const inMap = new Set(
 for (const slug of slugs) if (!inMap.has(slug)) note(slug, 'missing from sitemap.xml');
 for (const slug of inMap) if (!known.has(slug)) note(slug, 'in sitemap.xml but not on disk');
 
+
+// ── site pages ─────────────────────────────────────────────
+// The post loop above only ever sees blog/<slug>/index.html. Until 2026-09-01
+// that meant the homepage, the blog index and all four section pages were
+// checked by NOTHING, and the gate still printed PASS - a filter that returns
+// its matches and never says what it dropped. These are the pages that filter
+// was silently excluding, so they are named and counted rather than implied.
+const sitePages = [
+  { url: `${SITE}/`, file: 'index.html' },
+  { url: `${SITE}/blog/`, file: 'blog/index.html' },
+];
+for (const dir of ['services', 'cars', 'partnerships', 'contact']) {
+  sitePages.push({ url: `${SITE}/${dir}/`, file: `${dir}/index.html` });
+}
+
+let pagesChecked = 0;
+for (const page of sitePages) {
+  if (!existsSync(join(ROOT, page.file))) { note(page.file, 'site page missing from disk'); continue; }
+  const html = await readFile(join(ROOT, page.file), 'utf8');
+  pagesChecked++;
+  if (!/<title>[^<]+<\/title>/.test(html)) note(page.file, 'no <title>');
+  if (!/name="description" content="[^"]+"/.test(html)) note(page.file, 'no meta description');
+  const canonical = html.match(/rel="canonical" href="([^"]+)"/);
+  if (!canonical) note(page.file, 'no canonical');
+  else if (canonical[1] !== page.url) note(page.file, `canonical is ${canonical[1]}, expected ${page.url}`);
+  const h1s = [...html.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/g)];
+  if (h1s.length !== 1) note(page.file, `${h1s.length} <h1> tags, expected 1`);
+}
+
+// Every non-blog URL the sitemap advertises must resolve to a file we ship.
+const nonBlogLocs = [...sitemap.matchAll(/<loc>(https:\/\/treforged\.com\/(?!blog\/)[^<]*)<\/loc>/g)].map((m) => m[1]);
+for (const loc of nonBlogLocs) {
+  const path = loc.replace(`${SITE}/`, '');
+  const file = path === '' ? 'index.html' : `${path}index.html`;
+  if (!existsSync(join(ROOT, file))) note(loc, `sitemap URL has no file on disk (${file})`);
+}
+
 console.log(`posts:              ${slugs.length}`);
+console.log(`site pages:         ${pagesChecked}/${sitePages.length} (home, blog index, 4 sections)`);
+console.log(`non-blog sitemap:   ${nonBlogLocs.length} URL(s) resolved to disk`);
 console.log(`single <h1>:        ${withOneH1}/${slugs.length}`);
 console.log(`meta description:   ${withDesc}/${slugs.length}`);
 console.log(`canonical:          ${withCanonical}/${slugs.length}`);
