@@ -408,3 +408,190 @@ From Ruby (marketing). Live autocomplete phrases, filtered to question shape, no
 - [[marketing_reddit]] — 0.10
 - [[asks]] — 0.10
 <!-- /graph-links -->
+
+
+# Car DIY targets (from Ruby, 2026-09-02, re-seeded after the Search Console pull)
+
+# Headings rewritten from query form to POST SLUG so keywordsForSlug() can match them.
+
+## how-to-replace-a-headlight-bulb
+- headlight bulb replacement
+- best headlight bulb replacement
+- headlight bulb replacement cost
+- replacing dipped headlight bulb
+- how much is headlight bulb change
+- who can replace my headlight bulb
+- headlight bulb replacement service
+- best h11 headlight bulb replacement
+- best led headlight bulb replacement
+- brightest headlight bulb replacement
+- can i replace a headlight bulb myself
+- is it easy to change a headlight bulb
+
+## how-to-replace-windshield-wiper-blades
+- change a wiper blade
+- best wiper blade refill
+- wiper blade replacement
+- how to wiper blade refill
+- what is wiper blade refill
+- wiper blade replacement cost
+- wiper blade replacement size
+- are all wiper blades the same
+- best wiper blade replacements
+- how to wiper blade replacement
+- what are the best wiper blades
+- wiper blade replacement rubber
+
+## how-to-change-your-engine-air-filter
+- engine air filter replacement
+- how much for engine air filter
+- best engine air filter replacement
+- clean or replace engine air filter
+- engine air filter replacement cost
+- how often engine air filter change
+- should i replace engine air filter
+- should you replace engine air filter
+- what are the best engine air filters
+- what is engine air filter replacement
+- who makes the best engine air filters
+- engine air filter replacement interval
+
+## how-to-check-your-cars-fluids
+- how to check auto fluid
+- how to check car fluids
+- how to check fluids in car
+- how to check all car fluids
+- how to check vehicle fluids
+- how much to check car fluids
+- how to check car brake fluid
+- best time to check car fluids
+- how often to check car fluids
+- how to check car fluid levels
+- where to get car fluids checked
+- how to check vehicle fluid levels
+
+## how-car-depreciation-works
+- car depreciation
+- is car depreciation
+- top car depreciation
+- best car depreciation
+- car depreciation rate
+- car depreciation chart
+- car depreciation curve
+- car depreciation graph
+- do used cars depreciate
+- best vehicle depreciation
+- car depreciation per mile
+- how much car depreciation
+
+## how-to-change-your-own-oil
+- changing your own oil
+- how to change your own oil
+- should i change my own oil
+- better to change your own oil
+- where can i change my own oil
+- best way to change your own oil
+- how much to change your own oil
+- should i just change my own oil
+- is better to change your own oil
+- best place to change your own oil
+- how to change your own oil filter
+- how to change your own oil in car
+
+## how-to-rotate-your-tires-at-home
+- can u rotate your own tires
+- easiest way to rotate tires
+- how to rotate tires at home
+- how to rotate your own tires
+- should i rotate my own tires
+- can you rotate tires yourself
+- can you rotate your own tires
+- how to rotate car tires at home
+- easy way to rotate tires at home
+- how to balance car tires at home
+- how to rotate your tires at home
+- can you rotate your tires at home
+
+## how-to-check-tire-pressure-and-tread
+- how to check tire tread
+- how to.check tire pressure
+- how to check tire tread wear
+- how is tire pressure measured
+- how to tell the tire pressure
+- how to check tire tread at home
+- how do i check the tire pressure
+- how to properly check tire pressure
+- how to check tire pressure and tread
+- should all tire pressure be the same
+- can you check tyre pressure on a slope
+- how to check tire pressure and tread depth
+
+## how-to-jump-start-a-car-safely
+- how to jump start a car
+- is it ok to jump start a car
+- is it bad to jump start a car
+- how to jump start a car safely
+- how to jump start a car at home
+- how to properly jump start a car
+- steps to safely jump start a car
+- is it bad to help jump start a car
+- how to jump start a car by yourself
+- how to safely jump start a car with jumper cables
+- how to jump start a car reddit
+- how long to jump start a car reddit
+
+## how-to-change-a-flat-tire
+- best fix a flat tire
+- how to change a flat tire
+- best way to fix a flat tire
+- how much to fix a flat tire
+- steps to change a flat tire
+- best fix a flat tire sealant
+- best fix a flat tire inflator
+- best place to fix a flat tire
+- best thing to fix a flat tire
+- best place to change flat tire
+- best way to change a flat tire
+- how much to change a flat tire
+
+## how-to-budget-for-car-maintenance
+- best car service plan
+- car maintenance schedule
+- how often car maintenance
+- car maintenance schedule app
+- car maintenance schedule pdf
+- how much is car service plan
+- maintenance schedule example
+- what is car maintenance plan
+- basic car maintenance schedule
+- car maintenance schedule chart
+- car maintenance schedule excel
+- how to schedule car maintenance
+
+## true-cost-of-car-ownership
+- how much is car maintenance
+- how much does car repair cost
+- how much does car service cost
+- how much does car service cost nz
+- how much does car maintenance cost
+- how much does car service cost in usa
+- how much does average car service cost
+- how much does car service cost ireland
+- how much does a car repair estimate cost
+- how much does car maintenance cost per year
+- how much does car maintenance cost per month
+- how much should car maintenance cost per year
+
+## how-to-change-your-brake-pads
+- brake pad replacement cost
+- brake pad replacement cost nz
+- how much are brake pad changes
+- how much brake pad change cost
+- full brake pad replacement cost
+- brake pad replacement cost kmart
+- how much does brake pad job cost
+- brake pad replacement cost sydney
+- brake pad replacement cost average
+- brake pad replacement cost estimate
+- brake pad replacement cost kwik fit
+- how does brake pad replacement cost
