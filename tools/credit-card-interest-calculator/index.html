@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Credit Card Interest Calculator: What Your Balance Really Costs — TRE Forged</title>
+  <meta name="description" content="See exactly what your credit card balance costs per day and per month, how much of a payment is interest, and how long payoff takes on minimums versus a fixed amount.">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap"></noscript>
+  <link rel="canonical" href="https://treforged.com/tools/credit-card-interest-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Credit Card Interest Calculator">
+  <meta property="og:description" content="See what your credit card balance actually costs per day, how much of a payment is interest, and how long payoff takes.">
+  <meta property="og:url" content="https://treforged.com/tools/credit-card-interest-calculator/">
+  <meta property="og:site_name" content="TRE Forged">
+  <meta property="og:image" content="https://treforged.com/assets/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Credit Card Interest Calculator">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Credit Card Interest Calculator">
+  <meta name="twitter:description" content="See what your credit card balance actually costs per day, how much of a payment is interest, and how long payoff takes.">
+  <meta name="twitter:image" content="https://treforged.com/assets/og-default.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Credit Card Interest Calculator",
+    "url": "https://treforged.com/tools/credit-card-interest-calculator/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher": {"@type":"Organization","name":"TRE Forged","url":"https://treforged.com/"}
+  }
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container site-top">
+    <a href="/" class="brand-link" aria-label="TRE Forged home">
+      <picture>
+        <source srcset="/assets/logo.webp" type="image/webp">
+        <img src="/assets/logo.png" alt="TRE Forged logo" class="site-logo" width="200" height="200">
+      </picture>
+      <div class="brand-text">
+        <span class="brand-name">TRE Forged</span>
+        <div class="tagline">Wealth · Cars · Strategy</div>
+      </div>
+    </a>
+    <nav class="primary" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/services/">Services</a>
+      <a href="/cars/">Cars</a>
+      <a href="/partnerships/">Partnerships</a>
+      <a href="/contact/">Contact</a>
+      <a href="https://getforgenta.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
+    </nav>
+    <button id="burger" class="hamburger"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav id="mobileNav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/blog/">Blog</a>
+    <a href="/services/">Services</a>
+    <a href="/cars/">Cars</a>
+    <a href="/partnerships/">Partnerships</a>
+    <a href="/contact/">Contact</a>
+    <a href="https://getforgenta.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
+  </nav>
+</header>
+
+<main class="page-main">
+  <div class="container">
+    <section class="page-hero reveal">
+      <div class="page-hero-label">Free Tool</div>
+      <h1>Credit Card Interest Calculator</h1>
+      <p>Put in your balance and rate to see what the debt costs you per day, how much of your next payment the interest eats before it touches the balance, and how long payoff takes on minimums versus a fixed amount. Nothing is sent anywhere: the math runs in your browser.</p>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">Your card</div>
+      <h2>Enter your numbers</h2>
+      <form id="calcForm" class="calc-form" novalidate>
+        <label for="balance">Current balance ($)
+          <input id="balance" name="balance" type="number" min="0" max="1000000" step="1" value="3000" inputmode="decimal" required>
+        </label>
+        <label for="apr">Interest rate / APR (%)
+          <input id="apr" name="apr" type="number" min="0" max="100" step="0.01" value="24.99" inputmode="decimal" required>
+        </label>
+        <label for="payment">Monthly payment ($, optional)
+          <input id="payment" name="payment" type="number" min="0" max="1000000" step="1" value="150" inputmode="decimal">
+        </label>
+        <p class="calc-note" id="calcError" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">What it costs</div>
+      <h2>The running cost</h2>
+      <div class="calc-grid">
+        <div class="calc-stat"><div class="calc-stat-label">Per day</div><div class="calc-stat-value" id="perDay">&mdash;</div></div>
+        <div class="calc-stat"><div class="calc-stat-label">Per 30 days</div><div class="calc-stat-value" id="per30">&mdash;</div></div>
+        <div class="calc-stat"><div class="calc-stat-label">Minimum payment</div><div class="calc-stat-value" id="minPay">&mdash;</div></div>
+      </div>
+      <p id="splitLine" class="calc-note"></p>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">Payoff</div>
+      <h2>How long it takes</h2>
+      <div class="calc-grid">
+        <div class="calc-stat"><div class="calc-stat-label">Paying the minimum</div><div class="calc-stat-value" id="minMonths">&mdash;</div><div class="calc-stat-sub" id="minInterest"></div></div>
+        <div class="calc-stat"><div class="calc-stat-label">Paying your amount</div><div class="calc-stat-value" id="fixMonths">&mdash;</div><div class="calc-stat-sub" id="fixInterest"></div></div>
+        <div class="calc-stat"><div class="calc-stat-label">You save</div><div class="calc-stat-value" id="saved">&mdash;</div><div class="calc-stat-sub" id="savedMonths"></div></div>
+      </div>
+      <p class="calc-note">Assumes you stop adding new charges and the rate does not change. Interest is charged monthly at APR divided by 12, and the minimum is 1% of the balance plus that month's interest, with a $25 floor. This is the same arithmetic used in <a href="/blog/understanding-credit-card-interest/">our guide to how credit card interest works</a>.</p>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">Next step</div>
+      <h2>Put a real plan behind the number</h2>
+      <p>Seeing the cost is the easy part. <a href="https://getforgenta.com/?utm_source=blog&amp;utm_medium=tool&amp;utm_campaign=credit-card-interest-calculator" target="_blank" rel="noopener">Forgenta</a> connects your accounts, tracks the balance as it moves, and plans the payoff order across every card you hold, so the number above becomes a schedule instead of a one-off.</p>
+      <p class="calc-note">Related reading: <a href="/blog/understanding-credit-card-interest/">how credit card interest actually works</a> &middot; <a href="/blog/how-to-pay-off-credit-card-debt-faster/">how to pay off credit card debt faster</a> &middot; <a href="/blog/debt-snowball-vs-avalanche/">snowball vs. avalanche</a></p>
+    </section>
+  </div>
+</main>
+
+<script type="module">
+  import { dailyInterest, interestOver, minPayment, splitPayment, payoff } from './calc.js';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var money = function (n) { return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+  var money0 = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
+  var months = function (n) { return n === 1 ? '1 month' : n + ' months'; };
+  var DASH = '—';
+
+  function render() {
+    var balance = parseFloat($('balance').value);
+    var aprPct = parseFloat($('apr').value);
+    var paymentRaw = $('payment').value.trim();
+    var payment = paymentRaw === '' ? null : parseFloat(paymentRaw);
+    var err = $('calcError');
+
+    // Never draw a number we cannot stand behind: bad input clears the fields
+    // rather than showing a stale or invented one.
+    var bad = !isFinite(balance) || balance < 0 || balance > 1000000
+           || !isFinite(aprPct) || aprPct < 0 || aprPct > 100
+           || (payment !== null && (!isFinite(payment) || payment < 0));
+    var valueIds = ['perDay', 'per30', 'minPay', 'minMonths', 'fixMonths', 'saved'];
+    var subIds = ['splitLine', 'minInterest', 'fixInterest', 'savedMonths'];
+    if (bad) {
+      err.textContent = 'Enter a balance between $0 and $1,000,000 and a rate between 0% and 100%.';
+      err.hidden = false;
+      valueIds.forEach(function (i) { $(i).textContent = DASH; });
+      subIds.forEach(function (i) { $(i).textContent = ''; });
+      return;
+    }
+    err.hidden = true;
+
+    var apr = aprPct / 100;
+    $('perDay').textContent = money(dailyInterest(balance, apr));
+    $('per30').textContent = money(interestOver(balance, apr, 30));
+    $('minPay').textContent = money(minPayment(balance, apr));
+
+    if (payment !== null && payment > 0) {
+      var s = splitPayment(balance, apr, payment);
+      $('splitLine').textContent = s.coversInterest
+        ? 'Of a ' + money(payment) + ' payment, ' + money(s.interest) + ' goes to interest and ' + money(s.principal) + ' comes off the balance.'
+        : 'A ' + money(payment) + ' payment does not even cover this month’s ' + money(s.interest) + ' of interest, so the balance would grow. Your card would also require at least ' + money(minPayment(balance, apr)) + '.';
+    } else {
+      $('splitLine').textContent = '';
+    }
+
+    var m = payoff(balance, apr);
+    $('minMonths').textContent = m.neverEnds ? 'Never' : months(m.months);
+    $('minInterest').textContent = m.neverEnds ? '' : money0(m.totalInterest) + ' in interest';
+
+    if (payment !== null && payment > 0) {
+      var f = payoff(balance, apr, { mode: 'fixed', fixedPayment: payment });
+      $('fixMonths').textContent = f.neverEnds ? 'Never' : months(f.months);
+      // Paying under the minimum is a delinquency, not a plan, so the payoff
+      // floors at the minimum. Say so, or this card silently contradicts the
+      // "does not cover the interest" warning above it.
+      var belowMin = payment < minPayment(balance, apr);
+      $('fixInterest').textContent = f.neverEnds ? ''
+        : money0(f.totalInterest) + ' in interest'
+          + (belowMin ? ' (assumes you pay at least the minimum)' : '');
+      if (!m.neverEnds && !f.neverEnds) {
+        var savedAmt = m.totalInterest - f.totalInterest;
+        var savedMo = m.months - f.months;
+        $('saved').textContent = savedAmt > 0 ? money0(savedAmt) : DASH;
+        $('savedMonths').textContent = savedMo > 0 ? savedMo + ' months sooner' : '';
+      } else {
+        $('saved').textContent = DASH;
+        $('savedMonths').textContent = '';
+      }
+    } else {
+      $('fixMonths').textContent = DASH;
+      $('fixInterest').textContent = '';
+      $('saved').textContent = DASH;
+      $('savedMonths').textContent = '';
+    }
+  }
+
+  $('calcForm').addEventListener('input', render);
+  $('calcForm').addEventListener('submit', function (e) { e.preventDefault(); });
+  render();
+</script>
+
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand">TRE Forged</div>
+      <div class="footer-copy">© 2026 TRE Forged LLC. All rights reserved.</div>
+    </div>
+    <div class="footer-right">Designed for collectors, investors &amp; enthusiasts.</div>
+  </div>
+</footer>
+<script src="/main.js"></script>
+</body>
+</html>
