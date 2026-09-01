@@ -121,6 +121,8 @@ for (const dir of toolDirs) {
 }
 
 let pagesChecked = 0;
+let pagesWithOgImage = 0;
+let pagesWithTwitter = 0;
 for (const page of sitePages) {
   if (!existsSync(join(ROOT, page.file))) { note(page.file, 'site page missing from disk'); continue; }
   const html = await readFile(join(ROOT, page.file), 'utf8');
@@ -132,6 +134,21 @@ for (const page of sitePages) {
   else if (canonical[1] !== page.url) note(page.file, `canonical is ${canonical[1]}, expected ${page.url}`);
   const h1s = [...html.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/g)];
   if (h1s.length !== 1) note(page.file, `${h1s.length} <h1> tags, expected 1`);
+
+  // Posts got og:image in 0c59dee; these pages were left with none, so sharing
+  // the site's own front door rendered a blank card for months. Checked here
+  // with the same standard as a post: the file has to exist on disk.
+  const og = html.match(/property="og:image" content="([^"]+)"/);
+  if (!og) note(page.file, 'no og:image, so a share of this page renders a blank card');
+  else {
+    const rel = og[1].replace(`${SITE}/`, '');
+    if (!existsSync(join(ROOT, rel))) note(page.file, `og:image ${og[1]} is not on disk (${rel})`);
+    else pagesWithOgImage++;
+  }
+  if (!/property="og:title" content="[^"]+"/.test(html)) note(page.file, 'no og:title');
+  if (!/name="twitter:card" content="summary_large_image"/.test(html)) {
+    note(page.file, 'no twitter:card, so og:image will not render as a large card');
+  } else pagesWithTwitter++;
 }
 
 // Every non-blog URL the sitemap advertises must resolve to a file we ship.
@@ -145,6 +162,8 @@ for (const loc of nonBlogLocs) {
 console.log(`posts:              ${slugs.length}`);
 console.log(`site pages:         ${pagesChecked}/${sitePages.length} (home, blog index, 4 sections, ${toolDirs.length} tool page(s))`);
 console.log(`non-blog sitemap:   ${nonBlogLocs.length} URL(s) resolved to disk`);
+console.log(`site page og:image: ${pagesWithOgImage}/${sitePages.length}`);
+console.log(`site twitter:card:  ${pagesWithTwitter}/${sitePages.length}`);
 console.log(`single <h1>:        ${withOneH1}/${slugs.length}`);
 console.log(`meta description:   ${withDesc}/${slugs.length}`);
 console.log(`canonical:          ${withCanonical}/${slugs.length}`);

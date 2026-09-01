@@ -334,6 +334,15 @@ export const renderBlogIndex = (published) => {
   <meta property="og:title" content="The Forge: Personal Finance Guides by TRE Forged">
   <meta property="og:description" content="Practical, jargon-free personal finance guides: budgeting, saving, and debt payoff.">
   <meta property="og:url" content="${SITE}/blog/">
+  <meta property="og:site_name" content="TRE Forged">
+  <meta property="og:image" content="${SITE}/assets/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Forge: Personal Finance Guides by TRE Forged">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Forge: Personal Finance Guides by TRE Forged">
+  <meta name="twitter:description" content="Practical, jargon-free personal finance guides: budgeting, saving, and debt payoff.">
+  <meta name="twitter:image" content="${SITE}/assets/og-default.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
