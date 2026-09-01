@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Emergency Fund Calculator: How Much Do You Actually Need? &mdash; TRE Forged</title>
+  <meta name="description" content="Add up your real monthly essentials and see what one, three and six months of runway costs, how long it takes to build at your savings rate, and how much of the month your car is eating.">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap"></noscript>
+  <link rel="canonical" href="https://treforged.com/tools/emergency-fund-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Emergency Fund Calculator">
+  <meta property="og:description" content="See what one, three and six months of runway actually costs you, and how long it takes to build at your savings rate.">
+  <meta property="og:url" content="https://treforged.com/tools/emergency-fund-calculator/">
+  <meta property="og:site_name" content="TRE Forged">
+  <meta property="og:image" content="https://treforged.com/assets/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Emergency Fund Calculator">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Emergency Fund Calculator">
+  <meta name="twitter:description" content="See what one, three and six months of runway actually costs you, and how long it takes to build at your savings rate.">
+  <meta name="twitter:image" content="https://treforged.com/assets/og-default.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Emergency Fund Calculator",
+    "url": "https://treforged.com/tools/emergency-fund-calculator/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher": {"@type":"Organization","name":"TRE Forged","url":"https://treforged.com/"}
+  }
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container site-top">
+    <a href="/" class="brand-link" aria-label="TRE Forged home">
+      <picture>
+        <source srcset="/assets/logo.webp" type="image/webp">
+        <img src="/assets/logo.png" alt="TRE Forged logo" class="site-logo" width="200" height="200">
+      </picture>
+      <div class="brand-text">
+        <span class="brand-name">TRE Forged</span>
+        <div class="tagline">Wealth · Cars · Strategy</div>
+      </div>
+    </a>
+    <nav class="primary" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/services/">Services</a>
+      <a href="/cars/">Cars</a>
+      <a href="/partnerships/">Partnerships</a>
+      <a href="/contact/">Contact</a>
+      <a href="https://getforgenta.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
+    </nav>
+    <button id="burger" class="hamburger"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav id="mobileNav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/blog/">Blog</a>
+    <a href="/services/">Services</a>
+    <a href="/cars/">Cars</a>
+    <a href="/partnerships/">Partnerships</a>
+    <a href="/contact/">Contact</a>
+    <a href="https://getforgenta.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
+  </nav>
+</header>
+
+
+<main class="page-main">
+  <div class="container">
+    <section class="page-hero reveal">
+      <div class="page-hero-label">Free Tool</div>
+      <h1>Emergency Fund Calculator</h1>
+      <p>An emergency fund is not a round number someone else picked. It is your own bills, multiplied. Put in what the month actually costs to keep the lights on and the car running, and this works out one, three and six months of runway, plus how long it takes to get there at the rate you are saving. Nothing is sent anywhere: the math runs in your browser.</p>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">Your month</div>
+      <h2>What it costs to keep going</h2>
+      <p class="calc-note">Essentials only &mdash; the bills that do not stop if your income does. Leave out dining out, subscriptions and anything you would cancel in week one.</p>
+      <form id="calcForm" class="calc-form" novalidate>
+        <label for="rent">Rent or mortgage ($)
+          <input id="rent" name="rent" type="number" min="0" max="100000" step="1" value="1100" inputmode="decimal">
+        </label>
+        <label for="carPayment">Car payment ($)
+          <input id="carPayment" name="carPayment" type="number" min="0" max="100000" step="1" value="400" inputmode="decimal">
+        </label>
+        <label for="carInsurance">Car insurance ($)
+          <input id="carInsurance" name="carInsurance" type="number" min="0" max="100000" step="1" value="160" inputmode="decimal">
+        </label>
+        <label for="fuel">Fuel ($)
+          <input id="fuel" name="fuel" type="number" min="0" max="100000" step="1" value="250" inputmode="decimal">
+        </label>
+        <label for="groceries">Groceries ($)
+          <input id="groceries" name="groceries" type="number" min="0" max="100000" step="1" value="400" inputmode="decimal">
+        </label>
+        <label for="utilities">Utilities ($)
+          <input id="utilities" name="utilities" type="number" min="0" max="100000" step="1" value="150" inputmode="decimal">
+        </label>
+        <label for="phone">Phone and internet ($)
+          <input id="phone" name="phone" type="number" min="0" max="100000" step="1" value="60" inputmode="decimal">
+        </label>
+        <label for="minDebt">Minimum debt payments ($)
+          <input id="minDebt" name="minDebt" type="number" min="0" max="100000" step="1" value="50" inputmode="decimal">
+        </label>
+        <label for="saved">Already saved ($)
+          <input id="saved" name="saved" type="number" min="0" max="10000000" step="1" value="0" inputmode="decimal">
+        </label>
+        <label for="saving">Saving per month ($)
+          <input id="saving" name="saving" type="number" min="0" max="1000000" step="1" value="300" inputmode="decimal">
+        </label>
+        <p class="calc-note" id="calcError" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">The number</div>
+      <h2>What one month costs you</h2>
+      <div class="calc-grid">
+        <div class="calc-stat"><div class="calc-stat-label">Essentials per month</div><div class="calc-stat-value" id="monthly">&mdash;</div></div>
+        <div class="calc-stat"><div class="calc-stat-label">Of that, the car</div><div class="calc-stat-value" id="carPct">&mdash;</div><div class="calc-stat-sub" id="carAmount"></div></div>
+      </div>
+      <p id="carLine" class="calc-note"></p>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">Targets</div>
+      <h2>One, three and six months of runway</h2>
+      <div class="calc-grid">
+        <div class="calc-stat"><div class="calc-stat-label">1 month</div><div class="calc-stat-value" id="t1">&mdash;</div><div class="calc-stat-sub" id="m1"></div></div>
+        <div class="calc-stat"><div class="calc-stat-label">3 months</div><div class="calc-stat-value" id="t3">&mdash;</div><div class="calc-stat-sub" id="m3"></div></div>
+        <div class="calc-stat"><div class="calc-stat-label">6 months</div><div class="calc-stat-value" id="t6">&mdash;</div><div class="calc-stat-sub" id="m6"></div></div>
+      </div>
+      <p class="calc-note" id="starterLine"></p>
+      <p class="calc-note"><strong>No interest is counted here, on purpose.</strong> At these amounts and over these horizons a savings-account return moves the answer by less than a month, and a calculator that quietly assumes a return is telling you something you cannot check. The build times are the amount still needed divided by what you save each month, rounded up. Same arithmetic as <a href="/blog/how-much-emergency-fund-do-i-need/">how much emergency fund you actually need</a>.</p>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">Next step</div>
+      <h2>Turn the target into a habit</h2>
+      <p>Knowing the number is the easy half. <a href="https://getforgenta.com/?utm_source=blog&amp;utm_medium=tool&amp;utm_campaign=emergency-fund-calculator" target="_blank" rel="noopener">Forgenta</a> tracks what you are actually spending each month, so the essentials figure above stays honest instead of a guess you made once, and shows the fund filling as it goes.</p>
+      <p class="calc-note">Related reading: <a href="/blog/how-to-build-an-emergency-fund/">how to build an emergency fund</a> &middot; <a href="/blog/how-much-emergency-fund-do-i-need/">how much do you need</a> &middot; <a href="/blog/high-yield-savings-account-guide/">where to keep it</a> &middot; <a href="/tools/credit-card-interest-calculator/">credit card interest calculator</a></p>
+    </section>
+  </div>
+</main>
+
+<script type="module">
+  import { monthlyEssentials, carShare, target, monthsToBuild } from './calc.js';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var money0 = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
+  var months = function (n) { return n === 1 ? '1 month' : n + ' months'; };
+  var DASH = '—';
+  var FIELDS = ['rent', 'carPayment', 'carInsurance', 'fuel', 'groceries', 'utilities', 'phone', 'minDebt'];
+  var VALUE_IDS = ['monthly', 'carPct', 't1', 't3', 't6'];
+  var SUB_IDS = ['carAmount', 'carLine', 'm1', 'm3', 'm6', 'starterLine'];
+
+  function readField(id) {
+    var raw = $(id).value.trim();
+    return raw === '' ? 0 : parseFloat(raw);
+  }
+
+  function render() {
+    var items = {};
+    var bad = false;
+    FIELDS.forEach(function (f) {
+      var v = readField(f);
+      if (!isFinite(v) || v < 0 || v > 100000) bad = true;
+      items[f] = v;
+    });
+    var saved = readField('saved');
+    var saving = readField('saving');
+    if (!isFinite(saved) || saved < 0 || saved > 10000000) bad = true;
+    if (!isFinite(saving) || saving < 0 || saving > 1000000) bad = true;
+
+    var err = $('calcError');
+    // Never draw a number we cannot stand behind: bad input clears every field
+    // rather than leaving a stale one on screen looking like an answer.
+    if (bad) {
+      err.textContent = 'Enter an amount between $0 and $100,000 for each bill, and a savings amount that is not negative.';
+      err.hidden = false;
+      VALUE_IDS.forEach(function (i) { $(i).textContent = DASH; });
+      SUB_IDS.forEach(function (i) { $(i).textContent = ''; });
+      return;
+    }
+    err.hidden = true;
+
+    var monthly = monthlyEssentials(items);
+    $('monthly').textContent = money0(monthly);
+
+    // A share of nothing is not a reading, so show no reading.
+    if (monthly === 0) {
+      $('carPct').textContent = DASH;
+      $('carAmount').textContent = '';
+      $('carLine').textContent = 'Fill in what the month costs and the targets appear here.';
+      ['t1', 't3', 't6'].forEach(function (i) { $(i).textContent = DASH; });
+      ['m1', 'm3', 'm6', 'starterLine'].forEach(function (i) { $(i).textContent = ''; });
+      return;
+    }
+
+    var share = carShare(items);
+    var carAmt = items.carPayment + items.carInsurance + items.fuel;
+    $('carPct').textContent = (share * 100).toFixed(1) + '%';
+    $('carAmount').textContent = money0(carAmt) + ' a month';
+    $('carLine').textContent = carAmt > 0
+      ? 'The car costs ' + money0(carAmt) + ' a month, so ' + money0(carAmt * 3) + ' of a three-month fund exists purely to keep it on the road.'
+      : 'No car costs entered, so the whole fund is household essentials.';
+
+    [1, 3, 6].forEach(function (n) {
+      var amt = target(monthly, n);
+      $('t' + n).textContent = money0(amt);
+      var remaining = amt - saved;
+      if (remaining <= 0) {
+        $('m' + n).textContent = 'Already covered';
+        return;
+      }
+      var need = monthsToBuild(remaining, saving);
+      $('m' + n).textContent = isFinite(need)
+        ? months(need) + ' at ' + money0(saving) + '/mo'
+        : 'No date on it at $0 saved per month';
+    });
+
+    var starterLeft = 1000 - saved;
+    if (starterLeft <= 0) {
+      $('starterLine').textContent = 'The $1,000 starter fund is already covered. Next milestone is one full month of essentials, ' + money0(monthly) + '.';
+    } else {
+      var starterMonths = monthsToBuild(starterLeft, saving);
+      $('starterLine').textContent = isFinite(starterMonths)
+        ? 'A $1,000 starter fund is the first milestone worth hitting: ' + months(starterMonths) + ' away at ' + money0(saving) + ' a month.'
+        : 'A $1,000 starter fund is the first milestone worth hitting, but at $0 saved per month there is no date on it.';
+    }
+  }
+
+  $('calcForm').addEventListener('input', render);
+  $('calcForm').addEventListener('submit', function (e) { e.preventDefault(); });
+  render();
+</script>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand">TRE Forged</div>
+      <div class="footer-copy">© 2026 TRE Forged LLC. All rights reserved.</div>
+    </div>
+    <div class="footer-right">Designed for collectors, investors &amp; enthusiasts.</div>
+  </div>
+</footer>
+<script src="/main.js"></script>
+</body>
+</html>

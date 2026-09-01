@@ -103,6 +103,23 @@ for (const dir of ['services', 'cars', 'partnerships', 'contact']) {
   sitePages.push({ url: `${SITE}/${dir}/`, file: `${dir}/index.html` });
 }
 
+// Tool pages were the next thing this filter was silently dropping: the credit
+// card calculator shipped checked by nothing but "a file exists at that URL".
+// They are discovered from disk rather than listed, so a new tool cannot be
+// added without the gate seeing it, and a count of 0 is a failure, not a pass.
+const toolDirs = existsSync(join(ROOT, 'tools'))
+  ? (await readdir(join(ROOT, 'tools'), { withFileTypes: true }))
+      .filter((d) => d.isDirectory())
+      .map((d) => d.name)
+      .sort()
+  : [];
+if (existsSync(join(ROOT, 'tools')) && toolDirs.length === 0) {
+  note('tools/', 'the tools/ directory exists but holds no tool pages');
+}
+for (const dir of toolDirs) {
+  sitePages.push({ url: `${SITE}/tools/${dir}/`, file: `tools/${dir}/index.html` });
+}
+
 let pagesChecked = 0;
 for (const page of sitePages) {
   if (!existsSync(join(ROOT, page.file))) { note(page.file, 'site page missing from disk'); continue; }
@@ -126,7 +143,7 @@ for (const loc of nonBlogLocs) {
 }
 
 console.log(`posts:              ${slugs.length}`);
-console.log(`site pages:         ${pagesChecked}/${sitePages.length} (home, blog index, 4 sections)`);
+console.log(`site pages:         ${pagesChecked}/${sitePages.length} (home, blog index, 4 sections, ${toolDirs.length} tool page(s))`);
 console.log(`non-blog sitemap:   ${nonBlogLocs.length} URL(s) resolved to disk`);
 console.log(`single <h1>:        ${withOneH1}/${slugs.length}`);
 console.log(`meta description:   ${withDesc}/${slugs.length}`);
