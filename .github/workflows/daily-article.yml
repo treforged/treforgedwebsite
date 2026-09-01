@@ -44,7 +44,9 @@ jobs:
       - name: SEO gate
         id: seo
         if: always()
-        run: node scripts/seo-check.mjs
+        run: |
+          node scripts/generator-prompt.test.mjs
+          node scripts/seo-check.mjs
 
       - name: Commit & push if changed
         # always(): a loud publish failure (empty/exhausted queue) still exits 1

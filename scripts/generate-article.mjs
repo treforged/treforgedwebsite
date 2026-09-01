@@ -27,6 +27,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const TOPICS_PATH = join(ROOT, 'content-queue', 'topics.json');
 const QUEUE_PATH = join(ROOT, 'content-queue', 'queue.json');
 const PUBLISHED_PATH = join(ROOT, 'content-queue', 'published.json');
+const KEYWORDS_PATH = join(ROOT, 'content-queue', 'keyword-targets.md');
 
 const MODEL = process.env.ARTICLE_MODEL || 'claude-sonnet-5';
 const MAX_BUFFER = 10; // don't let the queue grow unbounded if publishing stalls
@@ -84,7 +85,59 @@ export const ARTICLE_SCHEMA = {
   additionalProperties: false,
 };
 
-export const buildMaintenancePrompt = (topic, recentTitles) => `You are writing one article for The Forge, the TRE Forged blog (treforged.com). TRE Forged covers wealth AND car culture, so this piece is a practical do-it-yourself car maintenance guide for everyday car owners.
+/**
+ * Live search phrases harvested by the marketing desk, grouped under one
+ * "## <heading>" per post. Feeding the real phrases into the prompt is what
+ * makes a post answer a query somebody actually types, rather than one we
+ * imagined. A missing or malformed file is not fatal: the generator falls back
+ * to its own phrasing, because a day with no post is worse than an untargeted
+ * one.
+ */
+export const parseKeywordTargets = (markdown) => {
+  const map = new Map();
+  let current = null;
+  for (const line of String(markdown).split('\n')) {
+    const heading = line.match(/^##\s+(.+?)\s*$/);
+    if (heading) {
+      current = heading[1].trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      map.set(current, []);
+    } else if (current && /^-\s+/.test(line)) {
+      map.get(current).push(line.replace(/^-\s+/, '').trim());
+    }
+  }
+  return map;
+};
+
+/** Match a topic slug to a keyword group, tolerating slug suffixes like -2026. */
+export const keywordsForSlug = (map, slug) => {
+  if (!slug) return [];
+  if (map.has(slug)) return map.get(slug);
+  for (const [key, phrases] of map) {
+    if (key.startsWith(slug) || slug.startsWith(key)) return phrases;
+  }
+  return [];
+};
+
+export const keywordBlock = (phrases) => (phrases && phrases.length
+  ? '\n- TARGET SEARCH PHRASES (real autocomplete queries people type). Work these in naturally: base the title on the closest one, and use two or three more as <h2> headings or FAQ questions, keeping the wording recognisable. Do NOT keyword-stuff, and do not repeat any one phrase verbatim more than twice:\n'
+    + phrases.slice(0, 10).map((p) => '  - ' + p).join('\n')
+  : '');
+
+export const loadKeywordMap = async () => {
+  try {
+    if (!existsSync(KEYWORDS_PATH)) return new Map();
+    return parseKeywordTargets(await readFile(KEYWORDS_PATH, 'utf8'));
+  } catch (err) {
+    console.log(`::warning::keyword targets unreadable (${err.message}) — generating untargeted`);
+    return new Map();
+  }
+};
+
+export const slugList = (slugs) => (slugs && slugs.length
+  ? slugs.map((s) => '  - /blog/' + s + '/').join(String.fromCharCode(10))
+  : '  (no posts published yet - skip internal linking this once)');
+
+export const buildMaintenancePrompt = (topic, recentTitles, keywords = [], linkableSlugs = []) => `You are writing one article for The Forge, the TRE Forged blog (treforged.com). TRE Forged covers wealth AND car culture, so this piece is a practical do-it-yourself car maintenance guide for everyday car owners.
 
 Write a complete, original how-to article on this topic:
 - Working title: "${topic.title}"
@@ -102,7 +155,8 @@ STRICT REQUIREMENTS:
 - IMPORTANT resource references (include both, naturally in the body):
   - Point readers to <a href="${CARCAREKIOSK}" target="_blank" rel="noopener">CarCareKiosk</a> for free, model-specific step-by-step how-to videos (they can look up their exact year/make/model there).
   - Link once to the brand page as <a href="${YOUR_PAGE}" target="_blank" rel="noopener">${YOUR_PAGE_LABEL}</a> for more car content.
-- Also include one internal link to a related money article using a relative URL, e.g. <a href="/blog/how-to-build-your-first-budget-2026/">budgeting basics</a>, since maintaining your own car saves money.
+- Also include one to three in-body links to related blog articles using a relative URL, e.g. <a href="/blog/some-slug/">anchor text</a>, since maintaining your own car saves money. Choose ONLY from the slugs listed below; NEVER invent a slug, because a link to a post that does not exist is a broken page.
+${slugList(linkableSlugs)}${keywordBlock(keywords)}
 - Do NOT mention or pitch Forgenta in this article. Set "promoteApp": false.
 - Include a 2-4 item FAQ answering real questions a searcher would type (e.g. "how often should I...", "can I do this myself...").
 
@@ -118,7 +172,7 @@ Return ONLY the article as JSON matching the required schema:
 - bodyHtml: the article body as the HTML described above, at least 1000 words of real prose across 5 to 7 <h2> sections
 - faqs: array of {q, a}`;
 
-export const buildPrompt = (topic, recentTitles, mentionForgenta) => `You are writing one article for the TRE Forged blog (treforged.com), a personal finance blog by TRE Forged LLC. The blog exists to help everyday people with budgeting, saving, and paying off debt, and to introduce Forgenta, the company's personal finance app.
+export const buildPrompt = (topic, recentTitles, mentionForgenta, keywords = [], linkableSlugs = []) => `You are writing one article for the TRE Forged blog (treforged.com), a personal finance blog by TRE Forged LLC. The blog exists to help everyday people with budgeting, saving, and paying off debt, and to introduce Forgenta, the company's personal finance app.
 
 Write a complete, original, SEO-optimized article on this topic:
 - Working title: "${topic.title}"
@@ -133,7 +187,8 @@ STRICT REQUIREMENTS:
 - If the article is built around a set of steps, ways, tips, or rules (e.g. "20 ways to...", "how to... in 5 steps"), END the body with a final <h2> section titled "Quick Recap" (or similar) containing a single <ol> that lists every step or item in one short line each, so a reader can act on the whole article at a glance.
 - Use American English and 2026 as the current year where a year is relevant.
 - Include a 2-4 item FAQ that answers real questions a reader would search for. These become FAQ rich-result schema, so make questions natural search queries.
-- Internal linking: include at least one in-body link to a related blog article using a relative URL like <a href="/blog/some-slug/">anchor text</a>. Invent a plausible related slug from these known/likely posts if helpful: /blog/how-to-build-your-first-budget-2026/, /blog/50-30-20-budget-rule-explained/, /blog/how-to-build-an-emergency-fund/, /blog/debt-snowball-vs-avalanche/.
+- Internal linking: include one to three in-body links to related blog articles, using a relative URL like <a href="/blog/some-slug/">anchor text</a>. You MUST choose ONLY from the slugs listed below, which are the posts that actually exist. NEVER invent a slug: a link to a post that does not exist is a broken page that Google crawls as a soft-404.
+${slugList(linkableSlugs)}${keywordBlock(keywords)}
 ${mentionForgenta
   ? `- Forgenta: mention Forgenta naturally ONCE or TWICE in the body as a helpful tool where it genuinely fits (it connects bank accounts, auto-categorizes spending, budgets, sets savings goals, forecasts cash flow, and plans debt payoff). Link it as <a href="${APP_URL}" target="_blank" rel="noopener">Forgenta</a>. Do not oversell. Set "promoteApp": true.`
   : `- Do NOT mention Forgenta in the body of this article. Keep it purely educational. Set "promoteApp": false.`}
@@ -311,14 +366,19 @@ const refillTopics = async (apiKey, topics, usedSlugs, published) => {
  * or throws with a reason (API error, slug collision, or completeness defect) so
  * the caller can move on and try a different topic instead of skipping the day.
  */
-const generateArticle = async (apiKey, topic, published, usedSlugs) => {
+const generateArticle = async (apiKey, topic, published, usedSlugs, keywordMap = new Map()) => {
   const recentTitles = published.slice(0, 8).map((a) => a.title);
   const isMaintenance = topic.category === 'car-maintenance';
   // Finance posts mention Forgenta ~2 in 3 times; DIY car posts never pitch it.
   const mentionForgenta = !isMaintenance && Math.random() < 0.66;
+  // Only posts that already exist can be linked, and only phrases people
+  // actually search for are worth targeting.
+  const linkableSlugs = published.map((a) => a.slug).filter(Boolean);
+  const keywords = keywordsForSlug(keywordMap, topic.slug);
+  if (keywords.length) console.log(`::notice::${topic.slug}: targeting ${keywords.length} harvested search phrase(s)`);
   const prompt = isMaintenance
-    ? buildMaintenancePrompt(topic, recentTitles)
-    : buildPrompt(topic, recentTitles, mentionForgenta);
+    ? buildMaintenancePrompt(topic, recentTitles, keywords, linkableSlugs)
+    : buildPrompt(topic, recentTitles, mentionForgenta, keywords, linkableSlugs);
 
   const article = await callClaude(apiKey, prompt, ARTICLE_SCHEMA);
 
@@ -374,6 +434,8 @@ const main = async () => {
   const triedThisRun = new Set();
   let failures = 0;
   let generated = 0;
+  const keywordMap = await loadKeywordMap();
+  console.log(`::notice::keyword targets loaded for ${keywordMap.size} post group(s)`);
 
   while (queue.length < TARGET_BUFFER && failures < MAX_FAILURES) {
     const topic = topics.find((t) => !usedSlugs.has(t.slug) && !triedThisRun.has(t.slug));
@@ -384,7 +446,7 @@ const main = async () => {
     triedThisRun.add(topic.slug);
 
     try {
-      const article = await generateArticle(apiKey, topic, published, usedSlugs);
+      const article = await generateArticle(apiKey, topic, published, usedSlugs, keywordMap);
       queue.push(article);
       usedSlugs.add(article.slug);
       // Persist after every success so a later failure never loses generated work.
