@@ -37,6 +37,14 @@ jobs:
       - name: Publish next queued article
         run: node scripts/publish-next.mjs
 
+      # publish-next renders the NEW post only and never touches existing ones,
+      # so without this every post ships linked by nobody and receives none of
+      # the site's internal authority. That is what left 57 of 63 posts orphaned
+      # before 2026-09-02. Idempotent: a no-op day changes nothing.
+      - name: Relink related posts (no post left orphaned)
+        if: always()
+        run: node scripts/backfill-related.mjs --apply
+
       # A post Google cannot index, or one linking to a post that does not
       # exist, is worse than no post: it ships to production on commit and
       # there is no staging. Gate runs even when publishing failed, so

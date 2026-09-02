@@ -199,33 +199,31 @@ const ctaFor = (item) =>
  * then recency as the tie-break. Always returns up to `count` items so no post
  * ends up with a half-empty grid the way the early ones did.
  */
-export const pickRelated = (published, item, count = 3) => {
-  const tagsOf = (p) => new Set((p.tags || []).map((t) => String(t).toLowerCase()));
-  const isCar = (p) => p.category === 'car-maintenance'
-    || /\b(car|tire|oil|brake|headlight|wiper|engine|battery|windshield|vehicle)\b/i.test(p.slug);
-
+/** Shared so pickRelated and the backfill's orphan rescue rank the same way. */
+export const relatedScore = (item, p) => {
+  const tagsOf = (x) => new Set((x.tags || []).map((t) => String(t).toLowerCase()));
+  const isCar = (x) => x.category === 'car-maintenance'
+    || /\b(car|tire|oil|brake|headlight|wiper|engine|battery|windshield|vehicle)\b/i.test(x.slug);
   const mine = tagsOf(item);
-  const mineIsCar = isCar(item);
-
-  const scored = published
-    .filter((p) => p.slug !== item.slug)
-    .map((p, i) => {
-      const shared = [...tagsOf(p)].filter((t) => mine.has(t)).length;
-      const sameKind = isCar(p) === mineIsCar ? 1 : 0;
-      // Ties used to break on recency, which quietly recreated the original bug
-      // in a new shape: among equally relevant siblings the newest always won,
-      // so older car posts were never picked by anyone and stayed orphans. The
-      // tie-break is now a stable hash of the PAIR, so different posts choose
-      // different siblings, deterministically and without favouring recency.
-      let h = 0;
-      const pair = `${item.slug}>${p.slug}`;
-      for (let k = 0; k < pair.length; k++) h = (h * 31 + pair.charCodeAt(k)) >>> 0;
-      return { p, score: shared * 10 + sameKind * 3, i, h };
-    })
-    .sort((a, b) => b.score - a.score || a.h - b.h);
-
-  return scored.slice(0, count).map((s) => s.p);
+  const shared = [...tagsOf(p)].filter((t) => mine.has(t)).length;
+  const sameKind = isCar(p) === isCar(item) ? 1 : 0;
+  return shared * 10 + sameKind * 3;
 };
+
+/** Deterministic, recency-blind tie-break: a stable hash of the PAIR. */
+export const pairHash = (a, b) => {
+  let h = 0;
+  const s = `${a}>${b}`;
+  for (let k = 0; k < s.length; k++) h = (h * 31 + s.charCodeAt(k)) >>> 0;
+  return h;
+};
+
+export const pickRelated = (published, item, count = 3) => published
+  .filter((p) => p.slug !== item.slug)
+  .map((p) => ({ p, score: relatedScore(item, p), h: pairHash(item.slug, p.slug) }))
+  .sort((a, b) => b.score - a.score || a.h - b.h)
+  .slice(0, count)
+  .map((x) => x.p);
 
 /* ── article page ───────────────────────────────────────── */
 

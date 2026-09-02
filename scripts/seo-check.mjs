@@ -184,9 +184,14 @@ console.log(`in sitemap.xml:     ${slugs.filter((s) => inMap.has(s)).length}/${s
 console.log(`internal post links: ${linkTotal} (avg ${(linkTotal / slugs.length).toFixed(1)}/post)`);
 // A post nothing links to is a post Google reaches only via the sitemap, and it
 // receives none of the site's internal authority. 57 of 63 were in this state
-// until the related-post selection was made topical on 2026-09-02. Reported
-// rather than enforced: a hard zero-orphan rule would be satisfied by gaming
-// the selection, which is worse than three honest orphans.
+// until the related-post selection was made topical on 2026-09-02.
+// NOW ENFORCED, where it was only reported for a few hours. The reason for the
+// change: backfill-related.mjs gained a principled orphan rescue (place the
+// orphan with its MOST related host, displacing that host's weakest card, and
+// only when doing so does not orphan the dropped card) and runs on every
+// publish. So zero is genuinely reachable without gaming the selection, and an
+// orphan now means something broke rather than that the maths was awkward.
+// Fix by running: node scripts/backfill-related.mjs --apply
 const inbound = new Map(slugs.map((s) => [s, 0]));
 for (const slug of slugs) {
   const html = await readFile(join(ROOT, 'blog', slug, 'index.html'), 'utf8');
@@ -195,7 +200,8 @@ for (const slug of slugs) {
   }
 }
 const orphans = [...inbound].filter(([, n]) => n === 0).map(([s]) => s);
-console.log(`orphaned posts:     ${orphans.length}${orphans.length ? ' (' + orphans.join(', ') + ')' : ''}`);
+console.log(`orphaned posts:     ${orphans.length}`);
+for (const o of orphans) note(o, 'no other post links to it — run: node scripts/backfill-related.mjs --apply');
 
 if (fail.length) {
   console.error(`\nFAIL — ${fail.length} problem(s):`);
