@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Are Extended Car Warranties Worth the Money? A Clear-Eyed Breakdown</title>
+      <link>https://treforged.com/blog/extended-car-warranties-worth-it/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/extended-car-warranties-worth-it/</guid>
+      <pubDate>Wed, 02 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Extended car warranties cost $1,000 to $3,000 on average. Here's how they're priced, what they cover, and when they actually pay off in 2026.</description>
+    </item>
     <item>
       <title>What to Do With a Financial Windfall Before You Spend It</title>
       <link>https://treforged.com/blog/what-to-do-with-a-financial-windfall/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/lease-vs-buy-a-car/</guid>
       <pubDate>Fri, 14 Aug 2026 12:00:00 GMT</pubDate>
       <description>An honest, numbers-based comparison of leasing, financing, and buying used, so you can pick the option that actually fits your budget in 2026.</description>
-    </item>
-    <item>
-      <title>How Car Depreciation Works (and Why It Matters for Your Money)</title>
-      <link>https://treforged.com/blog/how-car-depreciation-works/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-car-depreciation-works/</guid>
-      <pubDate>Thu, 13 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn why cars lose value, when depreciation hits hardest, and how to buy smarter so you keep more money in your pocket over time.</description>
     </item>
   </channel>
 </rss>
