@@ -308,11 +308,6 @@
     "category": "car-maintenance"
   },
   {
-    "slug": "how-to-lower-insurance-premiums",
-    "title": "How to Lower Your Insurance Premiums Without Cutting Coverage",
-    "angle": "Cover bundling, discounts, and deductible adjustments that shrink premiums across home, renters, and auto policies."
-  },
-  {
     "slug": "what-to-do-with-a-financial-windfall",
     "title": "What to Do With a Financial Windfall Before You Spend It",
     "angle": "Give a step-by-step framework for handling a bonus, tax refund, or inheritance so it doesn't disappear fast."
@@ -332,6 +327,40 @@
     "title": "How to Clean Corroded Battery Terminals (Before They Strand You)",
     "angle": "Show the safe steps for cleaning corrosion off battery terminals and preventing it from coming back.",
     "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-replace-a-serpentine-belt",
+    "title": "How to Replace a Serpentine Belt Yourself",
+    "angle": "Give a step-by-step guide to removing and installing a serpentine belt, including tools and routing diagrams.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-bleed-your-brakes-at-home",
+    "title": "How to Bleed Your Brakes at Home: A Careful, Step-by-Step Guide",
+    "angle": "Cover the safety-critical process of bleeding brake lines to remove air and restore firm pedal feel.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "car-insurance-for-young-drivers",
+    "title": "Car Insurance for Young Drivers: Why It Costs So Much and How to Cut It",
+    "angle": "Why premiums are brutal under 25, which levers actually move the number, and the discounts most people never claim."
+  },
+  {
+    "slug": "what-car-maintenance-actually-costs",
+    "title": "What Car Maintenance Actually Costs (Job by Job, DIY vs Shop)",
+    "angle": "Real price ranges for the common jobs, what each costs to do yourself, and where the shop markup is worth paying.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-build-a-car-maintenance-schedule",
+    "title": "How to Build a Car Maintenance Schedule You Will Actually Follow",
+    "angle": "What to check monthly, every few months, and yearly, and how to budget for it instead of being surprised.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-lower-insurance-premiums",
+    "title": "How to Lower Your Insurance Premiums Without Cutting Coverage",
+    "angle": "Cover bundling, discounts, and deductible adjustments that shrink premiums across home, renters, and auto policies."
   },
   {
     "slug": "how-to-handle-medical-bills-without-debt",
@@ -354,12 +383,6 @@
     "angle": "Compare consolidation loans and balance transfers, showing when they simplify debt and when they backfire."
   },
   {
-    "slug": "how-to-replace-a-serpentine-belt",
-    "title": "How to Replace a Serpentine Belt Yourself",
-    "angle": "Give a step-by-step guide to removing and installing a serpentine belt, including tools and routing diagrams.",
-    "category": "car-maintenance"
-  },
-  {
     "slug": "side-income-ideas-for-busy-people",
     "title": "Realistic Side Income Ideas for People Who Are Already Busy",
     "angle": "List low-time-commitment ways to add income for readers who don't have hours to spare each week."
@@ -373,12 +396,6 @@
     "slug": "when-to-refinance-your-car-loan",
     "title": "When (and How) to Refinance Your Car Loan",
     "angle": "Explain the signs a car loan refinance will save money and walk through the steps to do it."
-  },
-  {
-    "slug": "how-to-bleed-your-brakes-at-home",
-    "title": "How to Bleed Your Brakes at Home: A Careful, Step-by-Step Guide",
-    "angle": "Cover the safety-critical process of bleeding brake lines to remove air and restore firm pedal feel.",
-    "category": "car-maintenance"
   },
   {
     "slug": "money-conversations-before-moving-in-together",
