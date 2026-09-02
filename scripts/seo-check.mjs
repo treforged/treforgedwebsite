@@ -182,6 +182,20 @@ console.log(`og:image:           ${withOgImage}/${slugs.length}`);
 console.log(`valid BlogPosting:  ${withLd}/${slugs.length}`);
 console.log(`in sitemap.xml:     ${slugs.filter((s) => inMap.has(s)).length}/${slugs.length}`);
 console.log(`internal post links: ${linkTotal} (avg ${(linkTotal / slugs.length).toFixed(1)}/post)`);
+// A post nothing links to is a post Google reaches only via the sitemap, and it
+// receives none of the site's internal authority. 57 of 63 were in this state
+// until the related-post selection was made topical on 2026-09-02. Reported
+// rather than enforced: a hard zero-orphan rule would be satisfied by gaming
+// the selection, which is worse than three honest orphans.
+const inbound = new Map(slugs.map((s) => [s, 0]));
+for (const slug of slugs) {
+  const html = await readFile(join(ROOT, 'blog', slug, 'index.html'), 'utf8');
+  for (const t of new Set([...html.matchAll(/href="\/blog\/([a-z0-9-]+)\//g)].map((m) => m[1]))) {
+    if (t !== slug && inbound.has(t)) inbound.set(t, inbound.get(t) + 1);
+  }
+}
+const orphans = [...inbound].filter(([, n]) => n === 0).map(([s]) => s);
+console.log(`orphaned posts:     ${orphans.length}${orphans.length ? ' (' + orphans.join(', ') + ')' : ''}`);
 
 if (fail.length) {
   console.error(`\nFAIL — ${fail.length} problem(s):`);

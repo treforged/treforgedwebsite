@@ -184,6 +184,49 @@ const ctaFor = (item) =>
   : item.promoteApp === false ? ''
   : appCta(item.slug);
 
+/**
+ * pickRelated — choose the "More from the blog" cards by TOPIC, not by recency.
+ *
+ * Until 2026-09-02 this was `published.filter(not self).slice(0, 3)`, i.e. the
+ * three most recent posts at the moment of publishing. So a headlight-bulb
+ * guide recommended "how to negotiate lower bills", and every car post sent its
+ * link equity into whatever finance post happened to be newest. That matters
+ * beyond tidiness: internal links are how authority moves around a site, and
+ * Search Console says the car DIY pages are the ones actually earning
+ * impressions while carrying zero inbound in-body links.
+ *
+ * Score: shared tags first, then a car/car or finance/finance category match,
+ * then recency as the tie-break. Always returns up to `count` items so no post
+ * ends up with a half-empty grid the way the early ones did.
+ */
+export const pickRelated = (published, item, count = 3) => {
+  const tagsOf = (p) => new Set((p.tags || []).map((t) => String(t).toLowerCase()));
+  const isCar = (p) => p.category === 'car-maintenance'
+    || /\b(car|tire|oil|brake|headlight|wiper|engine|battery|windshield|vehicle)\b/i.test(p.slug);
+
+  const mine = tagsOf(item);
+  const mineIsCar = isCar(item);
+
+  const scored = published
+    .filter((p) => p.slug !== item.slug)
+    .map((p, i) => {
+      const shared = [...tagsOf(p)].filter((t) => mine.has(t)).length;
+      const sameKind = isCar(p) === mineIsCar ? 1 : 0;
+      // Ties used to break on recency, which quietly recreated the original bug
+      // in a new shape: among equally relevant siblings the newest always won,
+      // so older car posts were never picked by anyone and stayed orphans. The
+      // tie-break is now a stable hash of the PAIR, so different posts choose
+      // different siblings, deterministically and without favouring recency.
+      let h = 0;
+      const pair = `${item.slug}>${p.slug}`;
+      for (let k = 0; k < pair.length; k++) h = (h * 31 + pair.charCodeAt(k)) >>> 0;
+      return { p, score: shared * 10 + sameKind * 3, i, h };
+    })
+    .sort((a, b) => b.score - a.score || a.h - b.h);
+
+  return scored.slice(0, count).map((s) => s.p);
+};
+
 /* ── article page ───────────────────────────────────────── */
 
 export const renderArticle = (item, related) => {
@@ -531,7 +574,7 @@ const main = async () => {
       );
     }
 
-    const related = published.filter((p) => p.slug !== item.slug).slice(0, 3);
+    const related = pickRelated(published, item);
     const dir = join(ROOT, 'blog', item.slug);
     await mkdir(dir, { recursive: true });
     await writeFile(join(dir, 'index.html'), renderArticle(item, related), 'utf8');
