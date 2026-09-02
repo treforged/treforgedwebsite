@@ -122,6 +122,7 @@ const footer = () => `<footer class="site-footer">
     <div>
       <div class="footer-brand">TRE Forged</div>
       <div class="footer-copy">© 2026 TRE Forged LLC. All rights reserved.</div>
+      <div class="footer-links"><a href="/about/">About</a> · <a href="/contact/">Contact</a></div>
     </div>
     <div class="footer-right">Designed for collectors, investors &amp; enthusiasts.</div>
   </div>

@@ -1002,3 +1002,11 @@ a:focus-visible, button:focus-visible {
 @media (max-width: 640px) {
   .calc-stat-value { font-size: 1.4rem; }
 }
+
+.footer-links {
+  font-family: var(--fb);
+  font-size: 0.82rem;
+  margin-top: 6px;
+}
+.footer-links a { color: var(--text-dim); }
+.footer-links a:hover { color: var(--accent); }

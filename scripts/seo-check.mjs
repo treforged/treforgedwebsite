@@ -99,7 +99,18 @@ const sitePages = [
   { url: `${SITE}/`, file: 'index.html' },
   { url: `${SITE}/blog/`, file: 'blog/index.html' },
 ];
-for (const dir of ['services', 'cars', 'partnerships', 'contact']) {
+// Section pages are DISCOVERED, not listed. They were a hardcoded array of four
+// until /about/ shipped and was silently excluded from a run that still printed
+// 9/9 - the same omission this gate exists to prevent, committed by the same
+// hand that wrote it. Anything that is a real page at a top-level directory is
+// now checked whether or not anyone remembered to add it here.
+const NOT_PAGES = new Set(['blog', 'tools', 'assets', 'backups', 'scripts', 'content-queue', 'node_modules']);
+const sectionDirs = (await readdir(ROOT, { withFileTypes: true }))
+  .filter((d) => d.isDirectory() && !d.name.startsWith('.') && !NOT_PAGES.has(d.name))
+  .map((d) => d.name)
+  .filter((d) => existsSync(join(ROOT, d, 'index.html')))
+  .sort();
+for (const dir of sectionDirs) {
   sitePages.push({ url: `${SITE}/${dir}/`, file: `${dir}/index.html` });
 }
 
@@ -160,7 +171,7 @@ for (const loc of nonBlogLocs) {
 }
 
 console.log(`posts:              ${slugs.length}`);
-console.log(`site pages:         ${pagesChecked}/${sitePages.length} (home, blog index, 4 sections, ${toolDirs.length} tool page(s))`);
+console.log(`site pages:         ${pagesChecked}/${sitePages.length} (home, blog index, ${sectionDirs.length} section(s), ${toolDirs.length} tool page(s))`);
 console.log(`non-blog sitemap:   ${nonBlogLocs.length} URL(s) resolved to disk`);
 console.log(`site page og:image: ${pagesWithOgImage}/${sitePages.length}`);
 console.log(`site twitter:card:  ${pagesWithTwitter}/${sitePages.length}`);
