@@ -8,7 +8,7 @@
  *
  * Usage: node scripts/generator-prompt.test.mjs
  */
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import {
@@ -55,6 +55,41 @@ check('the old invent-a-slug instruction is gone', !/Invent a plausible related 
 const car = buildMaintenancePrompt({ slug: 'how-to-change-your-own-oil', title: 'Oil', angle: 'diy' }, [], phrases, real);
 check('maintenance prompt also forbids invented slugs', /NEVER invent a slug/.test(car));
 check('maintenance prompt lists real slugs', car.includes('/blog/how-to-track-expenses/'));
+
+// Every keyword group must map to a post that exists. A group whose heading matches
+// nothing is dead weight nobody notices: it silently contributes zero phrases, and the
+// only symptom is a post generated untargeted. Five such groups accumulated before this
+// check existed - two duplicates of groups that already matched, two pure harvest noise,
+// and one that was not a keyword group at all but the auto-generated "## Related"
+// graph-links block being parsed as one.
+//
+// The denominator is the claim here, so it is printed and a zero count FAILS: a check
+// that examined no groups must not report success.
+const blogDirs = (await readdir(join(ROOT, 'blog'), { withFileTypes: true }))
+  .filter((d) => d.isDirectory()).map((d) => d.name);
+check(`found posts on disk to check against (${blogDirs.length})`, blogDirs.length > 0);
+check(`found keyword groups to check (${map.size})`, map.size > 0);
+
+const matched = new Set();
+for (const slug of blogDirs) {
+  if (map.has(slug)) { matched.add(slug); continue; }
+  for (const key of map.keys()) {
+    if (key.startsWith(slug) || slug.startsWith(key)) { matched.add(key); break; }
+  }
+}
+const orphans = [...map.keys()].filter((k) => !matched.has(k));
+check(
+  orphans.length === 0
+    ? 'every keyword group maps to a post on disk'
+    : `keyword groups matching NO post: ${orphans.join(', ')} — fix the heading to the post's slug, drop it as harvest noise, or move it inside a <!-- pending --> block if its post is not written yet`,
+  orphans.length === 0,
+);
+
+// The graph-links block is machine-appended by scripts/vault-link.mjs and its list items
+// are wikilinks, not search phrases. Parsing it as a group is what produced "related".
+check('graph-links block is not parsed as a keyword group', !map.has('related'));
+check('no wikilink leaked in as a search phrase',
+  ![...map.values()].flat().some((phrase) => phrase.includes('[[')));
 
 // Untargeted must still produce a usable prompt: a day with no post is worse.
 const bare = buildPrompt(topic, [], false);

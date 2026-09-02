@@ -96,7 +96,26 @@ export const ARTICLE_SCHEMA = {
 export const parseKeywordTargets = (markdown) => {
   const map = new Map();
   let current = null;
+  let skipping = false;
   for (const line of String(markdown).split('\n')) {
+    // Machine-appended blocks are not keyword groups. scripts/vault-link.mjs appends a
+    // "<!-- graph-links: auto -->" block whose heading is "## Related" and whose list
+    // items are wikilinks; parsing it produced a phantom 'related' group holding
+    // '[[Investing & Savings]] - 0.16' as if somebody had typed it into Google. A
+    // "<!-- pending -->" block is the deliberate home for a group whose post is not
+    // written yet, so it does not trip the orphan check in generator-prompt.test.mjs.
+    const trimmed = line.trim();
+    if (skipping) {
+      if (trimmed === '<!-- /graph-links -->' || trimmed === '<!-- /pending -->') skipping = false;
+      continue;
+    }
+    if (trimmed.startsWith('<!-- graph-links') || trimmed === '<!-- pending -->') {
+      skipping = true;
+      // Close the open group too, so a list item after the block cannot be appended
+      // to whichever group happened to precede it.
+      current = null;
+      continue;
+    }
     const heading = line.match(/^##\s+(.+?)\s*$/);
     if (heading) {
       current = heading[1].trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');

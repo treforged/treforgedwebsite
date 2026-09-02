@@ -1,7 +1,12 @@
 # Keyword targets for Ellis (treforgedwebsite) - 2026-09-02
 
 From Ruby (marketing). Live autocomplete phrases, filtered to question shape, noise removed (other countries, bonds, hindi, 2024/2025). Per blog post: the phrases people actually type, ranked calculator/question first, reddit-shaped last (those are proof of demand, not titles). Use for titles, H2s and FAQ blocks; the marketing desk will use the same list for post captions. Raw harvest: tre-forged-marketing/docs/keywords/.
-317 target phrases across 39 posts.
+368 target phrases across 40 groups, every one mapping to a post that exists
+(asserted by scripts/generator-prompt.test.mjs). Five groups were removed on 2026-09-02:
+two duplicated a group that already matched, two were harvest noise whose phrases were
+about mortgages and pay frequency rather than the post, and one was the auto-generated
+graph-links block below being parsed as a group. A group whose post is not written yet
+belongs inside a <!-- pending --> block, which the parser skips.
 
 
 ## 50 30 20 budget rule explained
@@ -12,6 +17,9 @@ From Ruby (marketing). Live autocomplete phrases, filtered to question shape, no
 ## budgeting apps vs spreadsheets
 - best budgeting apps or spreadsheets
 - should i use a budgeting app or spreadsheet
+- best budgeting app or spreadsheet
+- is excel good for budgeting
+- how to use excel for budgeting
 - budgeting apps vs excel reddit
 - budgeting app or spreadsheet reddit
 - budgeting app vs spreadsheet reddit
@@ -89,6 +97,10 @@ From Ruby (marketing). Live autocomplete phrases, filtered to question shape, no
 ## how to budget on an irregular income
 - how to budget on a low income
 - how to budget on an irregular income
+- how to budget irregular income
+- how to budget with irregular income
+- what is irregular income
+- best budgeting app for irregular income
 
 ## how to build an emergency fund
 - build an emergency fund calculator
@@ -356,48 +368,8 @@ From Ruby (marketing). Live autocomplete phrases, filtered to question shape, no
 - best envelope budget app free
 
 ## subscription audit
-- what is audit for free
 - how to audit subscriptions
-- how much does an audit cost
-- how much ca charge for audit
-- how much should an audit cost
 - how to do a subscription audit
-- how to do membership audit lds
-- how much does a single audit cost
-- is adobe audition subscription only
-- how much is adobe audition subscription
-
-## monthly money review
-- is getting paid monthly good
-
-## first budget
-- budget first calculator
-- first home budget calculator
-- budget first mortgage calculator
-- first apartment budget calculator
-- first time buyer budget calculator
-- first time home buyer budget calculator
-- financial interest budget first calculator
-- best first budget ar
-- what is first budget
-- best first budget car
-
-## irregular income budget
-- what is irregular income
-- how to budget irregular income
-- how to budget with irregular income
-- best budgeting app for irregular income
-
-## budgeting app vs spreadsheet
-- is excel good for budgeting
-- how to use excel for budgeting
-- best budgeting app or spreadsheet
-- should i use a budgeting app or spreadsheet
-- budgeting app vs excel reddit
-- budget app vs spreadsheet reddit
-- budgeting app or spreadsheet reddit
-- budgeting app vs spreadsheet reddit
-- best budget app or spreadsheet reddit
 
 <!-- graph-links: auto -->
 ## Related
