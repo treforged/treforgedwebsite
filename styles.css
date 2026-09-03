@@ -613,6 +613,11 @@ nav.primary a.active { color: var(--text); background: var(--surf-2); }
   .newsletter-inner  { grid-template-columns: 1fr; gap: 22px; }
   .newsletter-form   { min-width: 0; }
   .newsletter-fields { flex-direction: column; }
+  /* iOS Safari zooms the whole page when a focused input is under 16px, so
+     tapping the field made the layout jump. 0.92rem is 14.72px against the 16px
+     root. This is the only signup control on a page most people reach from a
+     phone, so it is 16px there and unchanged on desktop. */
+  .newsletter-form input[type="email"] { font-size: 16px; }
 }
 
 /* ── GALLERY ─────────────────────────────────────────────────────── */
