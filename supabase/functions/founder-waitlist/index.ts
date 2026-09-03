@@ -82,6 +82,17 @@ function throttled(ip: string): boolean {
   return recent.length > MAX_PER_WINDOW;
 }
 
+// The page works out where a signup came from and sends it, so the bio link can
+// stay a bare URL. That makes `source` attacker-controlled text: it is stripped
+// to a safe character set and capped, and it is never rendered into an email.
+const SOURCE_DEFAULT = "treforged.com/founders";
+
+function cleanSource(value: unknown): string {
+  if (typeof value !== "string") return SOURCE_DEFAULT;
+  const cleaned = value.trim().toLowerCase().replace(/[^a-z0-9._:/-]/g, "").slice(0, 64);
+  return cleaned || SOURCE_DEFAULT;
+}
+
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
 function confirmationHtml(unsubUrl: string): string {
@@ -144,7 +155,7 @@ async function signup(req: Request): Promise<Response> {
 
   const { data, error } = await supabase
     .from("founder_waitlist")
-    .insert({ email: raw, source: "treforged.com/founders" })
+    .insert({ email: raw, source: cleanSource(body.source) })
     .select("unsubscribe_token")
     .single();
 

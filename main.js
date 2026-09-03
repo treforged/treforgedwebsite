@@ -163,6 +163,24 @@
         wlMsg.className = 'newsletter-msg' + (kind ? ' is-' + kind : '');
       };
 
+      // Where the signup came from, worked out here so the bio link itself can
+      // stay a bare URL. An explicit utm_source wins; otherwise the referring
+      // host answers it, and Instagram's in-app browser sends no referrer at
+      // all, so that case is named rather than guessed.
+      var wlSource = function () {
+        try {
+          var utm = new URLSearchParams(location.search).get('utm_source');
+          if (utm) return utm;
+          var ref = document.referrer;
+          if (!ref) return 'direct-or-in-app';
+          var host = new URL(ref).hostname.replace(/^www\./, '');
+          if (host === location.hostname) return 'on-site';
+          return host;
+        } catch (err) {
+          return 'unknown';
+        }
+      };
+
       wlForm.addEventListener('submit', function (e) {
         e.preventDefault();
         var input = document.getElementById('waitlist-email');
@@ -180,7 +198,7 @@
         fetch(WL_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, company: hp ? hp.value : '' })
+          body: JSON.stringify({ email: email, company: hp ? hp.value : '', source: wlSource() })
         }).then(function (r) {
           return r.json().catch(function () { return {}; }).then(function (j) {
             if (r.ok && j.already) { setWlMsg("You're already on the list — thanks!", 'ok'); wlForm.reset(); }
