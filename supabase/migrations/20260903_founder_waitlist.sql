@@ -1,6 +1,15 @@
 -- Founder waitlist for the startup-OS product test (treforged.com/founders/).
 -- Applied to the Forgenta Supabase project (mdtosrbfkextcaezuclh) on 2026-09-03.
 --
+-- THIS FILE IS THE SOURCE OF TRUTH. A verbatim copy lives at
+-- getforgenta/supabase/migrations/20260903_founder_waitlist.sql so that Forgenta's
+-- migrations folder describes its own database. Change it HERE and tell Ada to
+-- re-copy; never edit the copy, because two copies that drift are how the next
+-- divergence starts.
+--
+-- RLS is enabled in this same file, below, in the same block that creates the
+-- table. There was never a window in which the table existed without it.
+--
 -- Deliberately separate from newsletter_subscribers: different audience, different
 -- list, and the experiment's result is this table's row count on its own.
 -- No anon policies and no anon grants. The founder-waitlist edge function writes
