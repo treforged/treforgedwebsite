@@ -163,16 +163,37 @@
         wlMsg.className = 'newsletter-msg' + (kind ? ' is-' + kind : '');
       };
 
-      // Where the signup came from, worked out here so the bio link itself can
-      // stay a bare URL. An explicit utm_source wins; otherwise the referring
-      // host answers it, and Instagram's in-app browser sends no referrer at
-      // all, so that case is named rather than guessed.
+      // Where the signup came from. This is the RESULT of Ruby's two-arm
+      // reachability test, not a vanity field: one arm is Tre's brand account,
+      // the other is developer-native placements, and the whole question is
+      // whether the second reaches anyone. So the two must be tellable apart.
+      //
+      // Order matters. An explicit utm_source wins, because a tagged placement
+      // is the only source that names ITSELF. Then the in-app browsers, which
+      // send NO referrer at all — that is why the bare bio link Tre already
+      // posted would otherwise land in the same bucket as a typed URL, and why
+      // sniffing the client is worth it here. Then the referring host, which
+      // covers every developer-native arm that arrives through a normal link.
+      // Anything left is 'direct', which is honest: unknown, not assumed.
+      var IN_APP = [
+        [/instagram/i, 'ig-inapp'],
+        [/tiktok|bytedance|musical_ly/i, 'tiktok-inapp'],
+        [/\bFB[AS]V\b|FBAN|FB_IAB/, 'fb-inapp'],
+        [/linkedin/i, 'linkedin-inapp']
+      ];
+
       var wlSource = function () {
         try {
           var utm = new URLSearchParams(location.search).get('utm_source');
           if (utm) return utm;
+
+          var ua = navigator.userAgent || '';
+          for (var i = 0; i < IN_APP.length; i++) {
+            if (IN_APP[i][0].test(ua)) return IN_APP[i][1];
+          }
+
           var ref = document.referrer;
-          if (!ref) return 'direct-or-in-app';
+          if (!ref) return 'direct';
           var host = new URL(ref).hostname.replace(/^www\./, '');
           if (host === location.hostname) return 'on-site';
           return host;
