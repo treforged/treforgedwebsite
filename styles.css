@@ -1010,3 +1010,8 @@ a:focus-visible, button:focus-visible {
 }
 .footer-links a { color: var(--text-dim); }
 .footer-links a:hover { color: var(--accent); }
+
+/* /founders/ — waitlist landing */
+.founders-list { list-style: none; padding: 0; margin: 18px 0 24px; }
+.founders-list li { position: relative; padding-left: 22px; margin-bottom: 12px; color: var(--text-dim); line-height: 1.65; }
+.founders-list li::before { content: "→"; position: absolute; left: 0; color: var(--gold, #c9a227); font-weight: 700; }

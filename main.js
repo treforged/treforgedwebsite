@@ -148,6 +148,55 @@
       });
     }
 
+    // ── Founder waitlist capture (/founders/) ─────────────────────
+    // Separate list, separate audience. Goes through the founder-waitlist edge
+    // function rather than PostgREST, because a confirmation email has to send
+    // and that needs a server-side Resend key.
+    var wlForm = document.getElementById('waitlist-form');
+    if (wlForm) {
+      var WL_URL = 'https://mdtosrbfkextcaezuclh.supabase.co/functions/v1/founder-waitlist';
+      var wlMsg  = document.getElementById('waitlist-msg');
+
+      var setWlMsg = function (text, kind) {
+        if (!wlMsg) return;
+        wlMsg.textContent = text;
+        wlMsg.className = 'newsletter-msg' + (kind ? ' is-' + kind : '');
+      };
+
+      wlForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var input = document.getElementById('waitlist-email');
+        var email = (input && input.value || '').trim();
+        var hp = wlForm.querySelector('.nl-hp');
+        if (hp && hp.value) return;                 // honeypot: silently drop bots
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+          setWlMsg('Please enter a valid email address.', 'err');
+          return;
+        }
+        var wlBtn = wlForm.querySelector('button[type="submit"]');
+        if (wlBtn) wlBtn.disabled = true;
+        setWlMsg('Adding you…', '');
+
+        fetch(WL_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, company: hp ? hp.value : '' })
+        }).then(function (r) {
+          return r.json().catch(function () { return {}; }).then(function (j) {
+            if (r.ok && j.already) { setWlMsg("You're already on the list — thanks!", 'ok'); wlForm.reset(); }
+            else if (r.ok) { setWlMsg("You're in — check your inbox for a confirmation.", 'ok'); wlForm.reset(); }
+            else if (r.status === 429) { setWlMsg('Too many tries. Please wait a minute.', 'err'); }
+            else if (j.error === 'invalid_email') { setWlMsg('Please enter a valid email address.', 'err'); }
+            else { setWlMsg('Something went wrong. Please try again later.', 'err'); }
+          });
+        }).catch(function () {
+          setWlMsg('Something went wrong. Please try again later.', 'err');
+        }).finally(function () {
+          if (wlBtn) wlBtn.disabled = false;
+        });
+      });
+    }
+
     // ── Blog view counter ─────────────────────────────────────────
     // Counts live in the treforged-site Supabase project. The counter table
     // sits in a schema that isn't exposed over REST — the RPCs below are the
