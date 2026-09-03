@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Choose the Right Car Insurance Coverage for You</title>
+      <link>https://treforged.com/blog/how-to-choose-car-insurance-coverage/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-choose-car-insurance-coverage/</guid>
+      <pubDate>Thu, 03 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn how liability, collision, and comprehensive coverage work, plus how to pick a deductible that fits your budget and protects your finances.</description>
+    </item>
     <item>
       <title>Are Extended Car Warranties Worth the Money? A Clear-Eyed Breakdown</title>
       <link>https://treforged.com/blog/extended-car-warranties-worth-it/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-your-car-battery/</guid>
       <pubDate>Sat, 15 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn the warning signs of a dying car battery, how to pick the right replacement, and how to swap it safely without losing your car's settings.</description>
-    </item>
-    <item>
-      <title>Lease vs. Buy a Car: Which Is Cheaper in the Long Run?</title>
-      <link>https://treforged.com/blog/lease-vs-buy-a-car/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/lease-vs-buy-a-car/</guid>
-      <pubDate>Fri, 14 Aug 2026 12:00:00 GMT</pubDate>
-      <description>An honest, numbers-based comparison of leasing, financing, and buying used, so you can pick the option that actually fits your budget in 2026.</description>
     </item>
   </channel>
 </rss>
