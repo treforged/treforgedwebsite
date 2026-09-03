@@ -4,9 +4,13 @@
  * Backs the one-field email capture at https://treforged.com/founders/.
  * GitHub Pages cannot run a backend, so the form posts here.
  *
- * POST  { email, company }  -> insert into public.founder_waitlist + Resend confirmation.
+ * POST  { email, company, source } -> insert into public.founder_waitlist + Resend confirmation.
  *                              `company` is a honeypot: any value means a bot, and the
  *                              request is silently accepted and dropped.
+ * POST  ?v=1 { source }     -> count one landing-page view. The DENOMINATOR for the
+ *                              reachability test: signups alone cannot separate
+ *                              "nobody came" from "people came and did not sign up".
+ *                              Aggregate counts only, no personal data.
  * GET   ?t=<token>          -> unsubscribe page (a person clicking the link).
  * POST  ?t=<token>          -> RFC 8058 one-click unsubscribe (the mailbox provider).
  *
@@ -73,13 +77,13 @@ const HITS = new Map<string, number[]>();
 const WINDOW_MS = 60_000;
 const MAX_PER_WINDOW = 5;
 
-function throttled(ip: string): boolean {
+function throttled(key: string, max: number = MAX_PER_WINDOW): boolean {
   const now = Date.now();
-  const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  const recent = (HITS.get(key) ?? []).filter((t) => now - t < WINDOW_MS);
   recent.push(now);
-  HITS.set(ip, recent);
+  HITS.set(key, recent);
   if (HITS.size > 5000) HITS.clear();
-  return recent.length > MAX_PER_WINDOW;
+  return recent.length > max;
 }
 
 // The page works out where a signup came from and sends it, so the bio link can
@@ -130,6 +134,32 @@ async function unsubscribe(token: string): Promise<Response> {
   if (!data) return page("That link is not valid.", 404);
 
   return page("You are unsubscribed. You will not get any more of these.", 200);
+}
+
+// A view ping. This is the DENOMINATOR for the reachability test: signups alone
+// cannot separate "nobody came" from "people came and did not sign up", and those
+// are opposite conclusions. Counts only - nothing here identifies a person.
+const VIEW_MAX_PER_WINDOW = 30;
+
+async function countView(req: Request): Promise<Response> {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  // A looser limit than signup, and a speed bump rather than a boundary: this is
+  // a count, so the honest failure is an inflated number, not an exposure.
+  if (throttled("view:" + ip, VIEW_MAX_PER_WINDOW)) return json(req, { ok: true }, 200);
+
+  let source = SOURCE_DEFAULT;
+  try {
+    const body = await req.json();
+    source = cleanSource((body as Record<string, unknown>).source);
+  } catch {
+    // A ping with no readable body still counts, under the default source.
+  }
+
+  const { error } = await supabase.rpc("bump_founder_view", { p_source: source });
+  if (error) console.error("founder-waitlist: view count failed", error.code ?? "");
+
+  // Never fail the page over a counter.
+  return json(req, { ok: true }, 200);
 }
 
 async function signup(req: Request): Promise<Response> {
@@ -204,7 +234,11 @@ Deno.serve(async (req: Request) => {
     if (token) return await unsubscribe(token);
 
     if (req.method === "GET") return page("That link is not valid.", 404);
-    if (req.method === "POST") return await signup(req);
+    if (req.method === "POST") {
+      // `?v` is a view ping, not a signup. Separate route, separate limit.
+      if (new URL(req.url).searchParams.has("v")) return await countView(req);
+      return await signup(req);
+    }
 
     return json(req, { error: "method_not_allowed" }, 405);
   } catch (err) {

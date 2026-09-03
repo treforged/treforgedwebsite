@@ -25,6 +25,10 @@
 - [Partnerships](https://treforged.com/partnerships/): Brands TRE Forged partners with, plus exclusive discount codes.
 - Lowered Empire (automotive lifestyle & gear): use code TREFORGED for 10% off.
 
+## For founders
+
+- [Run your startup with AI agents](https://treforged.com/founders/): Build notes on running a one-person company on a team of AI coding agents - the desk model, routing, gates, and talking to a live coding session from a phone. Email signup, one field, no launch date promised.
+
 ## Contact
 
 - Website: https://treforged.com/

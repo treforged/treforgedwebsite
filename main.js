@@ -202,6 +202,22 @@
         }
       };
 
+      // Count the visit, once per browser session. Signups on their own cannot
+      // tell "nobody came" from "people came and did not sign up", and those are
+      // opposite answers about demand. Counted per source and per day only - the
+      // server stores a number, never anything identifying a person.
+      try {
+        if (!sessionStorage.getItem('wl-seen')) {
+          sessionStorage.setItem('wl-seen', '1');
+          fetch(WL_URL + '?v=1', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ source: wlSource() }),
+            keepalive: true
+          }).catch(function () { /* a counter must never disturb the page */ });
+        }
+      } catch (err) { /* private mode blocks sessionStorage; skip the count */ }
+
       wlForm.addEventListener('submit', function (e) {
         e.preventDefault();
         var input = document.getElementById('waitlist-email');
