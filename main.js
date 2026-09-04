@@ -184,8 +184,18 @@
 
       var wlSource = function () {
         try {
-          var utm = new URLSearchParams(location.search).get('utm_source');
-          if (utm) return utm;
+          var q = new URLSearchParams(location.search);
+          var utm = q.get('utm_source');
+          if (utm) {
+            // Paid tests iterate on CREATIVE, not on platform. "instagram ads
+            // worked" is not an actionable answer on a small budget; "this
+            // creative worked" is. So utm_content, else utm_campaign, is folded
+            // in as `source/variant`. The server allows `/` and caps at 64, and
+            // the grouping query splits on it, so an untagged ad still reports
+            // cleanly as its bare source.
+            var variant = q.get('utm_content') || q.get('utm_campaign');
+            return variant ? utm + '/' + variant : utm;
+          }
 
           var ua = navigator.userAgent || '';
           for (var i = 0; i < IN_APP.length; i++) {

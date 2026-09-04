@@ -63,6 +63,13 @@ const cases = [
   ["tagged arm wins over UA", { search: "?utm_source=hn", ua: IG_UA }, "hn"],
   ["tagged arm wins over referrer", { search: "?utm_source=devto", referrer: "https://dev.to/x" }, "devto"],
 
+  // PAID CREATIVE. A small ad budget iterates on the creative, so the answer has
+  // to name the creative and not just the platform.
+  ["utm_content names the creative", { search: "?utm_source=ig_ads&utm_content=hook-a", ua: IG_UA }, "ig_ads/hook-a"],
+  ["utm_campaign is the fallback variant", { search: "?utm_source=tt_ads&utm_campaign=sept", ua: TIKTOK_UA }, "tt_ads/sept"],
+  ["utm_content beats utm_campaign", { search: "?utm_source=ig_ads&utm_campaign=sept&utm_content=hook-b" }, "ig_ads/hook-b"],
+  ["an untagged ad still reports its platform", { search: "?utm_source=ig_ads", ua: IG_UA }, "ig_ads"],
+
   // THE BRAND ARM. Tre posted a bare URL and in-app browsers send no referrer,
   // so without the UA check this would be indistinguishable from a typed URL.
   ["instagram in-app is identified", { ua: IG_UA }, "ig-inapp"],
