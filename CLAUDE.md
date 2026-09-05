@@ -22,6 +22,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | Why the daily post fired, or did not | `.github/workflows/daily-article.yml` (cron `0 13 * * *`) | |
 | The email capture backend: signups, the confirmation, unsubscribe | `supabase/functions/founder-waitlist/index.ts` | `main.js` — it only posts to it |
 | The waitlist table's shape and grants | `supabase/migrations/20260903_founder_waitlist.sql` (source of truth; Ada keeps a copy in getforgenta) | |
+| Why a deploy of `main.js` or `styles.css` has not reached visitors | `scripts/version-assets.mjs` - the filenames carry no hash, so the HTML stamps one | purging Cloudflare by hand, which fixes one deploy and not the next |
 | A calculator tool | `tools/<name>/` | |
 | What the last session did and what is open | `handoff.md` | git log |
 
@@ -33,6 +34,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | `main.js` Forgenta CTA click counting | `node scripts/test-cta-clicks.mjs` |
 | the article prompt | `node scripts/generator-prompt.test.mjs` |
 | anything that renders or publishes a post | `node scripts/seo-check.mjs` |
+| `main.js` or `styles.css` themselves | `node scripts/version-assets.mjs` then commit the restamped HTML |
 | this table | `node scripts/check-routing-table.mjs` |
 
 ## Handing a slice to a free local model

@@ -45,6 +45,15 @@ jobs:
         if: always()
         run: node scripts/backfill-related.mjs --apply
 
+      # main.js and styles.css have no hash in their filenames, so a Cloudflare
+      # cache rule served a stale main.js to real visitors on 2026-09-05 while
+      # the origin already had the fix. The HTML is not edge-cached, so stamping
+      # the current content hash onto those two references is what makes a
+      # deploy actually reach people. No-op on a day when neither file changed.
+      - name: Stamp asset versions (so a cached edge cannot serve stale JS)
+        if: always()
+        run: node scripts/version-assets.mjs
+
       # A post Google cannot index, or one linking to a post that does not
       # exist, is worse than no post: it ships to production on commit and
       # there is no staging. Gate runs even when publishing failed, so
@@ -55,6 +64,7 @@ jobs:
         run: |
           node scripts/generator-prompt.test.mjs
           node scripts/test-cta-clicks.mjs
+          node scripts/version-assets.mjs --check
           node scripts/test-source-attribution.mjs
           node scripts/seo-check.mjs
           # Tool suites are DISCOVERED, not listed, so a new calculator is gated
