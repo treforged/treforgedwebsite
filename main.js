@@ -404,6 +404,47 @@
       }
     }
 
+    // ── Forgenta CTA clicks ──────────────────────────
+    // The posts have always carried a Forgenta CTA and nobody could tell whether
+    // anyone pressed it, so "the blog gets views" and "the blog sends people to
+    // the app" were the same unanswered question. This counts the second one.
+    //
+    // Deliberately mirrors the view counter: same project, same RPC helper, and
+    // the server dedupes per visitor per 24h exactly as views do - a click rate
+    // built from two different denominators would be worse than none. Every CTA
+    // link opens in a new tab, so the page is never unloaded and a plain fetch
+    // completes; no sendBeacon needed.
+    if (slugMatch) {
+      document.addEventListener('click', function (event) {
+        var anchor = event.target.closest ? event.target.closest('a') : null;
+        if (!anchor) return;
+
+        var href = anchor.getAttribute('href') || '';
+        if (href.indexOf('getforgenta.com') === -1 && href.indexOf('play.google.com') === -1) return;
+
+        // First match wins, so the nav button is never counted as an article CTA.
+        var cta;
+        if (anchor.classList.contains('nav-app-btn'))   cta = 'nav_app';
+        else if (href.indexOf('play.google.com') !== -1) cta = 'article_play';
+        else if (href.indexOf('/builds/share/') !== -1)  cta = 'article_build';
+        else if (anchor.classList.contains('btn'))       cta = 'article_app';
+        else                                             cta = 'footer_link';
+
+        // One record per CTA per browser session. Private mode throws on
+        // sessionStorage, and there we would rather send than lose the reading.
+        var ctaKey = 'tf_cta_' + slugMatch[1] + '_' + cta;
+        try {
+          if (sessionStorage.getItem(ctaKey) === '1') return;
+        } catch (err) { /* private mode; fall through and send */ }
+        try { sessionStorage.setItem(ctaKey, '1'); } catch (err) { /* private mode */ }
+
+        viewsRpc('record_cta_click', { p_slug: slugMatch[1], p_cta: cta })
+          .catch(function () {
+            // Measurement only - it must never interfere with the click.
+          });
+      });
+    }
+
     // ── Lightbox ──────────────────────────────────────────────────
     var modal    = document.getElementById('imgModal');
     var modalImg = document.getElementById('modalImage');
