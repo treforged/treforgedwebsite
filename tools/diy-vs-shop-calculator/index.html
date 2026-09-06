@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DIY vs Shop Calculator: Is This Car Repair Worth Doing Yourself? &mdash; TRE Forged</title>
+  <meta name="description" content="Put in the shop's quote, what the parts cost and how long the job takes you. See what you keep, what your own time is worth per hour, and how many jobs it takes for a tool to pay for itself.">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap"></noscript>
+  <link rel="canonical" href="https://treforged.com/tools/diy-vs-shop-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DIY vs Shop Calculator">
+  <meta property="og:description" content="Is this repair worth doing yourself? Put in the quote, the parts and your hours, and see what your time is actually earning.">
+  <meta property="og:url" content="https://treforged.com/tools/diy-vs-shop-calculator/">
+  <meta property="og:site_name" content="TRE Forged">
+  <meta property="og:image" content="https://treforged.com/assets/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="DIY vs Shop Calculator">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DIY vs Shop Calculator">
+  <meta name="twitter:description" content="Is this repair worth doing yourself? Put in the quote, the parts and your hours, and see what your time is actually earning.">
+  <meta name="twitter:image" content="https://treforged.com/assets/og-default.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "DIY vs Shop Calculator",
+    "url": "https://treforged.com/tools/diy-vs-shop-calculator/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher": {"@type":"Organization","name":"TRE Forged","url":"https://treforged.com/"}
+  }
+  </script>
+  <link rel="stylesheet" href="/styles.css?v=8f6cff59">
+</head>
+<body>
+<header class="site-header">
+  <div class="container site-top">
+    <a href="/" class="brand-link" aria-label="TRE Forged home">
+      <picture>
+        <source srcset="/assets/logo.webp" type="image/webp">
+        <img src="/assets/logo.png" alt="TRE Forged logo" class="site-logo" width="200" height="200">
+      </picture>
+      <div class="brand-text">
+        <span class="brand-name">TRE Forged</span>
+        <div class="tagline">Wealth · Cars · Strategy</div>
+      </div>
+    </a>
+    <nav class="primary" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/services/">Services</a>
+      <a href="/cars/">Cars</a>
+      <a href="/tools/">Tools</a>
+      <a href="/partnerships/">Partnerships</a>
+      <a href="/contact/">Contact</a>
+      <a href="https://getforgenta.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
+    </nav>
+    <button id="burger" class="hamburger"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav id="mobileNav" aria-label="Mobile navigation">
+    <a href="/">Home</a>
+    <a href="/blog/">Blog</a>
+    <a href="/services/">Services</a>
+    <a href="/cars/">Cars</a>
+    <a href="/tools/">Tools</a>
+    <a href="/partnerships/">Partnerships</a>
+    <a href="/contact/">Contact</a>
+    <a href="https://getforgenta.com/" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>
+  </nav>
+</header>
+
+
+<main class="page-main">
+  <div class="container">
+    <section class="page-hero reveal">
+      <div class="page-hero-label">Free Tool</div>
+      <h1>DIY vs Shop Calculator</h1>
+      <p>&ldquo;How much does this cost?&rdquo; is the most common question people ask about car repair, and the honest answer depends on a quote only you have. So this asks for your numbers rather than pretending to know them: the shop&rsquo;s price, what the parts cost, what any tool costs, and how long the job takes you. It works out what you keep, what that makes your own time worth per hour, and how many jobs it takes before a tool pays for itself. Nothing is sent anywhere &mdash; the math runs in your browser.</p>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">The job</div>
+      <h2>Your numbers, not ours</h2>
+      <p class="calc-note">Get the shop&rsquo;s quote first &mdash; most will give one over the phone. Look up the parts at any auto parts retailer. Be honest about the hours: a first attempt takes longer than the video makes it look.</p>
+      <form id="calcForm" class="calc-form" novalidate>
+        <label for="shopQuote">Shop&rsquo;s quote, parts and labour ($)
+          <input id="shopQuote" name="shopQuote" type="number" min="0" max="100000" step="1" value="320" inputmode="decimal">
+        </label>
+        <label for="partsCost">Parts if you buy them yourself ($)
+          <input id="partsCost" name="partsCost" type="number" min="0" max="100000" step="1" value="85" inputmode="decimal">
+        </label>
+        <label for="hours">Hours it will take you
+          <input id="hours" name="hours" type="number" min="0" max="500" step="0.5" value="2.5" inputmode="decimal">
+        </label>
+        <label for="toolsCost">Tools you must buy ($)
+          <input id="toolsCost" name="toolsCost" type="number" min="0" max="100000" step="1" value="0" inputmode="decimal">
+        </label>
+        <label for="toolUses">Jobs you&rsquo;ll use those tools on
+          <input id="toolUses" name="toolUses" type="number" min="1" max="1000" step="1" value="1" inputmode="numeric">
+        </label>
+        <label for="valueOfTime">What your time is worth ($/hour, optional)
+          <input id="valueOfTime" name="valueOfTime" type="number" min="0" max="10000" step="1" value="0" inputmode="decimal">
+        </label>
+        <p class="calc-note" id="calcError" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">The answer</div>
+      <h2>What you keep, and what it pays you</h2>
+      <div class="calc-grid">
+        <div class="calc-stat"><div class="calc-stat-label">You keep</div><div class="calc-stat-value" id="savings">&mdash;</div><div class="calc-stat-sub" id="diyCostLine"></div></div>
+        <div class="calc-stat"><div class="calc-stat-label">Your time earns</div><div class="calc-stat-value" id="hourly">&mdash;</div><div class="calc-stat-sub" id="hourlySub"></div></div>
+      </div>
+      <p id="verdictLine" class="calc-note"></p>
+      <p id="toolLine" class="calc-note"></p>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">Reading it honestly</div>
+      <h2>Three things this number does not know</h2>
+      <p class="calc-note"><strong>It does not price the risk.</strong> Brakes, suspension and anything holding the car off the ground are safety-critical. A job you are not sure about is not a job with a low hourly rate &mdash; it is one to hand over, whatever this says. The same goes for anything that voids a warranty.</p>
+      <p class="calc-note"><strong>It does not count the tools you keep.</strong> Spread the tool cost over the jobs you will genuinely use it on and the answer changes, which is why that field is there. A socket set bought once serves a decade; a specialist puller might serve one job.</p>
+      <p class="calc-note"><strong>It does not know whether you enjoy it.</strong> Plenty of people work on their own car at an hourly rate they would never accept at work, and that is a perfectly good reason. This is the money, not the whole decision.</p>
+      <p class="calc-note"><strong>No prices are built into this page, deliberately.</strong> Shop labour rates vary by several times across the country and part prices move constantly, so a &ldquo;typical cost&rdquo; printed here would look authoritative and be wrong for most readers. Every figure above is one you entered.</p>
+    </section>
+
+    <section class="block reveal">
+      <div class="block-title">Next step</div>
+      <h2>The repair you did not plan for</h2>
+      <p>Most repair bills are not a surprise because the part failed &mdash; they are a surprise because nothing was set aside for them. <a href="https://getforgenta.com/?utm_source=blog&amp;utm_medium=tool&amp;utm_campaign=diy-vs-shop-calculator" target="_blank" rel="noopener">Forgenta</a> tracks what your car actually costs across a year, so the next quote comes out of a fund instead of a credit card.</p>
+      <p class="calc-note">Related reading: <a href="/blog/how-to-budget-for-car-maintenance/">budgeting for car maintenance</a> &middot; <a href="/blog/true-cost-of-car-ownership/">the true cost of owning a car</a> &middot; <a href="/blog/how-to-change-your-own-oil/">change your own oil</a> &middot; <a href="/blog/how-to-change-your-brake-pads/">change your brake pads</a> &middot; <a href="/tools/emergency-fund-calculator/">emergency fund calculator</a></p>
+    </section>
+  </div>
+</main>
+
+<script type="module">
+  import { diyCost, savings, effectiveHourly, verdict, toolBreakEvenJobs } from './calc.js';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var money0 = function (n) { return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); };
+  var DASH = '—';
+  var LIMITS = {
+    shopQuote: 100000, partsCost: 100000, toolsCost: 100000,
+    hours: 500, toolUses: 1000, valueOfTime: 10000
+  };
+  var VALUE_IDS = ['savings', 'hourly'];
+  var SUB_IDS = ['diyCostLine', 'hourlySub', 'verdictLine', 'toolLine'];
+
+  function readField(id) {
+    var raw = $(id).value.trim();
+    return raw === '' ? 0 : parseFloat(raw);
+  }
+
+  function clearAll(message) {
+    var err = $('calcError');
+    if (message) { err.textContent = message; err.hidden = false; } else { err.hidden = true; }
+    VALUE_IDS.forEach(function (i) { $(i).textContent = DASH; });
+    SUB_IDS.forEach(function (i) { $(i).textContent = ''; });
+  }
+
+  function render() {
+    var inputs = {};
+    var bad = false;
+    Object.keys(LIMITS).forEach(function (f) {
+      var v = readField(f);
+      if (!isFinite(v) || v < 0 || v > LIMITS[f]) bad = true;
+      inputs[f] = v;
+    });
+
+    // Never draw a number we cannot stand behind: bad input clears every field
+    // rather than leaving a stale one on screen looking like an answer.
+    if (bad) {
+      clearAll('Enter a positive amount for each field, within sensible limits (up to $100,000 a job and 500 hours).');
+      return;
+    }
+
+    var hourly = effectiveHourly(inputs);
+    if (hourly === null) {
+      clearAll('');
+      $('verdictLine').textContent = 'Enter the shop’s quote and how many hours the job takes you, and the answer appears here.';
+      return;
+    }
+    $('calcError').hidden = true;
+
+    var kept = savings(inputs);
+    var cost = diyCost(inputs);
+    $('savings').textContent = money0(kept);
+    $('diyCostLine').textContent = 'Doing it yourself costs ' + money0(cost)
+      + (inputs.toolsCost > 0 && inputs.toolUses > 1
+        ? ' (parts, plus ' + money0(inputs.toolsCost / Math.floor(inputs.toolUses)) + ' of the tools)'
+        : '');
+
+    $('hourly').textContent = money0(hourly) + '/hr';
+    $('hourlySub').textContent = money0(kept) + ' over ' + inputs.hours + (inputs.hours === 1 ? ' hour' : ' hours');
+
+    var v = verdict(inputs, inputs.valueOfTime);
+    if (v === 'costs-more') {
+      $('verdictLine').textContent = 'Doing this yourself costs ' + money0(Math.abs(kept))
+        + ' MORE than the quote, before your time is counted at all. Pay the shop — unless you want the tools for other jobs, in which case raise the jobs-you’ll-use-them-on figure.';
+    } else if (v === 'no-comparison') {
+      $('verdictLine').textContent = 'You keep ' + money0(kept) + ', which works out at ' + money0(hourly)
+        + ' an hour for your time. Put in what an hour of your time is worth and this will say whether that is a good trade for you.';
+    } else if (v === 'worth-it') {
+      $('verdictLine').textContent = 'Worth doing yourself on the money: ' + money0(hourly)
+        + ' an hour beats the ' + money0(inputs.valueOfTime) + ' an hour you put on your time.';
+    } else {
+      $('verdictLine').textContent = 'Not worth it on the money alone: ' + money0(hourly)
+        + ' an hour is below the ' + money0(inputs.valueOfTime) + ' you value your time at. Doing it anyway is a fair choice — just not a financial one.';
+    }
+
+    var breakEven = toolBreakEvenJobs(inputs);
+    $('toolLine').textContent = breakEven === null
+      ? ''
+      : 'The tools pay for themselves on job number ' + breakEven + ', ignoring your time.';
+  }
+
+  $('calcForm').addEventListener('input', render);
+  $('calcForm').addEventListener('submit', function (e) { e.preventDefault(); });
+  render();
+</script>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand">TRE Forged</div>
+      <div class="footer-copy">© 2026 TRE Forged LLC. All rights reserved.</div>
+      <div class="footer-links"><a href="/about/">About</a> · <a href="/contact/">Contact</a></div>
+    </div>
+    <div class="footer-right">Designed for collectors, investors &amp; enthusiasts.</div>
+  </div>
+</footer>
+<script src="/main.js?v=48e82fde"></script>
+</body>
+</html>
