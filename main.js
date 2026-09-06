@@ -355,6 +355,34 @@
       });
     }
 
+    // ── Tool pages: count the view, silently ──────────
+    // The calculators were unreachable until 2026-09-06 and were never counted
+    // either, so "did the new /tools/ hub change anything" had no denominator.
+    // No chip is rendered - nothing on these pages promises a number, and a
+    // measurement nobody asked to see does not need drawing.
+    //
+    // The server rejects any slug outside ^[a-z0-9]([a-z0-9-]{0,98}[a-z0-9])?$,
+    // so a path cannot be used as a slug. The hub counts as "tools-hub" and each
+    // calculator as "tool-<name>"; no blog post uses either shape.
+    if (/^\/tools(?:\/([a-z0-9-]{1,100}))?\/?$/.test(location.pathname)) {
+      var toolMatch = location.pathname.match(/^\/tools(?:\/([a-z0-9-]{1,100}))?\/?$/);
+      var toolSlug  = toolMatch[1] ? 'tool-' + toolMatch[1] : 'tools-hub';
+
+      if (toolSlug.length <= 100) {
+        // The read gets its own try/catch: private mode throws here, and a
+        // browser with no sessionStorage must still have its view counted.
+        var toolSeen;
+        try { toolSeen = sessionStorage.getItem('tf_viewed_' + toolSlug); }
+        catch (err) { toolSeen = null; }
+
+        if (toolSeen !== '1') {
+          try { sessionStorage.setItem('tf_viewed_' + toolSlug, '1'); }
+          catch (err) { /* private mode */ }
+          viewsRpc('increment_page_view', { p_slug: toolSlug }).catch(function () {});
+        }
+      }
+    }
+
     // ── Preview cards: one batched read for every card on the page ─
     var cards = Array.prototype.slice.call(
       document.querySelectorAll('a.blog-card[href^="/blog/"]')
