@@ -23,6 +23,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | The email capture backend: signups, the confirmation, unsubscribe | `supabase/functions/founder-waitlist/index.ts` | `main.js` — it only posts to it |
 | The waitlist table's shape and grants | `supabase/migrations/20260903_founder_waitlist.sql` (source of truth; Ada keeps a copy in getforgenta) | |
 | Why a deploy of `main.js` or `styles.css` has not reached visitors | `scripts/version-assets.mjs` - the filenames carry no hash, so the HTML stamps one | purging Cloudflare by hand, which fixes one deploy and not the next |
+| Why almost nothing is served from the Cloudflare edge cache | `docs/cloudflare-cache.md` - HTML is `DYNAMIC` by default, so the existing extension-matched rules never see a page | adding a `?v=` exclusion, which silently defeats the content hashing |
 | A calculator tool | `tools/<name>/` | |
 | What the last session did and what is open | `handoff.md` | git log |
 
@@ -35,6 +36,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | the article prompt | `node scripts/generator-prompt.test.mjs` |
 | anything that renders or publishes a post | `node scripts/seo-check.mjs` |
 | `main.js` or `styles.css` themselves | `node scripts/version-assets.mjs` then commit the restamped HTML |
+| a Cloudflare cache rule on either zone | `node scripts/cache-check.mjs` (add `--host=getforgenta.com` for that zone) |
 | this table | `node scripts/check-routing-table.mjs` |
 
 ## Handing a slice to a free local model
