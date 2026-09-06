@@ -64,6 +64,7 @@ jobs:
         run: |
           node scripts/generator-prompt.test.mjs
           node scripts/test-cta-clicks.mjs
+          node scripts/test-version-assets.mjs
           node scripts/version-assets.mjs --check
           node scripts/test-source-attribution.mjs
           node scripts/seo-check.mjs

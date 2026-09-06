@@ -29,10 +29,32 @@ import { fileURLToPath } from "node:url";
 const REPO_ROOT = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const EXCLUDED_DIRS = new Set([".git", "node_modules", ".github", ".claude"]);
 
-// Hash the BYTES, not a decoded string - otherwise a line-ending difference
-// would silently change the version and rewrite all 79 files for nothing.
+// Hash the file with LINE ENDINGS NORMALISED to LF.
+//
+// The comment that used to sit here said to hash the raw bytes so that "a line
+// ending difference would not silently change the version and rewrite all 79
+// files for nothing." That reasoning was exactly backwards, and the bug it
+// predicted is the bug it caused.
+//
+// `core.autocrlf` is `input` here: the Windows working tree holds CRLF (1022 of
+// them in styles.css) while git stores, and GitHub Pages serves, LF. So raw
+// bytes gave styles.css TWO different versions for identical content -
+// 8f6cff59 on a Windows desk, 337b86b3 in Linux CI - and the stamp flip-flopped
+// between them, rewriting all 81 pages each time it alternated.
+//
+// Worse, it makes the number lie about what it names. The stamp is supposed to
+// identify the bytes a visitor receives, and only the LF hash does that. A
+// Windows-produced stamp named a file that is served nowhere.
+//
+// Normalising costs nothing real: a CRLF-only change is not a content change,
+// and not restamping for one is correct.
+export function hashBytes(raw) {
+  const lf = Buffer.from(raw.toString("binary").replace(/\r\n/g, "\n"), "binary");
+  return createHash("sha256").update(lf).digest("hex").slice(0, 8);
+}
+
 function versionOf(fileName) {
-  return createHash("sha256").update(readFileSync(path.join(REPO_ROOT, fileName))).digest("hex").slice(0, 8);
+  return hashBytes(readFileSync(path.join(REPO_ROOT, fileName)));
 }
 
 function walk(dir, out) {
@@ -55,6 +77,13 @@ function rewrite(html, mainVer, cssVer) {
     .replace(/(href="\/styles\.css)(?:\?v=[^"]*)?"/g, `$1?v=${cssVer}"`);
 }
 
+// Only ACT when run as a command. Importing this module - which
+// test-version-assets.mjs does, to reach hashBytes - must not rewrite 85 files
+// as a side effect of asking a question about one of them.
+const runAsCommand = process.argv[1]
+  && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (runAsCommand) {
 const checkOnly = process.argv.slice(2).includes("--check");
 const mainVer = versionOf("main.js");
 const cssVer = versionOf("styles.css");
@@ -98,3 +127,4 @@ if (checkOnly) {
 }
 
 console.log(`${changed} file(s) rewritten.`);
+}
