@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 05 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 06 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Replace a Serpentine Belt Yourself: A Step-by-Step Guide</title>
+      <link>https://treforged.com/blog/how-to-replace-a-serpentine-belt/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-a-serpentine-belt/</guid>
+      <pubDate>Sun, 06 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to inspect, remove, and install a serpentine belt yourself with this step-by-step guide covering tools, routing, and safety tips.</description>
+    </item>
     <item>
       <title>How to Clean Corroded Battery Terminals (Before They Strand You)</title>
       <link>https://treforged.com/blog/how-to-clean-battery-corrosion-and-terminals/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-save-for-a-house-down-payment/</guid>
       <pubDate>Tue, 18 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn how to save for a house down payment in 2026, including realistic timelines, target amounts, the best places to park your money, and how to stay motivated.</description>
-    </item>
-    <item>
-      <title>How to Change Your Brake Pads Yourself: A First-Timer's Guide</title>
-      <link>https://treforged.com/blog/how-to-change-your-brake-pads/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-change-your-brake-pads/</guid>
-      <pubDate>Mon, 17 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to safely replace your front brake pads at home, including warning signs, tools needed, step-by-step instructions, and key safety checks.</description>
     </item>
   </channel>
 </rss>
