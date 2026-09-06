@@ -36,7 +36,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | `main.js` source attribution | `node scripts/test-source-attribution.mjs` |
 | `main.js` Forgenta CTA click counting | `node scripts/test-cta-clicks.mjs` |
 | the article prompt | `node scripts/generator-prompt.test.mjs` |
-| the keyword targets, or a post's headings | `node scripts/keyword-coverage.mjs` (a report - it exits 0 with misses, 1 only if it examined nothing) |
+| the keyword targets, or a post's headings | `node scripts/keyword-coverage.mjs --max-misses=0` - without the flag it is a report and exits 0 with misses; with it, it is a gate. Coverage reached 0 misses on 2026-09-06 |
 | an FAQ heading on any post | `node scripts/faq-sync.mjs` - the question also lives in the FAQPage JSON-LD, and editing one and not the other is invisible on the page |
 | anything that renders or publishes a post | `node scripts/seo-check.mjs` |
 | `main.js` or `styles.css` themselves | `node scripts/version-assets.mjs` then commit the restamped HTML |

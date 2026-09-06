@@ -145,5 +145,23 @@ const blogRoot = join(__dirname, 'blog');
     }
   }
 
+  // Default is a REPORT: misses are the finding, not an error. Pass
+  // --max-misses=N to turn it into a gate, the same shape as
+  // cache-check.mjs's --min-cached. Coverage reached 0 misses on 2026-09-06,
+  // so --max-misses=0 is what stops that quietly sliding back.
+  const arg = process.argv.find((a) => a.startsWith('--max-misses='));
+  if (arg) {
+    const limit = Number(arg.slice('--max-misses='.length));
+    if (!Number.isFinite(limit) || limit < 0) {
+      console.error('--max-misses needs a number that is zero or more');
+      process.exit(1);
+    }
+    if (missPosts.length > limit) {
+      console.error(`FAIL - ${missPosts.length} posts contain none of their target phrases, limit is ${limit}.`);
+      process.exit(1);
+    }
+    console.log(`PASS - ${missPosts.length} misses, limit ${limit}.`);
+  }
+
   process.exit(0);
 })();
