@@ -37,6 +37,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | `main.js` Forgenta CTA click counting | `node scripts/test-cta-clicks.mjs` |
 | the article prompt | `node scripts/generator-prompt.test.mjs` |
 | the keyword targets, or a post's headings | `node scripts/keyword-coverage.mjs` (a report - it exits 0 with misses, 1 only if it examined nothing) |
+| an FAQ heading on any post | `node scripts/faq-sync.mjs` - the question also lives in the FAQPage JSON-LD, and editing one and not the other is invisible on the page |
 | anything that renders or publishes a post | `node scripts/seo-check.mjs` |
 | `main.js` or `styles.css` themselves | `node scripts/version-assets.mjs` then commit the restamped HTML |
 | a Cloudflare cache rule on either zone | `node scripts/cache-check.mjs` (add `--host=getforgenta.com` for that zone) |
