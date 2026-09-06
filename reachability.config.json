@@ -1,0 +1,22 @@
+{
+  "ignore": [".git", "node_modules", "dist", "build", ".next"],
+  "scan": [".html"],
+  "linkPatterns": ["href=\"([^\"]+)\""],
+  "targets": [
+    {
+      "name": "calculators",
+      "fromDir": "tools",
+      "requireFile": "index.html",
+      "href": "/tools/{dir}/",
+      "minInbound": 1
+    }
+  ],
+  "mustLink": [
+    {
+      "name": "every page carrying the site nav links to the tools hub",
+      "filesContaining": "<nav class=\"primary\"",
+      "mustContain": "href=\"/tools/\""
+    }
+  ],
+  "allowUnresolved": []
+}
