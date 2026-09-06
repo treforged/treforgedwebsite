@@ -18,6 +18,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | How a blog post is RENDERED: template, CTAs, UTMs, nav, "Keep reading", RSS | `scripts/publish-next.mjs` | the rendered posts |
 | What gets published next, and what already was | `content-queue/queue.json`, `content-queue/published.json` (the source of truth for posts) | `blog/` |
 | Which keywords the blog is chasing | `content-queue/keyword-targets.md`, `content-queue/topics.json` | |
+| Which posts CONTAIN the keywords they chase | `node scripts/keyword-coverage.mjs` | the targets file alone - it says what was aimed at, never what landed |
 | Whether anyone PRESSES the Forgenta CTA on a post | `counters.cta_clicks` in the `treforged-site` project, and `supabase/migrations/20260905_cta_click_counter.sql` | the view count alone - views say people arrived, not that they left for the app |
 | Why the daily post fired, or did not | `.github/workflows/daily-article.yml` (cron `0 13 * * *`) | |
 | The email capture backend: signups, the confirmation, unsubscribe | `supabase/functions/founder-waitlist/index.ts` | `main.js` — it only posts to it |
@@ -35,6 +36,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | `main.js` source attribution | `node scripts/test-source-attribution.mjs` |
 | `main.js` Forgenta CTA click counting | `node scripts/test-cta-clicks.mjs` |
 | the article prompt | `node scripts/generator-prompt.test.mjs` |
+| the keyword targets, or a post's headings | `node scripts/keyword-coverage.mjs` (a report - it exits 0 with misses, 1 only if it examined nothing) |
 | anything that renders or publishes a post | `node scripts/seo-check.mjs` |
 | `main.js` or `styles.css` themselves | `node scripts/version-assets.mjs` then commit the restamped HTML |
 | a Cloudflare cache rule on either zone | `node scripts/cache-check.mjs` (add `--host=getforgenta.com` for that zone) |
