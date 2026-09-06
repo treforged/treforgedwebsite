@@ -85,6 +85,7 @@ const nav = (active) => {
     link('/blog/', 'Blog', 'blog'),
     link('/services/', 'Services', 'services'),
     link('/cars/', 'Cars', 'cars'),
+    link('/tools/', 'Tools', 'tools'),
     link('/partnerships/', 'Partnerships', 'partnerships'),
     link('/contact/', 'Contact', 'contact'),
     app,
