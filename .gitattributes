@@ -1,0 +1,26 @@
+# Line endings are LF everywhere, in the repository AND in the working tree.
+#
+# This is not tidiness. GitHub Pages serves exactly the bytes git stores, which
+# are LF, and scripts/version-assets.mjs stamps each asset's content hash onto
+# every page so a changed file gets a new cache key. When a Windows working tree
+# held CRLF and git held LF, that hash had TWO values for one unchanged file -
+# styles.css was 8f6cff59 on a Windows desk and 337b86b3 in Linux CI - and the
+# stamp oscillated between them, rewriting all 81 pages on each flip.
+#
+# versionOf now normalises before hashing, so the bug is fixed at the source.
+# This file removes the divergence itself, so the next asset added here cannot
+# reintroduce it: with core.autocrlf=input, git normalises on commit but leaves
+# the working tree alone, which is how styles.css ended up as the only CRLF file
+# in the repo.
+#
+# Committing this changes no stored content - every blob is already LF.
+* text=auto eol=lf
+
+# Binary assets must never be touched.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
