@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import {
   parseKeywordTargets, keywordsForSlug, keywordBlock, slugList,
-  buildPrompt, buildMaintenancePrompt,
+  buildPrompt, buildMaintenancePrompt, buildTopicsPrompt,
 } from './generate-article.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -90,6 +90,26 @@ check(
 check('graph-links block is not parsed as a keyword group', !map.has('related'));
 check('no wikilink leaked in as a search phrase',
   ![...map.values()].flat().some((phrase) => phrase.includes('[[')));
+
+// The refill prompt steers EVERY future topic, and its mix guidance is prose, so a
+// contradictory split ships silently. It shipped once: 066daea raised cars 40% -> 65%
+// and left the finance line at 60%, asking the model for 125% of a list. Assert the
+// stated shares are one partition of 100.
+const topicsPrompt = buildTopicsPrompt(12, ['a-slug'], ['A Title']);
+const mixBlock = topicsPrompt.slice(topicsPrompt.indexOf('Mix guidance'));
+const shares = [...mixBlock.matchAll(/^- About (\d+)%/gm)].map((m) => Number(m[1]));
+check(`refill prompt states its mix as percentage shares (${shares.length} found)`, shares.length >= 2);
+const shareSum = shares.reduce((a, b) => a + b, 0);
+check(
+  shareSum === 100
+    ? `refill mix shares sum to 100% (${shares.join(' + ')})`
+    : `refill mix shares sum to ${shareSum}%, not 100 (${shares.join(' + ')}) — the model cannot satisfy a split that does not partition the list`,
+  shareSum === 100,
+);
+// The measured-demand steer is the whole reason the split is car-weighted. If it is
+// dropped, the percentages still sum and the reason for them is gone.
+check('refill prompt still carries the Search Console demand evidence',
+  /Search Console/.test(mixBlock) && /car DIY/.test(mixBlock));
 
 // Untargeted must still produce a usable prompt: a day with no post is worse.
 const bare = buildPrompt(topic, [], false);

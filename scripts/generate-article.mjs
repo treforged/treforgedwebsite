@@ -326,13 +326,14 @@ const TOPICS_SCHEMA = {
   additionalProperties: false,
 };
 
-const buildTopicsPrompt = (count, existingSlugs, publishedTitles) => `You are refilling the editorial backlog for The Forge, the TRE Forged blog (treforged.com). The Forge covers personal finance AND car culture: budgeting and money skills, plus car buying, financing, ownership, and hands-on do-it-yourself maintenance.
+export const buildTopicsPrompt = (count, existingSlugs, publishedTitles) => `You are refilling the editorial backlog for The Forge, the TRE Forged blog (treforged.com). The Forge covers personal finance AND car culture: budgeting and money skills, plus car buying, financing, ownership, and hands-on do-it-yourself maintenance.
 
 Brainstorm ${count} fresh, specific, evergreen blog topic ideas that do NOT duplicate or lightly reword anything already covered.
 
-Mix guidance:
-- About 60% personal finance (budgeting, saving, debt, credit, cash flow, goals, insurance, everyday money skills) with "category": "finance".
-- About 65% cars, and weight it toward hands-on DIY maintenance how-tos, ONE specific job per topic, with "category": "car-maintenance". This is not a preference, it is what the measured demand says: Search Console for treforged.com shows the three highest-impression non-brand queries are all car DIY (headlight bulb replacement, wiper blade replacement, engine air filter replacement), carrying more impressions between them than every finance query beneath them combined. The remainder is car-money topics (buying, financing, insurance, cost of ownership) with "category": "finance", and general personal-finance topics.
+Mix guidance. These three shares are one split of the ${count} topics and add up to 100%:
+- About 45% hands-on DIY car maintenance how-tos, ONE specific job per topic, with "category": "car-maintenance". This is not a preference, it is what the measured demand says: Search Console for treforged.com shows the three highest-impression non-brand queries are all car DIY (headlight bulb replacement, wiper blade replacement, engine air filter replacement), carrying more impressions between them than every finance query beneath them combined. Note also that 149 of 563 harvested car phrases (26%) ask what a job COSTS, so a topic that answers "what this costs to do yourself versus paying a shop" serves real demand.
+- About 20% car-money topics (buying, financing, insurance, cost of ownership) with "category": "finance". Cars are therefore about 65% of the list in total.
+- About 35% general personal finance (budgeting, saving, debt, credit, cash flow, goals, everyday money skills) with "category": "finance".
 - Keep everything practical and beginner-friendly. Avoid investing-heavy or region-specific tax topics. Assume readers have already seen the absolute basics (what a budget is, 50/30/20), so bring fresh angles rather than re-teaching square one.
 
 SEQUENCING (important): Return the topics as an ORDERED reading progression, because they will be published one per day in exactly the order you return them. Order the array so it flows naturally:
