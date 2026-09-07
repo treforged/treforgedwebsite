@@ -15,6 +15,41 @@ requests (0.45%). The 80-URL sample agrees with it and says WHICH requests: the
 only two cached responses were `/styles.css?v=` and `/main.js?v=`. **Every one
 of the 78 HTML pages returned `cf-cache-status: DYNAMIC`, on both passes.**
 
+## APPLIED 2026-09-06, and the measurement after
+
+Tre approved it in Ellis's session; both rules were added by hand in the
+dashboard, in the documented order.
+
+| | Sample | Pass 1 | Pass 2 | Cached |
+| --- | --- | --- | --- | --- |
+| Before | 80 URLs x 2 | 78 DYNAMIC, 1 HIT, 1 MISS | 78 DYNAMIC, 2 HIT | **2.5%** |
+| After | 83 URLs x 2 | 2 HIT, **81 MISS** | **83 HIT** | **100.0%** |
+
+**The number that proves the fix is not the 100% - it is `MISS`.** Before, pages
+came back `DYNAMIC`, meaning Cloudflare never considered them cacheable. A MISS
+means it tried, found nothing, and stored the response. That is the eligibility
+change; the 100% on pass 2 is just the consequence.
+
+Rules on the zone, in order - **the order is load-bearing, do not reorder**:
+
+| Order | Name | Match | Action |
+| --- | --- | --- | --- |
+| 1 | Cache static assets | file extension in css, js, jpg... | pre-existing, untouched |
+| 2 | Versioned assets (main.js, styles.css) | URI path eq /main.js or /styles.css | eligible, Edge TTL 30 days ignoring origin, Browser TTL 1 year |
+| 3 | Cache HTML zone-wide | hostname eq treforged.com | eligible, Edge TTL 2 hours ignoring origin, Browser TTL respect origin |
+
+**STILL OUTSTANDING: the UTM query-string exclusion on rule 3.** The cache key
+still includes the whole query string, so each `?utm_campaign=<slug>` is a
+separate entry that starts cold. That is the smaller of the two causes above and
+costs efficiency, not correctness - the rule is doing its job without it.
+
+It was not applied because the dashboard's cache-key form rendered with
+overlapping, unclickable elements twice, and blind-clicking a cache key on a
+production zone risks an "ignore all query strings" setting that would collapse
+every `?v=` hash to one key and serve stale assets forever. **Set it as
+`all_except` with exactly `utm_source, utm_medium, utm_campaign, utm_content,
+utm_term, gclid, fbclid` - never "ignore all".** Re-run `cache-check` after.
+
 ## The cause
 
 `DYNAMIC` does not mean "tried to cache and failed". It means Cloudflare never
