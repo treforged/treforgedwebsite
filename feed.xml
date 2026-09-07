@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 06 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Bleed Your Brakes at Home: A Careful, Step-by-Step Guide</title>
+      <link>https://treforged.com/blog/how-to-bleed-your-brakes-at-home/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-bleed-your-brakes-at-home/</guid>
+      <pubDate>Mon, 07 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to safely bleed air out of your brake lines at home, restore a firm pedal, and know when to call a mechanic instead.</description>
+    </item>
     <item>
       <title>How to Replace a Serpentine Belt Yourself: A Step-by-Step Guide</title>
       <link>https://treforged.com/blog/how-to-replace-a-serpentine-belt/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-teach-yourself-personal-finance/</guid>
       <pubDate>Wed, 19 Aug 2026 12:00:00 GMT</pubDate>
       <description>A step-by-step learning path for teaching yourself personal finance in 2026, from tracking spending to budgeting, debt payoff, credit, and investing.</description>
-    </item>
-    <item>
-      <title>How to Save for a House Down Payment: Timelines, Targets, and Staying on Track</title>
-      <link>https://treforged.com/blog/how-to-save-for-a-house-down-payment/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-save-for-a-house-down-payment/</guid>
-      <pubDate>Tue, 18 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to save for a house down payment in 2026, including realistic timelines, target amounts, the best places to park your money, and how to stay motivated.</description>
     </item>
   </channel>
 </rss>
