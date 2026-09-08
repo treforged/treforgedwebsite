@@ -94,6 +94,11 @@
       <h2>Your numbers, not ours</h2>
       <p class="calc-note">Get the shop&rsquo;s quote first &mdash; most will give one over the phone. Look up the parts at any auto parts retailer. Be honest about the hours: a first attempt takes longer than the video makes it look.</p>
       <form id="calcForm" class="calc-form" novalidate>
+        <label for="jobPreset">No quote yet? Start from a national average
+          <select id="jobPreset" name="jobPreset">
+            <option value="">Choose a job&hellip;</option>
+          </select>
+        </label>
         <label for="shopQuote">Shop&rsquo;s quote, parts and labour ($)
           <input id="shopQuote" name="shopQuote" type="number" min="0" max="100000" step="1" value="320" inputmode="decimal">
         </label>
@@ -112,6 +117,7 @@
         <label for="valueOfTime">What your time is worth ($/hour, optional)
           <input id="valueOfTime" name="valueOfTime" type="number" min="0" max="10000" step="1" value="0" inputmode="decimal">
         </label>
+        <p class="calc-note" id="quoteHint"></p>
         <p class="calc-note" id="calcError" role="alert" hidden></p>
       </form>
     </section>
@@ -147,6 +153,7 @@
 
 <script type="module">
   import { diyCost, savings, effectiveHourly, verdict, toolBreakEvenJobs } from './calc.js';
+  import { JOBS, SOURCE, jobById, sourceUrl, midpoint } from './costs.js';
 
   var $ = function (id) { return document.getElementById(id); };
   var money0 = function (n) { return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); };
@@ -225,6 +232,48 @@
       ? ''
       : 'The tools pay for themselves on job number ' + breakEven + ', ignoring your time.';
   }
+
+  // ---- the shop-quote hint -------------------------------------------------
+  // It fills the SHOP QUOTE field only. The source also publishes a parts
+  // column, and it is deliberately not used: that figure is what a shop BILLS
+  // for parts, markup included, so hinting the DIY parts field from it would
+  // overstate the DIY cost and understate the saving - wrong in the direction
+  // that flatters the shop, on the page whose whole argument is that it does
+  // not do that. A wiper blade is not $66 at a parts counter.
+  var preset = $('jobPreset');
+  JOBS.forEach(function (job) {
+    var opt = document.createElement('option');
+    opt.value = job.id;
+    opt.textContent = job.label;
+    preset.appendChild(opt);
+  });
+
+  function showHint(job) {
+    var hint = $('quoteHint');
+    if (!job) { hint.textContent = ''; return; }
+    // Rebuilt as nodes rather than innerHTML so a label can never inject markup.
+    hint.textContent = '';
+    hint.appendChild(document.createTextNode(
+      'National average across all vehicles: ' + money0(job.low) + '–' + money0(job.high)
+      + '. Filled in above as ' + money0(midpoint(job))
+      + ' — replace it with your own quote. An average spans every vehicle in the '
+      + 'database, so it can be a long way from yours, and it excludes tax and fees. Source: '));
+    var a = document.createElement('a');
+    a.href = sourceUrl(job);
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = SOURCE.name;
+    hint.appendChild(a);
+    hint.appendChild(document.createTextNode(', retrieved ' + SOURCE.retrieved + '.'));
+  }
+
+  preset.addEventListener('change', function () {
+    var job = jobById(preset.value);
+    if (!job) { showHint(null); return; }
+    $('shopQuote').value = String(midpoint(job));
+    showHint(job);
+    render();
+  });
 
   $('calcForm').addEventListener('input', render);
   $('calcForm').addEventListener('submit', function (e) { e.preventDefault(); });

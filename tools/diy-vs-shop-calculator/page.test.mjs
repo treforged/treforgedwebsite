@@ -29,15 +29,30 @@ for (const m of html.matchAll(/\sid="([^"]+)"/g)) ids.add(m[1]);
 
 const nodes = new Map();
 let onInput = null;
-for (const id of ids) {
-  nodes.set(id, {
-    id,
-    value: '',
-    textContent: '',
-    hidden: false,
-    addEventListener(type, fn) { if (type === 'input') onInput = fn; },
-  });
-}
+let onChange = null;
+
+// A node poor enough to be honest: textContent on a parent reflects its
+// children, so an assertion about what the reader SEES covers text appended as
+// nodes, which is how the source citation is built.
+const makeNode = (id) => ({
+  id,
+  value: '',
+  hidden: false,
+  href: '',
+  children: [],
+  _text: '',
+  get textContent() {
+    return this._text + this.children.map((c) => c.textContent).join('');
+  },
+  set textContent(v) { this._text = String(v); this.children = []; },
+  appendChild(child) { this.children.push(child); return child; },
+  addEventListener(type, fn) {
+    if (type === 'input') onInput = fn;
+    if (type === 'change') onChange = fn;
+  },
+});
+
+for (const id of ids) nodes.set(id, makeNode(id));
 // Seed the inputs from their value="" attributes, as a browser would.
 for (const m of html.matchAll(/<input\s+id="([^"]+)"[^>]*\svalue="([^"]*)"/g)) {
   if (nodes.has(m[1])) nodes.get(m[1]).value = m[2];
@@ -48,6 +63,8 @@ globalThis.document = {
     if (!nodes.has(id)) throw new Error('page script asked for #' + id + ', which is not in index.html');
     return nodes.get(id);
   },
+  createElement(tag) { return makeNode('<' + tag + '>'); },
+  createTextNode(text) { const n = makeNode('#text'); n.textContent = text; return n; },
 };
 
 const script = html.match(/<script type="module">([\s\S]*?)<\/script>/)[1];
@@ -81,6 +98,15 @@ const lacks = (id, needle, name) => {
   if (!ok) failed++;
 };
 const set = (id, v) => { nodes.get(id).value = String(v); onInput(); };
+// An <input> holds its content in .value, not .textContent. Asserting the wrong
+// property reported "" for a field that was in fact being filled correctly.
+const val = (id, expected, name) => {
+  checks++;
+  const got = nodes.get(id).value;
+  const ok = got === expected;
+  console.log((ok ? 'ok   ' : 'FAIL ') + name + ' - #' + id + ' value is "' + got + '"' + (ok ? '' : ', expected "' + expected + '"'));
+  if (!ok) failed++;
+};
 
 if (typeof onInput !== 'function') {
   console.log('FAIL - the page never registered an input handler');
@@ -147,6 +173,39 @@ checks++;
 if (!nodes.get('calcError').hidden) { console.log('FAIL - the error stayed up after the input was fixed'); failed++; }
 else console.log('ok   fixing the input hides the error again');
 is('savings', '$235', 'and the real number comes back');
+
+// 8. The shop-quote hint. These figures are the only numbers on the page that
+//    did not come from the reader, so what is SAID beside them is the check.
+checks++;
+if (typeof onChange !== 'function') { console.log('FAIL - the job picker registered no change handler'); failed++; }
+else console.log('ok   the job picker registered a change handler');
+
+if (typeof onChange === 'function') {
+  const pick = (id) => { nodes.get('jobPreset').value = id; onChange(); };
+
+  pick('brake-pads');
+  val('shopQuote', '365', 'picking brake pads fills the quote with the midpoint of $335-$394');
+  has('quoteHint', '$335–$394', 'and shows the RANGE, not just the single number it used');
+  has('quoteHint', 'National average across all vehicles', 'labelled an average, never a "typical"');
+  has('quoteHint', 'replace it with your own quote', 'and tells the reader to replace it');
+  has('quoteHint', 'retrieved 2026-09-07', 'cited with a RETRIEVAL date - the source publishes none');
+  has('quoteHint', 'RepairPal estimator', 'and names the source');
+  is('savings', '$280', 'the answer recalculates off the new quote');
+
+  // The battery row is the one that proves the caveat earns its place: an
+  // average that is plausible for an AGM in a European car and absurd for a
+  // Corolla. It must never appear without the "average across all vehicles"
+  // wording beside it.
+  pick('battery');
+  val('shopQuote', '475', 'picking battery fills $475');
+  has('quoteHint', 'National average across all vehicles', 'the battery figure keeps the caveat');
+
+  // Choosing the blank option must clear the hint rather than leave a stale
+  // citation next to a number the reader has since typed over.
+  pick('');
+  is('quoteHint', '', 'clearing the picker clears the hint');
+  val('shopQuote', '475', 'but does not silently rewrite what the reader is looking at');
+}
 
 if (checks === 0) {
   console.log('FAIL - 0 checks ran');
