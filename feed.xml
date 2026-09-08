@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 07 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 08 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Car Insurance for Young Drivers: Why It Costs So Much and How to Cut It</title>
+      <link>https://treforged.com/blog/car-insurance-for-young-drivers/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/car-insurance-for-young-drivers/</guid>
+      <pubDate>Tue, 08 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Car insurance for young drivers is expensive for real reasons. Learn what actually moves your premium and which discounts most people never claim.</description>
+    </item>
     <item>
       <title>How to Bleed Your Brakes at Home: A Careful, Step-by-Step Guide</title>
       <link>https://treforged.com/blog/how-to-bleed-your-brakes-at-home/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-budget-for-car-maintenance/</guid>
       <pubDate>Thu, 20 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn how to build a car sinking fund, know typical maintenance costs by mileage, and avoid the credit-card repair trap in 2026.</description>
-    </item>
-    <item>
-      <title>How to Teach Yourself Personal Finance: A Beginner's Roadmap for 2026</title>
-      <link>https://treforged.com/blog/how-to-teach-yourself-personal-finance/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-teach-yourself-personal-finance/</guid>
-      <pubDate>Wed, 19 Aug 2026 12:00:00 GMT</pubDate>
-      <description>A step-by-step learning path for teaching yourself personal finance in 2026, from tracking spending to budgeting, debt payoff, credit, and investing.</description>
     </item>
   </channel>
 </rss>
