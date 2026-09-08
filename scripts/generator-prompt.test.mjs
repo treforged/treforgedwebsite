@@ -48,7 +48,10 @@ const real = ['how-to-build-an-emergency-fund', 'how-to-track-expenses'];
 const prompt = buildPrompt(topic, ['Older Post'], true, phrases, real);
 
 check('prompt carries a harvested phrase', prompt.includes(phrases[0]));
-check('prompt lists only real slugs', prompt.includes('/blog/how-to-build-an-emergency-fund/'));
+check('prompt lists a real slug', prompt.includes('/blog/how-to-build-an-emergency-fund/'));
+
+// NOTE: the line above only proves a real slug is PRESENT. The stronger check -
+// that EVERY slug in the prompt exists - lives below, once blogDirs is read.
 check('prompt FORBIDS inventing a slug', /NEVER invent a slug/.test(prompt));
 check('the old invent-a-slug instruction is gone', !/Invent a plausible related slug/i.test(prompt));
 
@@ -68,6 +71,34 @@ check('maintenance prompt lists real slugs', car.includes('/blog/how-to-track-ex
 const blogDirs = (await readdir(join(ROOT, 'blog'), { withFileTypes: true }))
   .filter((d) => d.isDirectory()).map((d) => d.name);
 check(`found posts on disk to check against (${blogDirs.length})`, blogDirs.length > 0);
+
+// "prompt lists only real slugs" USED to be `prompt.includes('<one real slug>')`.
+// That only proves a real slug is PRESENT; it cannot see a fake one sitting
+// beside it - which is the exact soft-404 the generator produced twice and the
+// reason this file exists. A check whose name claims more than it verifies is
+// worse than no check, because it occupies the slot the real one would take.
+// So pull every /blog/<slug>/ back OUT of both prompts and resolve each on disk.
+//
+// ONE deliberate exception, named rather than pattern-matched away: `some-slug`
+// is the syntax placeholder in "use a relative URL, e.g. /blog/some-slug/",
+// and the very next clause is "NEVER invent a slug". It is prose showing the
+// shape of a link, not a link. Excluding it by exact name keeps the check
+// strict for everything else - a looser rule (say, ignoring anything without a
+// real-looking name) would quietly re-admit the invented slugs this catches.
+const PLACEHOLDERS = new Set(['some-slug']);
+const slugsIn = (text) => [...new Set([...text.matchAll(/\/blog\/([a-z0-9-]+)\//g)].map((m) => m[1]))]
+  .filter((s) => !PLACEHOLDERS.has(s));
+for (const [label, text] of [['article prompt', prompt], ['maintenance prompt', car]]) {
+  const named = slugsIn(text);
+  check(`${label} names blog slugs to check (${named.length})`, named.length > 0);
+  const unreal = named.filter((s) => !blogDirs.includes(s));
+  check(
+    unreal.length === 0
+      ? `${label}: all ${named.length} slug(s) resolve to a post on disk`
+      : `${label} names slug(s) that do not exist: ${unreal.join(', ')} - the generator would emit a soft-404`,
+    unreal.length === 0,
+  );
+}
 check(`found keyword groups to check (${map.size})`, map.size > 0);
 
 const matched = new Set();
