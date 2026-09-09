@@ -68,8 +68,20 @@ if (tracked.length === 0) {
   process.exit(2);
 }
 
-const eslint = new ESLint({ cwd: ROOT });
-const results = await eslint.lintFiles(['.']);
+// ESLint THROWS rather than returning an empty list when its config ignores
+// everything ("All files matched by '.' are ignored"). Letting that escape
+// would exit 1 with a stack trace - the code that means "I looked and it is
+// broken" - for a situation that is squarely "I could not look". Those must
+// never share an exit code, so this converts it.
+let results;
+try {
+  const eslint = new ESLint({ cwd: ROOT });
+  results = await eslint.lintFiles(['.']);
+} catch (err) {
+  console.error('FAIL(2) - the linter could not examine anything. Its config is not doing its job.');
+  console.error(`  ${err && err.message ? err.message.split('\n')[0] : err}`);
+  process.exit(2);
+}
 
 const linted = new Set(
   results.map((r) => path.relative(ROOT, r.filePath).split(path.sep).join('/')),
