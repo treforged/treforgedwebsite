@@ -1,0 +1,31 @@
+name: Lint
+
+# DELIBERATELY SEPARATE FROM daily-article.yml.
+#
+# The daily publish workflow installs nothing — it runs plain `node scripts/*`.
+# Adding an `npm ci` to it would put a new failure surface on the path that
+# ships the day's post, so a flaky registry could cost a publication. This runs
+# on its own, on pushes and pull requests, and cannot block a post.
+#
+# It is also NON-BLOCKING ON WARNINGS by construction: every rule in
+# eslint.config.mjs is `warn`, and scripts/lint-baseline.mjs exits non-zero only
+# for lint ERRORS (a parse or config fault), for tracked files that fall outside
+# the linter with no recorded reason, or when it examined nothing at all.
+# A gate that is red on ordinary work is a gate people route around.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: {}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - run: node scripts/lint-baseline.mjs

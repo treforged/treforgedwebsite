@@ -3,3 +3,7 @@
 .claude/
 handoff.md
 backups/
+
+# Dev tooling only — the linter's dependencies. Nothing here is served: the
+# site has no build step, so node_modules exists purely so `npm run lint` works.
+node_modules/

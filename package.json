@@ -1,0 +1,15 @@
+{
+  "name": "treforgedwebsite",
+  "private": true,
+  "version": "0.0.0",
+  "description": "treforged.com - a hand-written static site. There is NO build step: the file as committed is the file served. This package.json exists only so the repo can carry dev tooling (a linter, the gate scripts); nothing here is bundled, transpiled or shipped to a visitor.",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:baseline": "node scripts/lint-baseline.mjs"
+  },
+  "devDependencies": {
+    "eslint": "^9.36.0",
+    "globals": "^15.15.0"
+  }
+}

@@ -27,6 +27,8 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | Why almost nothing is served from the Cloudflare edge cache | `docs/cloudflare-cache.md` - HTML is `DYNAMIC` by default, so the existing extension-matched rules never see a page | adding a `?v=` exclusion, which silently defeats the content hashing |
 | A calculator tool | `tools/<name>/` | |
 | Whether the calculators are reachable at all - the hub, the nav link, the sitemap entry | `tools/index.html` and `scripts/tools-reachable.mjs` | the tool pages themselves - they were fine, and nobody could find them |
+| Whether anything at all - a tool, a page, a link target - is built but reachable from nowhere | `scripts/reachability.mjs` and `reachability.config.json` - it reports ORPHAN and BROKEN separately, and exits 2 when it examined nothing | a "does it exist" check, which is the question that let three calculators sit unreachable for five days |
+| Whether any JavaScript here is dead, undefined or unreachable | `node scripts/lint-baseline.mjs`, configured by `eslint.config.mjs` | `npx eslint .` alone - it says nothing about what it did NOT examine, and the Deno function is outside it |
 | What the last session did and what is open | `handoff.md` | git log |
 
 **Gates. Run the one that matches what you touched; none of them need a build.**
@@ -42,6 +44,8 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | `main.js` or `styles.css` themselves | `node scripts/version-assets.mjs` then commit the restamped HTML |
 | a Cloudflare cache rule on either zone | `node scripts/cache-check.mjs` (add `--host=getforgenta.com` for that zone) |
 | a tool page, the `/tools/` hub, or the site nav | `node scripts/tools-reachable.mjs` |
+| any JavaScript file in this repo | `node scripts/lint-baseline.mjs` - every rule in `eslint.config.mjs` is `warn` ON PURPOSE, so this REPORTS a count and does not go red on it. It exits non-zero only for a lint ERROR, for a tracked file outside the linter with no recorded reason, or when it examined nothing. Baseline on 2026-09-08: **5 warnings across 36 files** |
+| a page, a tool, or anything that is supposed to be linked from somewhere | `node scripts/reachability.mjs` |
 | this table | `node scripts/check-routing-table.mjs` |
 
 ## Handing a slice to a free local model
