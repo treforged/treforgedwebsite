@@ -38,6 +38,12 @@ const rules = {
   'no-redeclare': 'warn',
   'no-self-assign': 'warn',
   'no-fallthrough': 'warn',
+  // Enabled because scripts/test-tool-views.mjs already carried an
+  // `eslint-disable-next-line no-new-func` written before this repo had any
+  // linter at all. A disable directive for a rule nobody enabled documents an
+  // intention that nothing enforces - so the rule is on, and that directive
+  // now does the job it was written to do.
+  'no-new-func': 'warn',
 };
 
 export default [

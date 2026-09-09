@@ -30,6 +30,10 @@ const resolverSrc = extract("var wlSource = function () {", "\n      };", "wlSou
 
 // Build the resolver in a sandbox where the browser globals it reads are ours.
 function resolve({ search = "", ua = "", referrer = "", host = "treforged.com" }) {
+  // See test-cta-clicks.mjs: this runs a block lifted verbatim out of main.js
+  // against globals we supply, so the thing under test is the code the site
+  // actually serves.
+  // eslint-disable-next-line no-new-func
   const factory = new Function(
     "navigator",
     "document",

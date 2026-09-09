@@ -58,6 +58,13 @@ function mount({ slug = "car-loans-explained", storageThrows = false } = {}) {
     return Promise.resolve(1);
   };
 
+  // The whole point of this harness is to execute a block lifted VERBATIM out
+  // of main.js against globals we supply. Rewriting main.js into something
+  // importable would mean testing a copy rather than the code the site serves.
+  // NOTE: the directive below must stay on the line immediately above the
+  // code. It applies to the next LINE, so a comment sitting between the two
+  // silently makes it apply to nothing while the rule still fires.
+  // eslint-disable-next-line no-new-func
   const factory = new Function(
     "document",
     "sessionStorage",

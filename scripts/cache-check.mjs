@@ -100,10 +100,6 @@ function pause(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function classify(status) {
-  return CACHED_STATUSES.has(status) ? 'CACHED' : 'UNCACHED';
-}
-
 async function runPass(urls, passNumber) {
   const counts = new Map();
   for (const url of urls) {
@@ -136,7 +132,12 @@ async function runPass(urls, passNumber) {
   const assetUrls = await readIndexAssets();
   const allUrls = Array.from(new Set([...sitemapUrls, ...assetUrls]));
 
-  const pass1 = await runPass(allUrls, 1);
+  // Pass 1 is run for its OUTPUT, not its return value. Its numbers are the
+  // ones that prove eligibility - DYNAMIC means Cloudflare never considered a
+  // page cacheable, MISS means it tried, found nothing and stored it - and
+  // runPass prints them. The verdict below is deliberately taken from the warm
+  // pass, so nothing here binds pass 1's result.
+  await runPass(allUrls, 1);
   const pass2 = await runPass(allUrls, 2);
 
   const outcome = pass2.cachedPct >= minCached ? 'PASS' : 'FAIL';

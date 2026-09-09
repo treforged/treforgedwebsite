@@ -44,7 +44,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | `main.js` or `styles.css` themselves | `node scripts/version-assets.mjs` then commit the restamped HTML |
 | a Cloudflare cache rule on either zone | `node scripts/cache-check.mjs` (add `--host=getforgenta.com` for that zone) |
 | a tool page, the `/tools/` hub, or the site nav | `node scripts/tools-reachable.mjs` |
-| any JavaScript file in this repo | `node scripts/lint-baseline.mjs` - every rule in `eslint.config.mjs` is `warn` ON PURPOSE, so this REPORTS a count and does not go red on it. It exits non-zero only for a lint ERROR, for a tracked file outside the linter with no recorded reason, or when it examined nothing. Baseline on 2026-09-08: **5 warnings across 36 files** |
+| any JavaScript file in this repo | `node scripts/lint-baseline.mjs` - every rule in `eslint.config.mjs` is `warn` ON PURPOSE, so this REPORTS a count and does not go red on it. It exits non-zero only for a lint ERROR, for a tracked file outside the linter with no recorded reason, or when it examined nothing. Baseline on 2026-09-08 was 5 warnings; swept to **1**, and CI runs it as `--max-warnings=1`. The 1 is `main.js`'s unused `e` parameter, left on purpose because restamping 82 HTML pages for it buys a visitor nothing - it goes with the next real `main.js` change |
 | a page, a tool, or anything that is supposed to be linked from somewhere | `node scripts/reachability.mjs` |
 | this table | `node scripts/check-routing-table.mjs` |
 

@@ -28,4 +28,10 @@ jobs:
         with:
           node-version: '20'
       - run: npm ci
-      - run: node scripts/lint-baseline.mjs
+      # The ratchet is 1, not 0, and the 1 is named rather than rounded away:
+      # main.js has an unused `e` parameter on a click handler. Renaming it is a
+      # one-character change to a file whose content hash is stamped into every
+      # HTML page, so fixing it alone would churn 82 files for nothing a visitor
+      # can see. It goes with the next real main.js change; until then the
+      # ratchet holds the line so NEW code cannot add a warning.
+      - run: node scripts/lint-baseline.mjs --max-warnings=1

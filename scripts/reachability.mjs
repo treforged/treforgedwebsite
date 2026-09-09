@@ -40,7 +40,7 @@
  * Exit codes:  0 reachable   1 defects found   2 could not examine anything
  */
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
-import { join, relative, posix } from 'node:path';
+import { join, relative } from 'node:path';
 
 const ROOT = process.cwd();
 const argv = process.argv.slice(2);
