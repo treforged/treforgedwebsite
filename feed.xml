@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 08 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Build a Car Maintenance Schedule You Will Actually Follow</title>
+      <link>https://treforged.com/blog/how-to-build-a-car-maintenance-schedule/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-build-a-car-maintenance-schedule/</guid>
+      <pubDate>Wed, 09 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn what to check monthly, quarterly, and yearly on your car, plus how to budget for repairs so maintenance never blindsides your wallet.</description>
+    </item>
     <item>
       <title>Car Insurance for Young Drivers: Why It Costs So Much and How to Cut It</title>
       <link>https://treforged.com/blog/car-insurance-for-young-drivers/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-negotiate-lower-bills/</guid>
       <pubDate>Fri, 21 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn exactly what to say to lower your cable, internet, phone, and insurance bills, with real scripts and tactics that work in 2026.</description>
-    </item>
-    <item>
-      <title>How to Budget for Car Maintenance and Surprise Repairs (Without Going Into Debt)</title>
-      <link>https://treforged.com/blog/how-to-budget-for-car-maintenance/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-budget-for-car-maintenance/</guid>
-      <pubDate>Thu, 20 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to build a car sinking fund, know typical maintenance costs by mileage, and avoid the credit-card repair trap in 2026.</description>
     </item>
   </channel>
 </rss>
