@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 09 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>What Car Maintenance Actually Costs (Job by Job, DIY vs Shop)</title>
+      <link>https://treforged.com/blog/what-car-maintenance-actually-costs/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/what-car-maintenance-actually-costs/</guid>
+      <pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Real 2026 price ranges for common car maintenance jobs, what each costs to DIY, and which repairs are actually worth paying shop markup for.</description>
+    </item>
     <item>
       <title>How to Build a Car Maintenance Schedule You Will Actually Follow</title>
       <link>https://treforged.com/blog/how-to-build-a-car-maintenance-schedule/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-a-headlight-bulb/</guid>
       <pubDate>Sat, 22 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn how to identify the right bulb and safely swap a burnt-out headlight yourself in under 15 minutes, no special tools required.</description>
-    </item>
-    <item>
-      <title>How to Negotiate Lower Bills on Almost Anything (Without Switching Providers)</title>
-      <link>https://treforged.com/blog/how-to-negotiate-lower-bills/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-negotiate-lower-bills/</guid>
-      <pubDate>Fri, 21 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn exactly what to say to lower your cable, internet, phone, and insurance bills, with real scripts and tactics that work in 2026.</description>
     </item>
   </channel>
 </rss>
