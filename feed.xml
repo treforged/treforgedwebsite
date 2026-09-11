@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 11 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Read Your Credit Report and Dispute Errors (2026 Guide)</title>
+      <link>https://treforged.com/blog/how-to-read-and-dispute-your-credit-report/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-read-and-dispute-your-credit-report/</guid>
+      <pubDate>Fri, 11 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to read every section of your credit report and follow the exact steps to dispute and remove inaccurate entries in 2026.</description>
+    </item>
     <item>
       <title>What Car Maintenance Actually Costs (Job by Job, DIY vs Shop)</title>
       <link>https://treforged.com/blog/what-car-maintenance-actually-costs/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/no-spend-challenge-guide/</guid>
       <pubDate>Sun, 23 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn how to run a 7 to 30 day no-spend challenge, what counts as exempt spending, and how to turn the results into habits that stick in 2026.</description>
-    </item>
-    <item>
-      <title>How to Replace a Headlight Bulb in Under 15 Minutes</title>
-      <link>https://treforged.com/blog/how-to-replace-a-headlight-bulb/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-a-headlight-bulb/</guid>
-      <pubDate>Sat, 22 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to identify the right bulb and safely swap a burnt-out headlight yourself in under 15 minutes, no special tools required.</description>
     </item>
   </channel>
 </rss>
