@@ -20,6 +20,13 @@
   --r1: 8px; --r2: 14px; --r3: 20px;
   --fd: 'Outfit',  system-ui, sans-serif;
   --fb: 'DM Sans', system-ui, sans-serif;
+
+  /* The OS draws the open <select> list, the scrollbars, the number spinners
+     and the date picker. No background on the control reaches any of them —
+     this declaration is the ONLY lever over them. Without it you get a
+     beautifully themed closed control and a grey system list with a blue
+     highlight the moment anyone clicks it. */
+  color-scheme: dark;
 }
 
 /* ── RESET ───────────────────────────────────────────────────────── */
@@ -38,6 +45,81 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 img  { display: block; max-width: 100%; }
+
+/* ── FORM CONTROLS ───────────────────────────────────────────────── */
+/* A native control with no explicit styling renders in the browser's own
+   LIGHT chrome — a white box punched into this dark page. These are the
+   site-wide defaults so a new control is themed the moment it is written,
+   rather than the moment somebody screenshots it.
+   Gate: node scripts/form-control-theming.mjs */
+select, textarea,
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]) {
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: var(--text);
+  background: var(--surf-2);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--r2);
+  padding: 12px 16px;
+  width: 100%;
+  max-width: 100%;
+}
+select {
+  /* appearance:none also removes the native arrow, so one is supplied below —
+     without it the control reads as a plain text box. */
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%239d97b8' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px 8px;
+  padding-right: 40px;
+  cursor: pointer;
+}
+/* Firefox draws the option list from the page, unlike Chrome and Safari, so
+   these two do reach it there. color-scheme on :root covers the rest. */
+select option, select optgroup { background: var(--surf-2); color: var(--text); }
+textarea { min-height: 120px; resize: vertical; line-height: 1.6; }
+
+/* Checkboxes, radios and range sliders are left out of the block above on
+   purpose — a background and a colour break their rendering. accent-color is
+   the property that themes them, and with color-scheme:dark above it they
+   draw dark instead of the browser's light default. */
+input[type="checkbox"], input[type="radio"], input[type="range"] {
+  accent-color: var(--accent);
+}
+
+::placeholder { color: var(--text-faint); opacity: 1; }
+
+select:focus-visible, textarea:focus-visible, input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+select:disabled, textarea:disabled, input:disabled {
+  /* The browser default here is near-invisible on a dark surface. */
+  color: var(--text-faint);
+  background: var(--surf-1);
+  border-color: var(--border);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+/* Chrome and WebKit repaint an autofilled field with their own yellow/blue,
+   which makes a filled form look broken. The background cannot be set
+   directly on an autofilled field, so it is painted with an inset shadow. */
+select:-webkit-autofill,
+textarea:-webkit-autofill,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  -webkit-box-shadow: 0 0 0 1000px var(--surf-2) inset;
+  box-shadow: 0 0 0 1000px var(--surf-2) inset;
+  caret-color: var(--text);
+  transition: background-color 9999s ease-in-out 0s;
+}
 a    { color: var(--accent); text-decoration: none; }
 a:hover { color: var(--text); }
 main { flex: 1 0 auto; }
@@ -184,7 +266,11 @@ nav.primary a.active { color: var(--text); background: var(--surf-2); }
   flex-shrink: 0;
   background: transparent;
   border: none;
+  /* The outline is removed so the tap target has no platform ring, but a
+     keyboard user still needs to see where they are — hence the replacement
+     below, not a bare `outline: none`. */
   outline: none;
+  outline-color: var(--accent);
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   user-select: none;
@@ -933,28 +1019,63 @@ a:focus-visible, button:focus-visible {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 18px;
 }
+/* ENTRY BOXES LINE UP, ALWAYS — Tre, 2026-09-12.
+   Each field is a <label> holding its caption and its control. With the label
+   as a plain column, a caption that wraps to two lines pushes its control down
+   and it no longer lines up with the field beside it: measured at 22.6px out
+   of line on this form, in both rows, before this rule.
+   Row subgrid is the fix. The label spans two of the parent's rows and adopts
+   them, so every caption shares one track and every control shares the next —
+   the controls line up whatever the captions do. */
 .calc-form label {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 2;
+  row-gap: 8px;
+  align-content: start;
   font-family: var(--fb);
   font-size: 0.82rem;
   font-weight: 500;
   color: var(--text-dim);
   letter-spacing: 0.02em;
 }
-.calc-form input {
+/* Firefox before 71 and any engine without row subgrid: bottom-pack the
+   label instead. Every label in a grid row is already stretched to the same
+   height, so packing to the end lines the controls up the same way.
+   The captions then sit lower on short labels, which is the cost of the
+   fallback and is still better than controls out of line. */
+@supports not (grid-template-rows: subgrid) {
+  .calc-form label {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}
+.calc-form input,
+.calc-form select {
   font-family: var(--fd);
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text);
-  background: rgba(255,255,255,0.03);
+  /* background-color, NOT the `background` shorthand — the shorthand resets
+     background-image, which is where the <select> chevron lives. */
+  background-color: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 10px;
   padding: 12px 14px;
   width: 100%;
 }
-.calc-form input:focus {
+/* The number fields hold short figures; this one holds a job name, so it is
+   set a size down from them to stop long presets wrapping inside the control. */
+.calc-form select {
+  font-size: 1rem;
+  font-weight: 600;
+  padding-right: 38px;
+  background-position: right 13px center;
+}
+.calc-form input:focus,
+.calc-form select:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(192,132,252,0.18);

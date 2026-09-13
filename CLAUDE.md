@@ -13,6 +13,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | --- | --- | --- |
 | A page's copy, layout or meta tags | the page's own `index.html` (`founders/`, `cars/`, `about/`, `contact/`, `services/`, `partnerships/`) or `index.html` at the root | `styles.css` — shared, and editing it changes every page |
 | Anything shared across pages: colours, type, the header, the card and form classes | `styles.css` | a page's inline `style=` |
+| Why a `<select>`, `<input>` or `<textarea>` looks like a white box, or its dropdown list is OS-grey | the FORM CONTROLS block in `styles.css` — and `color-scheme: dark` on `:root`, which is the ONLY lever over the OS-drawn popup, scrollbars, number spinners and date pickers | the page holding the control — none of them style their own fields |
 | Behaviour in the browser: the newsletter form, the founders waitlist form, view counts, the mobile menu | `main.js` | any page — none of them carry their own script |
 | How a blog post is WORDED or structured | `scripts/generate-article.mjs` (the prompt) | `blog/<slug>/index.html` — a pipeline wrote it and will overwrite you |
 | How a blog post is RENDERED: template, CTAs, UTMs, nav, "Keep reading", RSS | `scripts/publish-next.mjs` | the rendered posts |
@@ -41,6 +42,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | the keyword targets, or a post's headings | `node scripts/keyword-coverage.mjs --max-misses=0` - without the flag it is a report and exits 0 with misses; with it, it is a gate. Coverage reached 0 misses on 2026-09-06 |
 | an FAQ heading on any post | `node scripts/faq-sync.mjs` - the question also lives in the FAQPage JSON-LD, and editing one and not the other is invisible on the page |
 | anything that renders or publishes a post | `node scripts/seo-check.mjs` |
+| any `<select>`, `<input>`, `<textarea>`, checkbox, radio, number or date field, or the form-control CSS | `node scripts/form-control-theming.mjs` — a source scan, deliberately: jsdom returns `''` for class-driven styles, so a computed-style gate would be green against every defect it exists to catch. `--limits` prints what it does NOT catch; read that before trusting a PASS |
 | `main.js` or `styles.css` themselves | `node scripts/version-assets.mjs` then commit the restamped HTML |
 | a Cloudflare cache rule on either zone | `node scripts/cache-check.mjs` (add `--host=getforgenta.com` for that zone) |
 | a tool page, the `/tools/` hub, or the site nav | `node scripts/tools-reachable.mjs` |

@@ -69,6 +69,7 @@ jobs:
           node scripts/version-assets.mjs --check
           node scripts/test-source-attribution.mjs
           node scripts/seo-check.mjs
+          node scripts/form-control-theming.mjs
           # Tool suites are DISCOVERED, not listed, so a new calculator is gated
           # the day it lands - and a discovery of zero fails rather than passing
           # quietly, which is the exact trap this gate itself fell into.

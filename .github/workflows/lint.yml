@@ -35,3 +35,23 @@ jobs:
       # can see. It goes with the next real main.js change; until then the
       # ratchet holds the line so NEW code cannot add a warning.
       - run: node scripts/lint-baseline.mjs --max-warnings=1
+
+  # Separate job, and deliberately WITHOUT `npm ci`: this gate is plain node
+  # with no dependencies, so it must not inherit the registry as a failure
+  # surface. It runs on every push and PR.
+  #
+  # Unlike the lint job above, this one IS blocking. A browser-default form
+  # control is a visible defect on a live page — Tre found a white <select> on
+  # the DIY calculator himself on 2026-09-12, after it had been shipped and
+  # unnoticed. It is the third visual defect this month that no test could see.
+  form-controls:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node scripts/form-control-theming.mjs
+      # Printed on every run so a PASS is never read as a broader guarantee
+      # than it is.
+      - run: node scripts/form-control-theming.mjs --limits
