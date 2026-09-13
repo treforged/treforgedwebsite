@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 12 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 13 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Debt Consolidation Explained: When It Helps and When It Hurts</title>
+      <link>https://treforged.com/blog/debt-consolidation-explained/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/debt-consolidation-explained/</guid>
+      <pubDate>Sun, 13 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Debt consolidation can simplify your bills or make things worse. Learn how loans and balance transfers work, and when each one is the right move in 2026.</description>
+    </item>
     <item>
       <title>What Is GAP Insurance, and Do You Actually Need It?</title>
       <link>https://treforged.com/blog/what-is-gap-insurance-and-do-you-need-it/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-read-your-pay-stub/</guid>
       <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn how to read every line on your pay stub, from gross pay to deductions, so you can catch payroll mistakes before they cost you money.</description>
-    </item>
-    <item>
-      <title>How to Choose a Budgeting Method That Actually Fits Your Personality</title>
-      <link>https://treforged.com/blog/choosing-a-budgeting-method-for-your-personality/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/choosing-a-budgeting-method-for-your-personality/</guid>
-      <pubDate>Mon, 24 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Stop bouncing between budgeting apps and spreadsheets. Use this personality-based framework to pick a budgeting method you'll actually stick with in 2026.</description>
     </item>
   </channel>
 </rss>
