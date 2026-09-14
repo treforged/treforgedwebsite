@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
       - run: npm ci
       # The ratchet is 1, not 0, and the 1 is named rather than rounded away:
       # main.js has an unused `e` parameter on a click handler. Renaming it is a
@@ -50,7 +50,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
       - run: node scripts/form-control-theming.mjs
       # Printed on every run so a PASS is never read as a broader guarantee
       # than it is.
