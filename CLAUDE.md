@@ -29,6 +29,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | A calculator tool | `tools/<name>/` | |
 | Whether the calculators are reachable at all - the hub, the nav link, the sitemap entry | `tools/index.html` and `scripts/tools-reachable.mjs` | the tool pages themselves - they were fine, and nobody could find them |
 | Whether anything at all - a tool, a page, a link target - is built but reachable from nowhere | `scripts/reachability.mjs` and `reachability.config.json` - it reports ORPHAN and BROKEN separately, and exits 2 when it examined nothing | a "does it exist" check, which is the question that let three calculators sit unreachable for five days |
+| Whether a rounded element nested inside another rounded element has the wrong corner radius | `node scripts/concentricity.mjs` for the source proxy, and `scripts/concentricity-probe.js` pasted into a real browser for the measurement - the probe is the only one that can see geometry | reading `border-radius` in `styles.css` and judging it by eye: the rule is `r_inner = r_outer - gap`, and the gap is a fact about computed layout, not about the stylesheet |
 | Whether any JavaScript here is dead, undefined or unreachable | `node scripts/lint-baseline.mjs`, configured by `eslint.config.mjs` | `npx eslint .` alone - it says nothing about what it did NOT examine, and the Deno function is outside it |
 | What the last session did and what is open | `handoff.md` | git log |
 
@@ -48,6 +49,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | a tool page, the `/tools/` hub, or the site nav | `node scripts/tools-reachable.mjs` |
 | any JavaScript file in this repo | `node scripts/lint-baseline.mjs` - every rule in `eslint.config.mjs` is `warn` ON PURPOSE, so this REPORTS a count and does not go red on it. It exits non-zero only for a lint ERROR, for a tracked file outside the linter with no recorded reason, or when it examined nothing. Baseline on 2026-09-08 was 5 warnings; swept to **1**, and CI runs it as `--max-warnings=1`. The 1 is `main.js`'s unused `e` parameter, left on purpose because restamping 82 HTML pages for it buys a visitor nothing - it goes with the next real `main.js` change |
 | a page, a tool, or anything that is supposed to be linked from somewhere | `node scripts/reachability.mjs` |
+| a `border-radius` or a `padding` in `styles.css` | `node scripts/concentricity.mjs` - it judges CONTAINERS only and prints how many, counting leaf form controls separately rather than excluding them silently. `--limits` prints what it cannot see; read that before trusting a PASS. It is a SOURCE proxy: for the geometry itself paste `scripts/concentricity-probe.js` into a browser |
 | this table | `node scripts/check-routing-table.mjs` |
 
 ## Handing a slice to a free local model
