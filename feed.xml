@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 13 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 14 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Lower Your Insurance Premiums Without Cutting Coverage</title>
+      <link>https://treforged.com/blog/how-to-lower-insurance-premiums/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-lower-insurance-premiums/</guid>
+      <pubDate>Mon, 14 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn how bundling, discounts, and smart deductible changes can shrink your home, renters, and auto insurance premiums in 2026.</description>
+    </item>
     <item>
       <title>Debt Consolidation Explained: When It Helps and When It Hurts</title>
       <link>https://treforged.com/blog/debt-consolidation-explained/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/checking-vs-savings-vs-money-market-accounts/</guid>
       <pubDate>Wed, 26 Aug 2026 12:00:00 GMT</pubDate>
       <description>A clear, beginner-friendly breakdown of checking, savings, and money market accounts and how to use all three together in 2026.</description>
-    </item>
-    <item>
-      <title>How to Read Your Pay Stub (and Catch Costly Errors)</title>
-      <link>https://treforged.com/blog/how-to-read-your-pay-stub/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-read-your-pay-stub/</guid>
-      <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to read every line on your pay stub, from gross pay to deductions, so you can catch payroll mistakes before they cost you money.</description>
     </item>
   </channel>
 </rss>
