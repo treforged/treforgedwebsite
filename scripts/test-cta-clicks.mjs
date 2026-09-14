@@ -19,11 +19,11 @@ import { readFileSync } from "node:fs";
 
 const SRC = readFileSync(new URL("../main.js", import.meta.url), "utf8");
 
-const start = SRC.indexOf("if (slugMatch) {");
+const start = SRC.indexOf("// CTA_BLOCK_START");
 if (start === -1) throw new Error("CTA click block not found in main.js (marker moved?)");
-const end = SRC.indexOf("\n    }\n", start);
+const end = SRC.indexOf("// CTA_BLOCK_END", start);
 if (end === -1) throw new Error("could not find the end of the CTA click block in main.js");
-const BLOCK = SRC.slice(start, end + "\n    }".length);
+const BLOCK = SRC.slice(start, end);
 
 if (!BLOCK.includes("record_cta_click")) {
   throw new Error("extracted block does not call record_cta_click - wrong block");
@@ -31,7 +31,10 @@ if (!BLOCK.includes("record_cta_click")) {
 
 // Builds a fresh sandbox per scenario: our document captures the listener, our
 // sessionStorage is a plain object, our viewsRpc records what would be sent.
-function mount({ slug = "car-loans-explained", storageThrows = false } = {}) {
+function mount({ slug = "car-loans-explained", path = null, storageThrows = false } = {}) {
+  // `path` drives location.pathname, which is what the page key is derived
+  // from. Passing a path with no slug is how a non-article page is exercised.
+  const pathname = path !== null ? path : (slug === null ? "/" : `/blog/${slug}/`);
   let listener = null;
   const sent = [];
   const store = new Map();
@@ -70,9 +73,16 @@ function mount({ slug = "car-loans-explained", storageThrows = false } = {}) {
     "sessionStorage",
     "viewsRpc",
     "slugMatch",
+    "location",
     `${BLOCK}\nreturn true;`,
   );
-  factory(document, sessionStorage, viewsRpc, slug === null ? null : [`/blog/${slug}/`, slug]);
+  factory(
+    document,
+    sessionStorage,
+    viewsRpc,
+    slug === null ? null : [`/blog/${slug}/`, slug],
+    { pathname },
+  );
 
   return { listener, sent };
 }
@@ -148,9 +158,65 @@ for (const [label, a, expected] of [
   listener({ target: { closest: () => null } });
   check("click on non-anchor sends nothing", sent, []);
 }
+// --- THE DEFECT THIS BLOCK FIXES --------------------------------------------
+// The listener used to be wrapped in `if (slugMatch)`, so it attached ONLY on
+// /blog/<slug>/. Every Forgenta link on the homepage and the calculators was
+// unmeasured - and an unmeasured press is an ABSENCE, not a zero, which is the
+// harder of the two to notice in a table of counts. The old test asserted the
+// defect ("no listener attached off a blog post") and passed forever.
 {
-  const { listener } = mount({ slug: null });
-  check("no listener attached off a blog post", listener, null);
+  const { listener, sent } = mount({ slug: null, path: "/" });
+  check("homepage DOES attach a listener", listener !== null, true);
+  if (listener) click(listener, anchor(APP, ["btn"]));
+  check("homepage app CTA is recorded under page-home", sent, [
+    { fn: "record_cta_click", p_slug: "page-home", p_cta: "page_app" },
+  ]);
+}
+{
+  const { listener, sent } = mount({ slug: null, path: "/tools/diy-vs-shop-calculator/" });
+  click(listener, anchor(APP, ["btn"]));
+  check("calculator CTA is recorded under its own page key", sent, [
+    { fn: "record_cta_click", p_slug: "page-tools-diy-vs-shop-calculator", p_cta: "page_app" },
+  ]);
+}
+{
+  const { listener, sent } = mount({ slug: null, path: "/cars.html" });
+  click(listener, anchor(APP, ["btn"]));
+  check(".html page key drops the extension", sent.map((s) => s.p_slug), ["page-cars"]);
+}
+{
+  // An article must keep its BARE slug or clicks and views stop sharing a
+  // denominator, which the migration relies on.
+  const { listener, sent } = mount({ slug: "needs-vs-wants" });
+  click(listener, anchor(APP, ["btn"]));
+  check("an article key is still the bare slug, not prefixed", sent.map((s) => s.p_slug), ["needs-vs-wants"]);
+}
+{
+  // The nav button is the same control everywhere, so it keeps ONE name - but
+  // its page key still says which page it was pressed on.
+  const { listener, sent } = mount({ slug: null, path: "/founders/" });
+  click(listener, anchor("https://getforgenta.com/", ["nav-app-btn"]));
+  check("nav button keeps one name off-article", sent, [
+    { fn: "record_cta_click", p_slug: "page-founders", p_cta: "nav_app" },
+  ]);
+}
+{
+  // EVERY key this site can produce must satisfy the server regex, or the click
+  // is refused at runtime and the counter silently under-reports.
+  const SLUG_RE = /^[a-z0-9]([a-z0-9-]{0,98}[a-z0-9])?$/;
+  const paths = ["/", "/index.html", "/cars.html", "/founders/", "/about/", "/contact/",
+    "/services/", "/partnerships/", "/tools/", "/tools/debt-payoff-calculator/",
+    "/blog/needs-vs-wants/", "/" + "x".repeat(140) + "/"];
+  const keys = [];
+  for (const path of paths) {
+    const { listener, sent } = mount({ slug: null, path });
+    click(listener, anchor(APP, ["btn"]));
+    keys.push(...sent.map((s) => s.p_slug));
+  }
+  check("every page key this site can produce passes the server regex",
+    keys.filter((k) => !SLUG_RE.test(k)), []);
+  check("the long-path key was clamped, not sent at full length",
+    keys.every((k) => k.length <= 100), true);
 }
 
 // --- dedupe: one record per CTA per session ---------------------------------

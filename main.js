@@ -442,36 +442,66 @@
     // built from two different denominators would be worse than none. Every CTA
     // link opens in a new tab, so the page is never unloaded and a plain fetch
     // completes; no sendBeacon needed.
-    if (slugMatch) {
-      document.addEventListener('click', function (event) {
-        var anchor = event.target.closest ? event.target.closest('a') : null;
-        if (!anchor) return;
-
-        var href = anchor.getAttribute('href') || '';
-        if (href.indexOf('getforgenta.com') === -1 && href.indexOf('play.google.com') === -1) return;
-
-        // First match wins, so the nav button is never counted as an article CTA.
-        var cta;
-        if (anchor.classList.contains('nav-app-btn'))   cta = 'nav_app';
-        else if (href.indexOf('play.google.com') !== -1) cta = 'article_play';
-        else if (href.indexOf('/builds/share/') !== -1)  cta = 'article_build';
-        else if (anchor.classList.contains('btn'))       cta = 'article_app';
-        else                                             cta = 'footer_link';
-
-        // One record per CTA per browser session. Private mode throws on
-        // sessionStorage, and there we would rather send than lose the reading.
-        var ctaKey = 'tf_cta_' + slugMatch[1] + '_' + cta;
-        try {
-          if (sessionStorage.getItem(ctaKey) === '1') return;
-        } catch (err) { /* private mode; fall through and send */ }
-        try { sessionStorage.setItem(ctaKey, '1'); } catch (err) { /* private mode */ }
-
-        viewsRpc('record_cta_click', { p_slug: slugMatch[1], p_cta: cta })
-          .catch(function () {
-            // Measurement only - it must never interfere with the click.
-          });
-      });
+    // CTA_BLOCK_START - the test harness lifts everything down to CTA_BLOCK_END
+    // out of this file verbatim and dispatches synthetic clicks at it.
+    //
+    // This listener USED TO SIT INSIDE `if (slugMatch)`, so it only ever
+    // attached on /blog/<slug>/. The six Forgenta links on the homepage and the
+    // three on the calculators could not be recorded AT ALL - a press there was
+    // not a zero, it was an ABSENCE, and the two are indistinguishable in the
+    // table. The calculators are what search finds, so this was the surface
+    // most likely to convert and the one least likely to be measured.
+    function ctaPageKey(path) {
+      var article = path.match(/^\/blog\/([a-z0-9-]+)\/?$/);
+      // An article keeps its BARE slug, so clicks and views go on sharing one
+      // denominator exactly as the migration promises.
+      if (article) return article[1];
+      // Everything else is prefixed. No other page increments page_views, so a
+      // `page-` key has no view denominator - the prefix makes that asymmetry
+      // visible in the data instead of hiding it behind a slug-shaped string.
+      var raw = path.replace(/\.html$/, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      raw = raw.replace(/^-+/, '').replace(/-+$/, '');
+      if (!raw) return 'page-home';
+      // The server validates ^[a-z0-9]([a-z0-9-]{0,98}[a-z0-9])?$ and raises
+      // otherwise, so the key is clamped and re-trimmed rather than sent long.
+      return ('page-' + raw).slice(0, 100).replace(/-+$/, '');
     }
+
+    var ctaPage   = ctaPageKey(location.pathname);
+    var onArticle = !!slugMatch;
+
+    document.addEventListener('click', function (event) {
+      var anchor = event.target.closest ? event.target.closest('a') : null;
+      if (!anchor) return;
+
+      var href = anchor.getAttribute('href') || '';
+      if (href.indexOf('getforgenta.com') === -1 && href.indexOf('play.google.com') === -1) return;
+
+      // First match wins, so the nav button is never counted as an article CTA.
+      // The nav button is the same control on every page and keeps one name; the
+      // rest are named for the SURFACE, so "which page converts" stays
+      // answerable rather than collapsing into one bucket.
+      var cta;
+      if (anchor.classList.contains('nav-app-btn'))   cta = 'nav_app';
+      else if (href.indexOf('play.google.com') !== -1) cta = onArticle ? 'article_play'  : 'page_play';
+      else if (href.indexOf('/builds/share/') !== -1)  cta = onArticle ? 'article_build' : 'page_build';
+      else if (anchor.classList.contains('btn'))       cta = onArticle ? 'article_app'   : 'page_app';
+      else                                             cta = 'footer_link';
+
+      // One record per CTA per browser session. Private mode throws on
+      // sessionStorage, and there we would rather send than lose the reading.
+      var ctaKey = 'tf_cta_' + ctaPage + '_' + cta;
+      try {
+        if (sessionStorage.getItem(ctaKey) === '1') return;
+      } catch (err) { /* private mode; fall through and send */ }
+      try { sessionStorage.setItem(ctaKey, '1'); } catch (err) { /* private mode */ }
+
+      viewsRpc('record_cta_click', { p_slug: ctaPage, p_cta: cta })
+        .catch(function () {
+          // Measurement only - it must never interfere with the click.
+        });
+    });
+    // CTA_BLOCK_END
 
     // ── Lightbox ──────────────────────────────────────────────────
     var modal    = document.getElementById('imgModal');
