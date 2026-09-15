@@ -383,6 +383,45 @@
       }
     }
 
+    // PAGEVIEW_BLOCK_START
+    // ── The other static pages: count the view, silently ─────────
+    // Until now ONLY /blog/<slug>/ and the tool pages incremented page_views,
+    // so every other page read as 0 views - an ABSENCE that is indistinguishable
+    // from nobody arriving. That mattered twice: the founders waitlist is an
+    // experiment whose result is meant to be read beside its view count, and it
+    // had no denominator at all; and the homepage now carries Forgenta CTAs
+    // whose CLICKS are counted (da64cff) while its views were not, so the rate
+    // could not be computed from either end.
+    //
+    // The slug comes from an ALLOW-LIST, never from the path: the server rejects
+    // anything outside ^[a-z0-9]([a-z0-9-]{0,98}[a-z0-9])?$, and an unknown path
+    // must simply go uncounted rather than be coerced into a slug shape. The
+    // "page-" prefix cannot collide with a blog slug or with "tool-"/"tools-hub".
+    var countedPages = ['about', 'cars', 'contact', 'founders', 'partnerships', 'services'];
+    var pagePath     = location.pathname.replace(/\/+$/, '');
+    var pageSlug     = null;
+
+    if (pagePath === '' || pagePath === '/index.html') {
+      pageSlug = 'page-home';
+    } else if (countedPages.indexOf(pagePath.slice(1)) !== -1) {
+      pageSlug = 'page-' + pagePath.slice(1);
+    }
+
+    if (pageSlug) {
+      // The read gets its own try/catch: private mode throws here, and a
+      // browser with no sessionStorage must still have its view counted.
+      var pageSeen;
+      try { pageSeen = sessionStorage.getItem('tf_viewed_' + pageSlug); }
+      catch (err) { pageSeen = null; }
+
+      if (pageSeen !== '1') {
+        try { sessionStorage.setItem('tf_viewed_' + pageSlug, '1'); }
+        catch (err) { /* private mode */ }
+        viewsRpc('increment_page_view', { p_slug: pageSlug }).catch(function () {});
+      }
+    }
+    // PAGEVIEW_BLOCK_END
+
     // ── Preview cards: one batched read for every card on the page ─
     var cards = Array.prototype.slice.call(
       document.querySelectorAll('a.blog-card[href^="/blog/"]')

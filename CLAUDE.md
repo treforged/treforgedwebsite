@@ -20,6 +20,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | What gets published next, and what already was | `content-queue/queue.json`, `content-queue/published.json` (the source of truth for posts) | `blog/` |
 | Which keywords the blog is chasing | `content-queue/keyword-targets.md`, `content-queue/topics.json` | |
 | Which posts CONTAIN the keywords they chase | `node scripts/keyword-coverage.mjs` | the targets file alone - it says what was aimed at, never what landed |
+| Which pages have a view count at all, and why a page reads 0 views | the PAGEVIEW block in `main.js` - only `/blog/<slug>/`, the tools pages and the seven static pages are counted. A page outside that allow-list reads 0 because nothing counts it, which is an ABSENCE, not a measurement | the `counters.page_views` table alone - a slug missing from it and a slug with 0 visitors look identical |
 | Whether anyone PRESSES the Forgenta CTA on a post | `counters.cta_clicks` in the `treforged-site` project, and `supabase/migrations/20260905_cta_click_counter.sql` | the view count alone - views say people arrived, not that they left for the app |
 | Why the daily post fired, or did not | `.github/workflows/daily-article.yml` (cron `0 13 * * *`) | |
 | The email capture backend: signups, the confirmation, unsubscribe | `supabase/functions/founder-waitlist/index.ts` | `main.js` — it only posts to it |
@@ -40,6 +41,7 @@ lives is the cost this table exists to remove, and `blog/` alone is 66 folders.
 | --- | --- |
 | `main.js` source attribution | `node scripts/test-source-attribution.mjs` |
 | `main.js` Forgenta CTA click counting | `node scripts/test-cta-clicks.mjs` |
+| `main.js` page-view counting, or which pages are counted | `node scripts/test-page-views.mjs` - it EXTRACTS the shipped block between the `PAGEVIEW_BLOCK` markers, so moving or deleting the block fails it rather than passing over a restatement |
 | the article prompt | `node scripts/generator-prompt.test.mjs` |
 | the keyword targets, or a post's headings | `node scripts/keyword-coverage.mjs --max-misses=0` - without the flag it is a report and exits 0 with misses; with it, it is a gate. Coverage reached 0 misses on 2026-09-06 |
 | an FAQ heading on any post | `node scripts/faq-sync.mjs` - the question also lives in the FAQPage JSON-LD, and editing one and not the other is invisible on the page |
