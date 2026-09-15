@@ -55,3 +55,23 @@ jobs:
       # Printed on every run so a PASS is never read as a broader guarantee
       # than it is.
       - run: node scripts/form-control-theming.mjs --limits
+
+  # Also dependency-free, and also blocking. A blog slug that a forge-reach
+  # campaign points at cannot be renamed or deleted without this going red.
+  #
+  # forge-reach is a different, private repo, so it is NOT checked out here:
+  # this job runs in SNAPSHOT ONLY mode and says so on every run. That still
+  # catches the failure that actually happens - a slug removed from THIS repo -
+  # and it deliberately cannot notice a change to the campaign list itself.
+  # The desk catches that half locally, where forge-reach is a sibling folder
+  # and the gate runs in DERIVED mode.
+  reach-destinations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node scripts/reach-destinations.mjs
+      # Printed every run so a PASS is never read as a broader guarantee.
+      - run: node scripts/reach-destinations.mjs --limits
