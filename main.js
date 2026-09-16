@@ -152,6 +152,72 @@
     // Separate list, separate audience. Goes through the founder-waitlist edge
     // function rather than PostgREST, because a confirmation email has to send
     // and that needs a server-side Resend key.
+    // ARRIVAL_SOURCE_BLOCK_START - the source gate lifts everything down to
+    // the matching END marker below out of this file verbatim. That marker is
+    // deliberately NOT spelled out here: the gate takes the first occurrence
+    // after the start, so naming it in this comment would end the block at the
+    // description of itself. Its own positive control caught exactly that.
+    //
+    // Extraction is by MARKER, not by indentation. This block moved out of
+    // `if (wlForm)` on 2026-09-16 and shed two spaces of indent, which broke an
+    // indentation-anchored gate LOUDLY - the only safe way for it to break.
+    //
+    // THIS USED TO LIVE INSIDE `if (wlForm)`, so the ONLY page on this site that
+    // read a utm_source was /founders/. On 2026-09-16 the @treforged bio started
+    // pointing at the HOMEPAGE with a full UTM string, and nothing here could
+    // see it - increment_page_view and record_cta_click take no source argument
+    // at all. A zero from that campaign would have been an ABSENCE, which is the
+    // same mistake the CTA listener made for nine days.
+    // Where the signup came from. This is the RESULT of Ruby's two-arm
+    // reachability test, not a vanity field: one arm is Tre's brand account,
+    // the other is developer-native placements, and the whole question is
+    // whether the second reaches anyone. So the two must be tellable apart.
+    //
+    // Order matters. An explicit utm_source wins, because a tagged placement
+    // is the only source that names ITSELF. Then the in-app browsers, which
+    // send NO referrer at all — that is why the bare bio link Tre already
+    // posted would otherwise land in the same bucket as a typed URL, and why
+    // sniffing the client is worth it here. Then the referring host, which
+    // covers every developer-native arm that arrives through a normal link.
+    // Anything left is 'direct', which is honest: unknown, not assumed.
+    var IN_APP = [
+      [/instagram/i, 'ig-inapp'],
+      [/tiktok|bytedance|musical_ly/i, 'tiktok-inapp'],
+      [/\bFB[AS]V\b|FBAN|FB_IAB/, 'fb-inapp'],
+      [/linkedin/i, 'linkedin-inapp']
+    ];
+
+    var wlSource = function () {
+      try {
+        var q = new URLSearchParams(location.search);
+        var utm = q.get('utm_source');
+        if (utm) {
+          // Paid tests iterate on CREATIVE, not on platform. "instagram ads
+          // worked" is not an actionable answer on a small budget; "this
+          // creative worked" is. So utm_content, else utm_campaign, is folded
+          // in as `source/variant`. The server allows `/` and caps at 64, and
+          // the grouping query splits on it, so an untagged ad still reports
+          // cleanly as its bare source.
+          var variant = q.get('utm_content') || q.get('utm_campaign');
+          return variant ? utm + '/' + variant : utm;
+        }
+
+        var ua = navigator.userAgent || '';
+        for (var i = 0; i < IN_APP.length; i++) {
+          if (IN_APP[i][0].test(ua)) return IN_APP[i][1];
+        }
+
+        var ref = document.referrer;
+        if (!ref) return 'direct';
+        var host = new URL(ref).hostname.replace(/^www\./, '');
+        if (host === location.hostname) return 'on-site';
+        return host;
+      } catch (err) {
+        return 'unknown';
+      }
+    };
+    // ARRIVAL_SOURCE_BLOCK_END
+
     var wlForm = document.getElementById('waitlist-form');
     if (wlForm) {
       var WL_URL = 'https://mdtosrbfkextcaezuclh.supabase.co/functions/v1/founder-waitlist';
@@ -163,54 +229,6 @@
         wlMsg.className = 'newsletter-msg' + (kind ? ' is-' + kind : '');
       };
 
-      // Where the signup came from. This is the RESULT of Ruby's two-arm
-      // reachability test, not a vanity field: one arm is Tre's brand account,
-      // the other is developer-native placements, and the whole question is
-      // whether the second reaches anyone. So the two must be tellable apart.
-      //
-      // Order matters. An explicit utm_source wins, because a tagged placement
-      // is the only source that names ITSELF. Then the in-app browsers, which
-      // send NO referrer at all — that is why the bare bio link Tre already
-      // posted would otherwise land in the same bucket as a typed URL, and why
-      // sniffing the client is worth it here. Then the referring host, which
-      // covers every developer-native arm that arrives through a normal link.
-      // Anything left is 'direct', which is honest: unknown, not assumed.
-      var IN_APP = [
-        [/instagram/i, 'ig-inapp'],
-        [/tiktok|bytedance|musical_ly/i, 'tiktok-inapp'],
-        [/\bFB[AS]V\b|FBAN|FB_IAB/, 'fb-inapp'],
-        [/linkedin/i, 'linkedin-inapp']
-      ];
-
-      var wlSource = function () {
-        try {
-          var q = new URLSearchParams(location.search);
-          var utm = q.get('utm_source');
-          if (utm) {
-            // Paid tests iterate on CREATIVE, not on platform. "instagram ads
-            // worked" is not an actionable answer on a small budget; "this
-            // creative worked" is. So utm_content, else utm_campaign, is folded
-            // in as `source/variant`. The server allows `/` and caps at 64, and
-            // the grouping query splits on it, so an untagged ad still reports
-            // cleanly as its bare source.
-            var variant = q.get('utm_content') || q.get('utm_campaign');
-            return variant ? utm + '/' + variant : utm;
-          }
-
-          var ua = navigator.userAgent || '';
-          for (var i = 0; i < IN_APP.length; i++) {
-            if (IN_APP[i][0].test(ua)) return IN_APP[i][1];
-          }
-
-          var ref = document.referrer;
-          if (!ref) return 'direct';
-          var host = new URL(ref).hostname.replace(/^www\./, '');
-          if (host === location.hostname) return 'on-site';
-          return host;
-        } catch (err) {
-          return 'unknown';
-        }
-      };
 
       // Count the visit, once per browser session. Signups on their own cannot
       // tell "nobody came" from "people came and did not sign up", and those are
@@ -421,6 +439,30 @@
       }
     }
     // PAGEVIEW_BLOCK_END
+
+    // ARRIVAL_SEND_BLOCK_START - the gate lifts down to the matching END marker.
+    // Where visitors CAME FROM, once per browser session, site-wide.
+    //
+    // Sent once per SESSION rather than once per page, because the arrival
+    // source is a property of the visit and not of the page. Measured: an
+    // in-app visitor's second page still resolves to `ig-inapp`, but the
+    // CAMPAIGN is gone - instagram/ig_treforged becomes bare ig-inapp - so a
+    // per-page send would dilute the one bucket that answers whether the bio
+    // link works. The server dedupes again on its own side, one arrival per
+    // visitor per day; that is the half that actually holds.
+    //
+    // Private mode throws on sessionStorage. There we send anyway: losing the
+    // reading is worse than counting a visitor twice, and the server's per-day
+    // dedupe absorbs it.
+    try {
+      if (!sessionStorage.getItem('tf_arrival')) {
+        sessionStorage.setItem('tf_arrival', '1');
+        viewsRpc('record_arrival', { p_source: wlSource() }).catch(function () {});
+      }
+    } catch (err) {
+      viewsRpc('record_arrival', { p_source: wlSource() }).catch(function () {});
+    }
+    // ARRIVAL_SEND_BLOCK_END
 
     // ── Preview cards: one batched read for every card on the page ─
     var cards = Array.prototype.slice.call(
