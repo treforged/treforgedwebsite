@@ -95,7 +95,17 @@ function anchor(href, classes = []) {
   };
 }
 
+// A null listener means nothing attached on this page - which IS the defect this
+// gate exists to catch. Throwing here would abort the run at the first such
+// scenario and take every later check with it, so a SECOND defect further down
+// would be hidden behind the first. Record it and carry on: a partial run that
+// exits 1 looks exactly like a complete one.
+let listenerMissing = 0;
 function click(listener, a) {
+  if (typeof listener !== "function") {
+    listenerMissing++;
+    return;
+  }
   listener({ target: { closest: () => a } });
 }
 
@@ -260,7 +270,11 @@ for (const [label, a, expected] of [
   check("every CTA name passes the server's regex", bad, []);
 }
 
-console.log(`\n${ran} checks run, ${failed} failed.`);
+console.log(`\n${ran} checks run, ${failed} failed${listenerMissing ? `, ${listenerMissing} click(s) hit a page with NO listener attached` : ""}.`);
+if (listenerMissing) {
+  console.error("a scenario mounted no click listener at all - the CTA block is gated off that page");
+  process.exit(1);
+}
 if (ran === 0) {
   console.error("no checks ran - the gate would have passed on nothing");
   process.exit(1);
