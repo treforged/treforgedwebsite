@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>The True Cost of Convenience Spending: What Delivery and Rideshare Fees Really Add Up To</title>
+      <link>https://treforged.com/blog/cost-of-convenience-spending/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/cost-of-convenience-spending/</guid>
+      <pubDate>Wed, 16 Sep 2026 12:00:00 GMT</pubDate>
+      <description>See what delivery fees, rideshare rides, and other convenience purchases really cost over a year in 2026, plus simple ways to cut back.</description>
+    </item>
     <item>
       <title>How to Handle Medical Bills Without Falling Into Debt</title>
       <link>https://treforged.com/blog/how-to-handle-medical-bills-without-debt/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/credit-utilization-explained/</guid>
       <pubDate>Fri, 28 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn how credit utilization works, what ratio to aim for, and the statement-date timing trick that can raise your credit score in as little as one billing cycle.</description>
-    </item>
-    <item>
-      <title>How to Negotiate the Price of a Car Without Feeling Intimidated</title>
-      <link>https://treforged.com/blog/how-to-negotiate-the-price-of-a-car/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-negotiate-the-price-of-a-car/</guid>
-      <pubDate>Thu, 27 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn practical research, timing, and in-person tactics to negotiate a lower car price confidently at a dealership or private sale.</description>
     </item>
   </channel>
 </rss>
