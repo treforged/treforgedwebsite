@@ -1,0 +1,13 @@
+#!/bin/sh
+# conductor-push-guard — see scripts/push-guard.mjs
+#
+# Refuses a push from an unattended job. Nothing leaves this machine without a
+# person. An interactive terminal does not set CONDUCTOR_JOB and is unaffected.
+if [ -n "${CONDUCTOR_JOB}" ]; then
+  echo "" >&2
+  echo "REFUSED: an unattended job may not push." >&2
+  echo "Commit freely — the work stays here and the board offers Tre a Push button." >&2
+  echo "" >&2
+  exit 1
+fi
+exit 0
