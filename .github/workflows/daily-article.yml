@@ -97,7 +97,25 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
             git commit -m "[blog]: auto-publish next queued article ($(date -u +%Y-%m-%d))"
-            git push
+            # Retry on a non-fast-forward rather than losing the article.
+            # The runner checks out a sha and then spends minutes generating, so
+            # ANY push to main in that window makes this push a non-fast-forward
+            # and the day's post is discarded - it is committed here inside the
+            # runner and then thrown away with the workspace. That happened on
+            # 2026-09-17: the article was written, the SEO gate passed, and the
+            # push was rejected because a desk had pushed a docs commit while it
+            # ran. Rebase and retry; the post is a new file, so it does not
+            # conflict with anything a human is editing.
+            for attempt in 1 2 3; do
+              if git push; then
+                echo "pushed on attempt $attempt"
+                exit 0
+              fi
+              echo "push rejected (attempt $attempt) - rebasing onto origin/main"
+              git pull --rebase origin main
+            done
+            echo "::error::could not push the published article after 3 attempts"
+            exit 1
           else
             echo "No changes to publish (queue may be empty)."
           fi
