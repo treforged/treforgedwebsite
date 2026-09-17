@@ -21,6 +21,11 @@ on:
 
 jobs:
   lint:
+    # Least privilege: this job only reads the tree and runs a gate. It never
+    # commits, comments or releases, so it is given no write scope at all.
+    # (CodeQL actions/missing-workflow-permissions)
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,13 +33,12 @@ jobs:
         with:
           node-version: '24'
       - run: npm ci
-      # The ratchet is 1, not 0, and the 1 is named rather than rounded away:
-      # main.js has an unused `e` parameter on a click handler. Renaming it is a
-      # one-character change to a file whose content hash is stamped into every
-      # HTML page, so fixing it alone would churn 82 files for nothing a visitor
-      # can see. It goes with the next real main.js change; until then the
-      # ratchet holds the line so NEW code cannot add a warning.
-      - run: node scripts/lint-baseline.mjs --max-warnings=1
+      # The ratchet is 0. It was 1 until 2026-09-17, held open by an unused `e`
+      # parameter on a click handler in main.js: renaming it alone would have
+      # churned every HTML page's stamped content hash for nothing a visitor can
+      # see. The CodeQL URL-substring fix restamped those pages anyway, so the
+      # warning went with it exactly as that note promised.
+      - run: node scripts/lint-baseline.mjs --max-warnings=0
 
   # Separate job, and deliberately WITHOUT `npm ci`: this gate is plain node
   # with no dependencies, so it must not inherit the registry as a failure
@@ -45,6 +49,11 @@ jobs:
   # the DIY calculator himself on 2026-09-12, after it had been shipped and
   # unnoticed. It is the third visual defect this month that no test could see.
   form-controls:
+    # Least privilege: this job only reads the tree and runs a gate. It never
+    # commits, comments or releases, so it is given no write scope at all.
+    # (CodeQL actions/missing-workflow-permissions)
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -66,6 +75,11 @@ jobs:
   # The desk catches that half locally, where forge-reach is a sibling folder
   # and the gate runs in DERIVED mode.
   reach-destinations:
+    # Least privilege: this job only reads the tree and runs a gate. It never
+    # commits, comments or releases, so it is given no write scope at all.
+    # (CodeQL actions/missing-workflow-permissions)
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
