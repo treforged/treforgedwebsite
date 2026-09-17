@@ -30,6 +30,19 @@ const BUILD = 'https://getforgenta.com/builds/share/5311e587-27e4-44b9-8c16-d386
 const utm = (slug) => `utm_source=blog&utm_medium=article&utm_campaign=${slug}`;
 const navUtm = (campaign) => `utm_source=treforged&utm_medium=nav&utm_campaign=${campaign}`;
 const linkUtm = (campaign) => `utm_source=treforged&utm_medium=link&utm_campaign=${campaign}`;
+
+// In-prose app links are written by the ARTICLE GENERATOR, not by a template,
+// so navUtm/linkUtm on the nav and CTA never reach them - every new post shipped
+// one bare link to getforgenta.com and the destination could not attribute the
+// visit. Exported so the attribution gate can exercise it directly: the gate's
+// renderArticle probe uses a fixture body with no app link in it, so that
+// branch was unreachable and a green there said nothing about this.
+//
+// It must run on item.bodyHtml BEFORE the page is rendered and BEFORE
+// published.json is written from the same object, or the two disagree and
+// body-sync drifts - which is exactly what cost the 2026-09-17 publish.
+export const tagBodyLinks = (bodyHtml, slug) =>
+  bodyHtml.replace(new RegExp(`href="${APP}(?=")`, 'g'), `href="${APP}?${linkUtm(slug)}`);
 /* Posts tagged as automotive get the build-tracker CTA instead of the budgeting one. */
 const CAR_RE = /car care|automotive|\bdiy\b|maintenance|tires?|wiper|windshield|engine|brake|wheel/i;
 const isCarPost = (item) => (item.tags || []).some((t) => CAR_RE.test(t));
@@ -577,6 +590,16 @@ const main = async () => {
         },
       );
     }
+
+    // In-prose app links: the ARTICLE GENERATOR writes these, not a template,
+    // so navUtm/linkUtm on the nav and CTA never touch them and every new post
+    // shipped one bare link to getforgenta.com. The destination then cannot
+    // attribute the visit, and the attribution gate only notices the day AFTER
+    // the post is live. Tagging here - before the item is rendered AND before
+    // published.json is written from it - keeps the page and its source of
+    // truth identical, so body-sync cannot drift. Already-tagged links carry a
+    // query string and are left exactly as they are.
+    if (item.bodyHtml) item.bodyHtml = tagBodyLinks(item.bodyHtml, item.slug);
 
     const related = pickRelated(published, item);
     const dir = join(ROOT, 'blog', item.slug);

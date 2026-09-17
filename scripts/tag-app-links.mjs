@@ -169,6 +169,35 @@ if (generated.count === 0) {
   console.error('CONTROL FAILED: the generator produced no app links at all, so this proves nothing.');
   process.exit(2);
 }
+// AND THE IN-PROSE HALF, which the probe above is structurally blind to: its
+// fixture body is '<p>x</p>', so it contains no app link and the body-tagging
+// branch is unreachable from it. A green there was never evidence about a link
+// the article generator writes into the prose - and on 2026-09-17 a published
+// post shipped exactly one such bare link.
+const inProse = await (async () => {
+  const mod = await import('./publish-next.mjs');
+  if (typeof mod.tagBodyLinks !== 'function') return { broken: 'publish-next.mjs no longer exports tagBodyLinks' };
+  const bare = '<p>see <a href="https://getforgenta.com/" rel="noopener">Forgenta</a></p>';
+  const already = '<p><a href="https://getforgenta.com/?utm_source=treforged&utm_medium=link&utm_campaign=kept">F</a></p>';
+  const out = mod.tagBodyLinks(bare, 'probe-slug');
+  // POSITIVE CONTROL: the fixture must actually contain a bare link, or this
+  // proves nothing - the same blindness as the renderArticle probe above.
+  if (!bare.includes('getforgenta.com/"')) return { broken: 'the fixture carries no bare app link' };
+  if (!out.includes('utm_campaign=probe-slug')) return { fail: 'a bare in-prose app link is NOT tagged at publish time' };
+  if (mod.tagBodyLinks(already, 'probe-slug') !== already) return { fail: 'an already-tagged in-prose link was rewritten' };
+  if (mod.tagBodyLinks(out, 'probe-slug') !== out) return { fail: 'tagging is not idempotent - a re-publish would double-tag' };
+  return {};
+})();
+if (inProse.broken) {
+  console.error('CONTROL FAILED: ' + inProse.broken + ' - refusing to report.');
+  process.exit(2);
+}
+if (inProse.fail) {
+  console.error('FAIL - ' + inProse.fail + '.');
+  console.error('Every future post would ship an unattributable link. Fix tagBodyLinks in publish-next.mjs.');
+  process.exit(1);
+}
+
 if (generated.untagged.length) {
   console.error('FAIL - publish-next.mjs would emit ' + generated.untagged.length + ' UNTAGGED app link(s):');
   for (const l of generated.untagged) console.error('  ' + l);
