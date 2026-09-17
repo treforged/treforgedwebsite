@@ -28,6 +28,8 @@ const BUILD = 'https://getforgenta.com/builds/share/5311e587-27e4-44b9-8c16-d386
 
 /* UTM tag so we can attribute Forgenta signups back to the blog post. */
 const utm = (slug) => `utm_source=blog&utm_medium=article&utm_campaign=${slug}`;
+const navUtm = (campaign) => `utm_source=treforged&utm_medium=nav&utm_campaign=${campaign}`;
+const linkUtm = (campaign) => `utm_source=treforged&utm_medium=link&utm_campaign=${campaign}`;
 /* Posts tagged as automotive get the build-tracker CTA instead of the budgeting one. */
 const CAR_RE = /car care|automotive|\bdiy\b|maintenance|tires?|wiper|windshield|engine|brake|wheel/i;
 const isCarPost = (item) => (item.tags || []).some((t) => CAR_RE.test(t));
@@ -76,10 +78,13 @@ export const injectBetween = (source, name, replacement) => {
 
 /* ── shared page chrome (matches existing site template) ─── */
 
-const nav = (active) => {
+// `campaign` is the page key the link is attributed to - the SAME key
+// main.js's ctaPageKey() produces, so attribution and CTA clicks join on one
+// column. scripts/tag-app-links.mjs gates that every app link carries it.
+const nav = (active, campaign) => {
   const link = (href, label, key) =>
     `      <a href="${href}"${active === key ? ' class="active"' : ''}>${label}</a>`;
-  const app = `      <a href="${APP}" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>`;
+  const app = `      <a href="${APP}?${navUtm(campaign)}" target="_blank" rel="noopener" class="nav-app-btn">Launch App ↗</a>`;
   const items = [
     link('/', 'Home', 'home'),
     link('/blog/', 'Blog', 'blog'),
@@ -317,7 +322,7 @@ export const renderArticle = (item, related) => {
     : '';
 
   return `${head({ title: `${item.title} — TRE Forged`, description: item.description, canonical: url, extra: ogTwitter + jsonLd + '\n' })}
-${nav('blog')}
+${nav('blog', item.slug)}
 <main class="page-main">
   <div class="container">
     <article class="article">
@@ -398,13 +403,13 @@ export const renderBlogIndex = (published) => {
   </script>
 `,
   })}
-${nav('blog')}
+${nav('blog', 'page-blog')}
 <main class="page-main">
   <div class="container">
     <section class="page-hero reveal">
       <div class="page-hero-label">Money Basics</div>
       <h1>The Forge</h1>
-      <p>Practical, jargon-free guides on budgeting, saving, and paying down debt, plus tips for getting the most out of <a href="${APP}" target="_blank" rel="noopener">Forgenta</a>, our personal finance app.</p>
+      <p>Practical, jargon-free guides on budgeting, saving, and paying down debt, plus tips for getting the most out of <a href="${APP}?${linkUtm('page-blog')}" target="_blank" rel="noopener">Forgenta</a>, our personal finance app.</p>
     </section>
 
     <div class="blog-grid">
