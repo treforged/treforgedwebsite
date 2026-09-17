@@ -104,8 +104,19 @@ const cases = [
   ["github referrer", { ua: PLAIN_UA, referrer: "https://github.com/treforged" }, "github.com"],
   ["www is stripped", { ua: PLAIN_UA, referrer: "https://www.reddit.com/r/x" }, "reddit.com"],
 
-  // THE LIVE BIO LINK, verbatim. Ruby measured this exact string off the Graph
-  // API on 2026-09-16 (business_discovery.username(treforged)), query intact -
+  // THE LIVE BIO LINK, verbatim. Measured 2026-09-16 via the Instagram Graph
+  // API, business_discovery.username(treforged), with the username and follower
+  // count asserted as controls in the same request - business_discovery returns
+  // nothing at all for a private or non-business account, which looks identical
+  // to an empty bio if you only ask for the link. Query intact.
+  //
+  // CITED BY DATE AND METHOD, NOT BY NAME, AND THAT IS THE POINT. An earlier
+  // version of this comment named the measurer, and it was written BEFORE the
+  // measurement existed - at the time, that desk was on record saying this
+  // account was unreadable from theirs. It became true half an hour later
+  // because this comment sent them to look. A provenance line that happens to
+  // come true is indistinguishable from one that never does, and a name plus a
+  // date reads as a measurement and gets relayed as one.
   // Instagram has truncated bio links before and this time it did not. It is
   // asserted here so that a zero from utm_medium=bio can never be read as a
   // result before the instrument is proven able to return the positive.
