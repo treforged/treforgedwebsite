@@ -33,7 +33,7 @@
       }, { passive: false });
 
       // click: only run if touch didn't already handle it
-      burger.addEventListener('click', function (e) {
+      burger.addEventListener('click', function () {
         if (touchFired) {
           touchFired = false;  // reset for next interaction
           return;              // swallow the ghost click
@@ -556,7 +556,16 @@
       if (!anchor) return;
 
       var href = anchor.getAttribute('href') || '';
-      if (href.indexOf('getforgenta.com') === -1 && href.indexOf('play.google.com') === -1) return;
+
+      // A HOST IS NOT A SUBSTRING. This used to read href.indexOf('getforgenta.com'),
+      // which 'https://evil-getforgenta.com.attacker.net/' also satisfies, and which
+      // counted any URL merely CARRYING 'play.google.com' in a query string. Both
+      // shapes inflate a counter that is later reported as fact, so the href is
+      // parsed once and the hostname is compared exactly.
+      var url;
+      try { url = new URL(href, location.href); } catch (err) { return; }
+      var host = url.hostname.replace(/^www\./, '');
+      if (host !== 'getforgenta.com' && host !== 'play.google.com') return;
 
       // First match wins, so the nav button is never counted as an article CTA.
       // The nav button is the same control on every page and keeps one name; the
@@ -564,8 +573,9 @@
       // answerable rather than collapsing into one bucket.
       var cta;
       if (anchor.classList.contains('nav-app-btn'))   cta = 'nav_app';
-      else if (href.indexOf('play.google.com') !== -1) cta = onArticle ? 'article_play'  : 'page_play';
-      else if (href.indexOf('/builds/share/') !== -1)  cta = onArticle ? 'article_build' : 'page_build';
+      else if (host === 'play.google.com')             cta = onArticle ? 'article_play'  : 'page_play';
+      // The path, not the whole href: a utm_campaign value can contain any string.
+      else if (url.pathname.indexOf('/builds/share/') !== -1) cta = onArticle ? 'article_build' : 'page_build';
       else if (anchor.classList.contains('btn'))       cta = onArticle ? 'article_app'   : 'page_app';
       else                                             cta = 'footer_link';
 

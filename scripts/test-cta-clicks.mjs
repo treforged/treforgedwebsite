@@ -81,7 +81,7 @@ function mount({ slug = "car-loans-explained", path = null, storageThrows = fals
     sessionStorage,
     viewsRpc,
     slug === null ? null : [`/blog/${slug}/`, slug],
-    { pathname },
+    { pathname, href: `https://treforged.com${pathname}` },
   );
 
   return { listener, sent };
@@ -138,6 +138,44 @@ for (const [label, a, expected] of [
   const { listener, sent } = mount();
   click(listener, a);
   check(label, sent.map((s) => s.p_cta), [expected]);
+}
+
+// --- a host is not a substring ----------------------------------------------
+// These are the shapes CodeQL flagged (js/incomplete-url-substring-sanitization,
+// main.js:559 x2 and :567). Every one of them CONTAINS a trusted string and is
+// not the trusted host, so the old href.indexOf() form counted them all. Nothing
+// here is a redirect or an origin trust - the cost is a counter that reads high
+// and is then reported as fact.
+for (const [label, href] of [
+  ["look-alike suffix host is not counted", "https://evil-getforgenta.com.attacker.net/"],
+  ["look-alike prefix host is not counted", "https://getforgenta.com.attacker.net/"],
+  ["trusted host in a QUERY STRING is not counted", "https://attacker.net/r?to=https://getforgenta.com/"],
+  ["trusted host in a PATH is not counted", "https://attacker.net/getforgenta.com/"],
+  ["play.google.com in a query string is not counted", "https://attacker.net/?ref=play.google.com"],
+]) {
+  const { listener, sent } = mount();
+  click(listener, anchor(href, ["btn"]));
+  check(label, sent.map((s) => s.p_cta), []);
+}
+
+// The real hosts must STILL be counted - a gate that refuses everything passes
+// every one of the checks above while breaking the counter completely.
+for (const [label, href, expected] of [
+  ["the real app host is still counted", "https://getforgenta.com/", "article_app"],
+  ["a www. app host is still counted", "https://www.getforgenta.com/", "article_app"],
+  ["a www. Play host is still labelled play", "https://www.play.google.com/store/apps/details?id=x", "article_play"],
+]) {
+  const { listener, sent } = mount();
+  click(listener, anchor(href, ["btn"]));
+  check(label, sent.map((s) => s.p_cta), [expected]);
+}
+
+// /builds/share/ must be read from the PATH. A campaign value is free text, so
+// the old whole-href test let any utm_campaign claim the build bucket.
+{
+  const { listener, sent } = mount();
+  click(listener, anchor("https://getforgenta.com/?utm_campaign=/builds/share/fake", ["btn"]));
+  check("a campaign value cannot claim the build bucket", sent.map((s) => s.p_cta), ["article_app"]);
 }
 
 // The nav button is on every page and also carries a bare getforgenta.com href,
