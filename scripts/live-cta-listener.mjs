@@ -18,12 +18,34 @@
  */
 
 import process from 'node:process';
+import { readdirSync, statSync, existsSync } from 'node:fs';
+import { join, dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const BASE_URL = 'https://treforged.com';
+
+// The calculator list is DERIVED from tools/ rather than hand-named. A
+// hand-named list is blind to the calculator nobody added to it, and this gate
+// exists precisely because a surface that is not examined reads as clean.
+const toolsDir = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'tools');
+const calculatorPaths = readdirSync(toolsDir)
+  .filter((name) => {
+    const dir = join(toolsDir, name);
+    return statSync(dir).isDirectory() && existsSync(join(dir, 'index.html'));
+  })
+  .sort()
+  .map((name) => `/tools/${name}/`);
+
+if (calculatorPaths.length === 0) {
+  // Zero derived paths is a broken lookup, never a clean machine.
+  console.log(`CONTROL FAIL no calculator directories with an index.html under ${toolsDir}`);
+  process.exit(2);
+}
+
 const PATHS = [
   '/',
   '/tools/',
-  '/tools/debt-payoff-calculator/',
+  ...calculatorPaths,
   '/founders/',
   '/blog/how-to-lower-insurance-premiums/'
 ];
@@ -141,7 +163,7 @@ async function main() {
     console.log('- Checks that the served JavaScript contains the listener.');
     console.log('- Does not verify execution in a real browser.');
     console.log('- Does not see Cloudflare rules that depend on user-agent.');
-    console.log('- Only five paths are examined, not every page.');
+    console.log(`- Only ${PATHS.length} paths are examined, not every page: ${PATHS.join(', ')}`);
     console.log('- PASS means the listener ships, not that it was clicked.');
     console.log('- Reads the served JavaScript TEXT and cannot detect runtime listener errors.');
     process.exit(0);
