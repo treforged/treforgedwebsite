@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>When (and How) to Refinance Your Car Loan</title>
+      <link>https://treforged.com/blog/when-to-refinance-your-car-loan/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/when-to-refinance-your-car-loan/</guid>
+      <pubDate>Fri, 18 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn the clear signs a car loan refinance will actually save you money, plus a step-by-step walkthrough of how to do it right in 2026.</description>
+    </item>
     <item>
       <title>Realistic Side Income Ideas for People Who Are Already Busy</title>
       <link>https://treforged.com/blog/side-income-ideas-for-busy-people/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-never-miss-a-bill-payment/</guid>
       <pubDate>Sun, 30 Aug 2026 12:00:00 GMT</pubDate>
       <description>Learn how to build a simple bill-pay system with smart autopay and reminders so you never pay a late fee or take a credit hit again.</description>
-    </item>
-    <item>
-      <title>How to Replace Your Cabin Air Filter (A 10-Minute Fix for Better Air)</title>
-      <link>https://treforged.com/blog/how-to-replace-your-cabin-air-filter/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-your-cabin-air-filter/</guid>
-      <pubDate>Sat, 29 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn where your cabin air filter hides and how to swap it yourself in about 10 minutes for fresher air, better airflow, and a small win for your wallet.</description>
     </item>
   </channel>
 </rss>
