@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 19 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Build a Financial First-Aid Kit for When Life Goes Sideways</title>
+      <link>https://treforged.com/blog/financial-first-aid-kit/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/financial-first-aid-kit/</guid>
+      <pubDate>Sat, 19 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn exactly which documents, contacts, and cash access points every household should gather now, before a job loss, accident, or emergency hits.</description>
+    </item>
     <item>
       <title>When (and How) to Refinance Your Car Loan</title>
       <link>https://treforged.com/blog/when-to-refinance-your-car-loan/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-restore-foggy-headlights/</guid>
       <pubDate>Mon, 31 Aug 2026 12:00:00 GMT</pubDate>
       <description>A step-by-step DIY guide to clearing oxidized, foggy headlights with a restoration kit, improving nighttime visibility and saving money on replacements.</description>
-    </item>
-    <item>
-      <title>How to Build a Bill-Pay System You'll Never Miss</title>
-      <link>https://treforged.com/blog/how-to-never-miss-a-bill-payment/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-never-miss-a-bill-payment/</guid>
-      <pubDate>Sun, 30 Aug 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to build a simple bill-pay system with smart autopay and reminders so you never pay a late fee or take a credit hit again.</description>
     </item>
   </channel>
 </rss>
