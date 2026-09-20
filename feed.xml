@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 20 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Replace a Dead Key Fob Battery in Minutes</title>
+      <link>https://treforged.com/blog/how-to-replace-a-key-fob-battery/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-a-key-fob-battery/</guid>
+      <pubDate>Sun, 20 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to safely open your key fob, swap the coin battery, and reprogram it if needed, plus see how much you'll save versus a dealer visit.</description>
+    </item>
     <item>
       <title>Build a Financial First-Aid Kit for When Life Goes Sideways</title>
       <link>https://treforged.com/blog/financial-first-aid-kit/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/what-to-do-with-a-financial-windfall/</guid>
       <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
       <description>A step-by-step framework for handling a bonus, tax refund, or inheritance in 2026 so it builds your future instead of disappearing in weeks.</description>
-    </item>
-    <item>
-      <title>How to Restore Foggy Headlights in an Afternoon</title>
-      <link>https://treforged.com/blog/how-to-restore-foggy-headlights/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-restore-foggy-headlights/</guid>
-      <pubDate>Mon, 31 Aug 2026 12:00:00 GMT</pubDate>
-      <description>A step-by-step DIY guide to clearing oxidized, foggy headlights with a restoration kit, improving nighttime visibility and saving money on replacements.</description>
     </item>
   </channel>
 </rss>
