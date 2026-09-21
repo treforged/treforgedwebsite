@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Avoid Lifestyle Inflation as Your Income Grows</title>
+      <link>https://treforged.com/blog/avoiding-lifestyle-inflation/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/avoiding-lifestyle-inflation/</guid>
+      <pubDate>Mon, 21 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn why lifestyle creep quietly swallows raises and bonuses, and use these concrete rules to keep spending in check as your income grows in 2026.</description>
+    </item>
     <item>
       <title>How to Replace a Dead Key Fob Battery in Minutes</title>
       <link>https://treforged.com/blog/how-to-replace-a-key-fob-battery/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/extended-car-warranties-worth-it/</guid>
       <pubDate>Wed, 02 Sep 2026 12:00:00 GMT</pubDate>
       <description>Extended car warranties cost $1,000 to $3,000 on average. Here's how they're priced, what they cover, and when they actually pay off in 2026.</description>
-    </item>
-    <item>
-      <title>What to Do With a Financial Windfall Before You Spend It</title>
-      <link>https://treforged.com/blog/what-to-do-with-a-financial-windfall/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/what-to-do-with-a-financial-windfall/</guid>
-      <pubDate>Tue, 01 Sep 2026 12:00:00 GMT</pubDate>
-      <description>A step-by-step framework for handling a bonus, tax refund, or inheritance in 2026 so it builds your future instead of disappearing in weeks.</description>
     </item>
   </channel>
 </rss>
