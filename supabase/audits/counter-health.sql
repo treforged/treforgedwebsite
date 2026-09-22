@@ -1,6 +1,8 @@
 -- COUNTER HEALTH AUDIT for treforged.com (project zyvqoefbgsgkbdoydopt).
 -- Written by Ellis 2026-09-22 while answering ask 0eb61a8f ("arrival tracking
--- is 90% blind"). Run it against the live database; it only reads.
+-- is 90% blind"). Run it against the live database.
+-- SECTIONS 1-3 READ ONLY. SECTION 4 WRITES and then undoes itself - read its
+-- own header before running it, and never run it from two sessions at once.
 --
 -- ⚠️ WHY THIS IS A .sql FILE AND NOT A GATE, SAID PLAINLY. This repo holds no
 -- credential that can reach these tables - counters is not in PostgREST's
@@ -99,3 +101,58 @@ from counters.arrival_log a;
 --    because the sweep was broken. That reading is preserved in the handoff;
 --    it is not reproducible from the database any more, and that trade - a
 --    kept privacy promise over a longer analytics window - is deliberate.
+
+-- ── 4. ⚠️ THE UPGRADE RULE. THIS SECTION WRITES. ────────────────────────
+-- Run the statements one at a time, in order, and RUN THE CLEANUP. It adds one
+-- synthetic visitor and then removes it; the fingerprint at the end is what
+-- proves it removed it. Do not run it from two sessions at once - it relies on
+-- every call coming from the SAME client IP, which is what makes them one
+-- visitor.
+--
+-- WHY IT EXISTS HERE. 20260917 defined the rule - an arrival stored as `direct`
+-- or `on-site` may be UPGRADED to a named source, a named source is NEVER
+-- replaced, and the count MOVES rather than being added - and its own footer
+-- records that the discriminating set "ran by hand once and nothing re-runs
+-- them". On 2026-09-22 record_arrival was rewritten for the retention fix. The
+-- upgrade logic was carried forward byte-exact and that was checked two ways
+-- (a diff against the original, and a position() read of the live definition)
+-- - but BOTH OF THOSE ARE TEXTUAL. A function can be textually intact and
+-- behave differently because of what was moved AROUND it, and this rewrite
+-- moved a DELETE to just above the row lock. So it was re-run.
+--
+-- MEASURED 2026-09-22, AFTER the retention fix, and the NEGATIVE cases are the
+-- load-bearing ones - a rule that upgrades everything satisfies A perfectly:
+--
+--   A1  record_arrival('direct')            -> 4   (direct for today, +1)
+--   A2  record_arrival('ellisprobe/alpha')  -> 1   UPGRADED, new bucket at 1
+--   B1  record_arrival('direct')            -> 3   direct back down; NOT taken
+--   B2  record_arrival('on-site')           -> 0   NOT taken
+--   C1  record_arrival('ellisprobe/beta')   -> 0   second NAMED source NOT taken
+--
+--   direct for today returned to its pre-probe value (3), and no `beta` bucket
+--   was created AT ALL - not even a zero row. The count MOVED; nothing was
+--   added. Total went 107 -> 108 (the one new visitor) and back to 107.
+
+-- 4a  first arrival of the day for this client, unnamed
+select public.record_arrival('direct') as a1_expect_direct_plus_one;
+-- 4b  the upgrade. EXPECT 1 - a new named bucket
+select public.record_arrival('ellisprobe/alpha') as a2_expect_1;
+-- 4c  the three negatives, in one statement. EXPECT b1 = direct's own total
+--     (NOT incremented), b2 = 0, c1 = 0
+select public.record_arrival('direct')          b1_expect_no_change,
+       public.record_arrival('on-site')         b2_expect_0,
+       public.record_arrival('ellisprobe/beta') c1_expect_0;
+
+-- 4d  CLEANUP. Not optional.
+delete from counters.arrival_log     where source like 'ellisprobe/%';
+delete from counters.arrival_sources where source like 'ellisprobe/%';
+
+-- 4e  PROOF THE CLEANUP WORKED. Take this fingerprint BEFORE 4a as well, and
+--     compare. Equal fingerprints mean the probe cost nothing. An unequal one
+--     means a synthetic arrival is now inside a real count, which is worse than
+--     not having run the test - so this line is the reason 4d is not optional.
+--     Measured 2026-09-22: 092347a795e0fe2adae1a2e79dc16d6f, 15 buckets, 107.
+select md5(string_agg(day::text||'|'||source||'|'||arrivals::text, ',' order by day, source)) agg_fingerprint,
+       count(*) buckets, sum(arrivals) total,
+       (select count(*) from counters.arrival_sources where source like 'ellisprobe%') probe_left
+from counters.arrival_sources;
