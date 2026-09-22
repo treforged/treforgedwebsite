@@ -415,7 +415,15 @@
     // anything outside ^[a-z0-9]([a-z0-9-]{0,98}[a-z0-9])?$, and an unknown path
     // must simply go uncounted rather than be coerced into a slug shape. The
     // "page-" prefix cannot collide with a blog slug or with "tool-"/"tools-hub".
-    var countedPages = ['about', 'cars', 'contact', 'founders', 'partnerships', 'services'];
+    // 'blog' and 'tools' are the INDEX and the HUB, not the articles and not the
+    // calculators - those carry their own counters and stay out of this list.
+    // Added 2026-09-22: both are in the site nav and neither was counted, so an
+    // arrival landing on one recorded a visit and no view. That made a real
+    // reader indistinguishable from the read-nothing population in
+    // supabase/audits/counter-health.sql, which is the one ambiguity that
+    // measurement could not resolve from the data it had.
+    var countedPages = ['about', 'blog', 'cars', 'contact', 'founders',
+                        'partnerships', 'services', 'tools'];
     var pagePath     = location.pathname.replace(/\/+$/, '');
     var pageSlug     = null;
 

@@ -74,11 +74,21 @@ const COUNTED = [
   ["/contact/", "page-contact"],
   ["/partnerships/", "page-partnerships"],
   ["/services/", "page-services"],
+  // The blog INDEX and the tools HUB, added 2026-09-22. They are real landing
+  // surfaces - both are in the site nav, and the routing table records that the
+  // tools hub is what search finds - and until now NEITHER was counted, so an
+  // arrival there recorded a visit and no view. That ambiguity is load-bearing:
+  // it is the one innocent explanation left standing for the "arrived and read
+  // nothing" population measured in supabase/audits/counter-health.sql.
+  ["/blog/", "page-blog"],
+  ["/tools/", "page-tools"],
 ];
 
 const NOT_COUNTED = [
   "/blog/how-to-change-a-flat-tire/",  // articles have their own counter
-  "/tools/",                            // tools have their own counter
+  // NOTE: "/tools/" moved to COUNTED above. The reason recorded here -
+  // "tools have their own counter" - was true of the tool PAGES and wrong
+  // about the HUB, which nothing counted at all.
   "/tools/auto-loan-calculator/",
   "/founders/extra/",                   // deeper path is not the page
   "/nope/",                             // unknown path must go uncounted
