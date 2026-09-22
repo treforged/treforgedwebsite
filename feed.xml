@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 21 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Choose a Credit Card That Actually Fits Your Spending Habits</title>
+      <link>https://treforged.com/blog/how-to-choose-a-credit-card-for-your-spending-habits/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-choose-a-credit-card-for-your-spending-habits/</guid>
+      <pubDate>Tue, 22 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Skip the sign-up bonus chase. Learn how to match cash back, travel rewards, and no-fee credit cards to your real spending patterns in 2026.</description>
+    </item>
     <item>
       <title>How to Avoid Lifestyle Inflation as Your Income Grows</title>
       <link>https://treforged.com/blog/avoiding-lifestyle-inflation/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-choose-car-insurance-coverage/</guid>
       <pubDate>Thu, 03 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn how liability, collision, and comprehensive coverage work, plus how to pick a deductible that fits your budget and protects your finances.</description>
-    </item>
-    <item>
-      <title>Are Extended Car Warranties Worth the Money? A Clear-Eyed Breakdown</title>
-      <link>https://treforged.com/blog/extended-car-warranties-worth-it/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/extended-car-warranties-worth-it/</guid>
-      <pubDate>Wed, 02 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Extended car warranties cost $1,000 to $3,000 on average. Here's how they're priced, what they cover, and when they actually pay off in 2026.</description>
     </item>
   </channel>
 </rss>
