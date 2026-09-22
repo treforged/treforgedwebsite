@@ -156,3 +156,39 @@ select md5(string_agg(day::text||'|'||source||'|'||arrivals::text, ',' order by 
        count(*) buckets, sum(arrivals) total,
        (select count(*) from counters.arrival_sources where source like 'ellisprobe%') probe_left
 from counters.arrival_sources;
+
+-- ── 5. THE HALF OF ask 0eb61a8f THAT IS DELIBERATELY NOT BUILT ──────────
+-- The ask named three things `direct` collapses: a TYPED url, a source the
+-- resolver CANNOT READ, and something that is not a reader at all. Section 2
+-- separates the third from the first two, measurably. It does NOT separate the
+-- first two, and that is a decision rather than an omission.
+--
+-- THE OBVIOUS DISCRIMINATOR IS THE LANDING PAGE. Nobody types a sixty-character
+-- blog slug; a typed or bookmarked url is overwhelmingly the homepage. So an
+-- untagged arrival landing deep is evidence of a referrer that was stripped -
+-- an email client, a chat app, a QR code, a `rel=noreferrer` link - rather than
+-- of somebody typing.
+--
+-- IT IS NOT BUILT, FOR TWO REASONS, AND THE SECOND IS THE ONE THAT DECIDES IT:
+--
+--  1. IT IS LARGELY REDUNDANT. Since 2026-09-22 every landing surface a visitor
+--     can reach is counted, including the blog index and the tools hub, so
+--     counters.page_views already records WHICH pages are being landed on. What
+--     is missing is only the JOIN from one arrival to one landing.
+--  2. THAT JOIN NEEDS PER-VISITOR DATA THIS SITE HAS JUST STOPPED KEEPING. It
+--     would mean either storing the landing path against the ip_hash, or
+--     lengthening the retention that was cut to 48 hours hours earlier on the
+--     same day. Buying an attribution nicety with a privacy promise, on a site
+--     whose counters are aggregate BY DESIGN, is the wrong trade at this
+--     traffic level - the whole question concerns about a hundred arrivals.
+--
+-- THE TRIGGER THAT WOULD REOPEN IT: a tagged campaign that is actually running
+-- and whose result is ambiguous - a named source with real volume sitting
+-- beside a large `direct` bucket on the same days. Then the split decides
+-- something. Today `direct` is mostly a population that reads nothing, and
+-- splitting THAT finer answers no question anybody is asking.
+--
+-- A CHEAPER STEP EXISTS AND SHOULD COME FIRST: tag the links, so fewer arrivals
+-- ever reach `direct`. That work is already done for app links
+-- (scripts/tag-app-links.mjs) and is where the next gain is, rather than in
+-- reading the tea leaves of the untagged remainder.
