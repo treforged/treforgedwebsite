@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 22 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Check and Replace a Blown Car Fuse (Without Paying a Shop $80 to Do It)</title>
+      <link>https://treforged.com/blog/how-to-check-and-replace-a-blown-fuse/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-check-and-replace-a-blown-fuse/</guid>
+      <pubDate>Wed, 23 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to find your fuse box, test a suspect fuse with a $10 tool, and swap it safely, plus a real DIY versus shop cost breakdown.</description>
+    </item>
     <item>
       <title>How to Choose a Credit Card That Actually Fits Your Spending Habits</title>
       <link>https://treforged.com/blog/how-to-choose-a-credit-card-for-your-spending-habits/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-save-for-a-big-purchase-without-going-into-debt/</guid>
       <pubDate>Fri, 04 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn a step-by-step savings plan and timeline for furniture, appliances, or trips so you can pay cash and skip interest charges entirely.</description>
-    </item>
-    <item>
-      <title>How to Choose the Right Car Insurance Coverage for You</title>
-      <link>https://treforged.com/blog/how-to-choose-car-insurance-coverage/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-choose-car-insurance-coverage/</guid>
-      <pubDate>Thu, 03 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Learn how liability, collision, and comprehensive coverage work, plus how to pick a deductible that fits your budget and protects your finances.</description>
     </item>
   </channel>
 </rss>
