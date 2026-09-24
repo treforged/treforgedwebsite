@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 23 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 24 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>The Money Conversations to Have Before You Move In Together</title>
+      <link>https://treforged.com/blog/money-conversations-before-moving-in-together/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/money-conversations-before-moving-in-together/</guid>
+      <pubDate>Thu, 24 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Before you combine a household, talk through these key financial compatibility questions to avoid surprises, resentment, and money fights down the road.</description>
+    </item>
     <item>
       <title>How to Check and Replace a Blown Car Fuse (Without Paying a Shop $80 to Do It)</title>
       <link>https://treforged.com/blog/how-to-check-and-replace-a-blown-fuse/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-clean-battery-corrosion-and-terminals/</guid>
       <pubDate>Sat, 05 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn the safe, step-by-step way to clean corroded car battery terminals and stop corrosion from coming back and stranding you.</description>
-    </item>
-    <item>
-      <title>How to Save for a Big Purchase Without Going Into Debt</title>
-      <link>https://treforged.com/blog/how-to-save-for-a-big-purchase-without-going-into-debt/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-save-for-a-big-purchase-without-going-into-debt/</guid>
-      <pubDate>Fri, 04 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Learn a step-by-step savings plan and timeline for furniture, appliances, or trips so you can pay cash and skip interest charges entirely.</description>
     </item>
   </channel>
 </rss>
