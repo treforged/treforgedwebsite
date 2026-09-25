@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 25 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How Much Car Can You Actually Afford? A Realistic Formula for 2026</title>
+      <link>https://treforged.com/blog/how-much-car-can-you-afford/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-much-car-can-you-afford/</guid>
+      <pubDate>Fri, 25 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Skip the dealer's monthly payment math. Use this income-based formula that factors in insurance, fuel, and maintenance to find your real car budget.</description>
+    </item>
     <item>
       <title>The Money Conversations to Have Before You Move In Together</title>
       <link>https://treforged.com/blog/money-conversations-before-moving-in-together/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-a-serpentine-belt/</guid>
       <pubDate>Sun, 06 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn how to inspect, remove, and install a serpentine belt yourself with this step-by-step guide covering tools, routing, and safety tips.</description>
-    </item>
-    <item>
-      <title>How to Clean Corroded Battery Terminals (Before They Strand You)</title>
-      <link>https://treforged.com/blog/how-to-clean-battery-corrosion-and-terminals/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-clean-battery-corrosion-and-terminals/</guid>
-      <pubDate>Sat, 05 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Learn the safe, step-by-step way to clean corroded car battery terminals and stop corrosion from coming back and stranding you.</description>
     </item>
   </channel>
 </rss>
