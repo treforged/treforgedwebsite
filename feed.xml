@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 25 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 26 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Protect Your Finances from Identity Theft and Fraud in 2026</title>
+      <link>https://treforged.com/blog/how-to-protect-yourself-from-identity-theft/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-protect-yourself-from-identity-theft/</guid>
+      <pubDate>Sat, 26 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn practical, step-by-step ways to protect your finances from identity theft, including credit freezes, statement monitoring, and spotting scams early.</description>
+    </item>
     <item>
       <title>How Much Car Can You Actually Afford? A Realistic Formula for 2026</title>
       <link>https://treforged.com/blog/how-much-car-can-you-afford/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-bleed-your-brakes-at-home/</guid>
       <pubDate>Mon, 07 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn how to safely bleed air out of your brake lines at home, restore a firm pedal, and know when to call a mechanic instead.</description>
-    </item>
-    <item>
-      <title>How to Replace a Serpentine Belt Yourself: A Step-by-Step Guide</title>
-      <link>https://treforged.com/blog/how-to-replace-a-serpentine-belt/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-a-serpentine-belt/</guid>
-      <pubDate>Sun, 06 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to inspect, remove, and install a serpentine belt yourself with this step-by-step guide covering tools, routing, and safety tips.</description>
     </item>
   </channel>
 </rss>
