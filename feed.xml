@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 28 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Lubricate Door Hinges, Hood, and Trunk Latches (A 5-Minute DIY Fix)</title>
+      <link>https://treforged.com/blog/how-to-lubricate-door-hinges-and-latches/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-lubricate-door-hinges-and-latches/</guid>
+      <pubDate>Mon, 28 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Stop squeaky doors and rust buildup with this quick DIY guide to lubricating car door hinges, hood, and trunk latches the right way.</description>
+    </item>
     <item>
       <title>Trade-In vs. Selling Your Car Privately: Which Nets You More</title>
       <link>https://treforged.com/blog/trade-in-vs-selling-your-car-privately/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-build-a-car-maintenance-schedule/</guid>
       <pubDate>Wed, 09 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn what to check monthly, quarterly, and yearly on your car, plus how to budget for repairs so maintenance never blindsides your wallet.</description>
-    </item>
-    <item>
-      <title>Car Insurance for Young Drivers: Why It Costs So Much and How to Cut It</title>
-      <link>https://treforged.com/blog/car-insurance-for-young-drivers/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/car-insurance-for-young-drivers/</guid>
-      <pubDate>Tue, 08 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Car insurance for young drivers is expensive for real reasons. Learn what actually moves your premium and which discounts most people never claim.</description>
     </item>
   </channel>
 </rss>
