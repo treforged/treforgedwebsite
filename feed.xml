@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 28 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 29 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Avoid Being Upside Down on Your Car Loan</title>
+      <link>https://treforged.com/blog/how-to-avoid-being-upside-down-on-your-car-loan/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-avoid-being-upside-down-on-your-car-loan/</guid>
+      <pubDate>Tue, 29 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn what negative equity really is, why long loans and small down payments cause it, and practical steps to avoid or escape being upside down.</description>
+    </item>
     <item>
       <title>How to Lubricate Door Hinges, Hood, and Trunk Latches (A 5-Minute DIY Fix)</title>
       <link>https://treforged.com/blog/how-to-lubricate-door-hinges-and-latches/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/what-car-maintenance-actually-costs/</guid>
       <pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate>
       <description>Real 2026 price ranges for common car maintenance jobs, what each costs to DIY, and which repairs are actually worth paying shop markup for.</description>
-    </item>
-    <item>
-      <title>How to Build a Car Maintenance Schedule You Will Actually Follow</title>
-      <link>https://treforged.com/blog/how-to-build-a-car-maintenance-schedule/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-build-a-car-maintenance-schedule/</guid>
-      <pubDate>Wed, 09 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Learn what to check monthly, quarterly, and yearly on your car, plus how to budget for repairs so maintenance never blindsides your wallet.</description>
     </item>
   </channel>
 </rss>
