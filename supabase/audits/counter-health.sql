@@ -41,6 +41,15 @@ from pg_proc p join pg_namespace n on n.oid = p.pronamespace
 where n.nspname = 'public'
   and p.proname in ('record_arrival', 'record_cta_click', 'increment_page_view');
 
+-- The in-function sweeps only run when their function is CALLED, so a quiet
+-- stretch left cta_log 75 hours old on 2026-09-29. 20260929 added an hourly
+-- pg_cron floor. EXPECT exactly 1 active job, and its latest run 'succeeded'.
+-- First real fire 2026-09-29 05:07 UTC: DELETE 2, fresh rows untouched.
+select j.jobname, j.schedule, j.active,
+       (select status || ' ' || return_message || ' @ ' || start_time from cron.job_run_details d
+         where d.jobid = j.jobid order by start_time desc limit 1) latest_run
+from cron.job j where j.jobname = 'counters-retention-48h';
+
 -- ── 2. WHAT 'direct' ACTUALLY CONTAINS ──────────────────────────────────
 -- The ask's real question: 'direct' collapses three different things - a typed
 -- URL, a source the resolver cannot read, and traffic that is not a reader at
