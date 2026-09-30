@@ -573,7 +573,11 @@
       var url;
       try { url = new URL(href, location.href); } catch (err) { return; }
       var host = url.hostname.replace(/^www\./, '');
-      if (host !== 'getforgenta.com' && host !== 'play.google.com') return;
+      // The App Store counts only when it is OUR app, matched by its id in the
+      // path. Until 2026-09-30 this host was not here at all, so the gold App
+      // Store button on every post and the homepage was never measured.
+      var appStore = host === 'apps.apple.com' && url.pathname.indexOf('/id6762540239') !== -1;
+      if (host !== 'getforgenta.com' && host !== 'play.google.com' && !appStore) return;
 
       // First match wins, so the nav button is never counted as an article CTA.
       // The nav button is the same control on every page and keeps one name; the
@@ -582,6 +586,7 @@
       var cta;
       if (anchor.classList.contains('nav-app-btn'))   cta = 'nav_app';
       else if (host === 'play.google.com')             cta = onArticle ? 'article_play'  : 'page_play';
+      else if (appStore)                               cta = onArticle ? 'article_appstore' : 'page_appstore';
       // The path, not the whole href: a utm_campaign value can contain any string.
       else if (url.pathname.indexOf('/builds/share/') !== -1) cta = onArticle ? 'article_build' : 'page_build';
       else if (anchor.classList.contains('btn'))       cta = onArticle ? 'article_app'   : 'page_app';

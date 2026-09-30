@@ -123,6 +123,7 @@ function check(label, actual, expected) {
 
 const APP = "https://getforgenta.com/?utm_source=blog&utm_medium=article&utm_campaign=car-loans-explained";
 const PLAY = "https://play.google.com/store/apps/details?id=com.treforged.forged&referrer=x";
+const APPSTORE = "https://apps.apple.com/us/app/forgenta-track-build-wealth/id6762540239";
 const BUILD = "https://getforgenta.com/builds/share/5311e587-27e4-44b9-8c16-d386775dd94d?utm_source=blog";
 
 // --- classification: each CTA surface must be its own bucket -----------------
@@ -152,6 +153,8 @@ for (const [label, href] of [
   ["trusted host in a QUERY STRING is not counted", "https://attacker.net/r?to=https://getforgenta.com/"],
   ["trusted host in a PATH is not counted", "https://attacker.net/getforgenta.com/"],
   ["play.google.com in a query string is not counted", "https://attacker.net/?ref=play.google.com"],
+  ["look-alike App Store host is not counted", "https://apps.apple.com.attacker.net/us/app/x/id6762540239"],
+  ["another app on the App Store is not counted", "https://apps.apple.com/us/app/other/id123456789"],
 ]) {
   const { listener, sent } = mount();
   click(listener, anchor(href, ["btn"]));
@@ -164,6 +167,11 @@ for (const [label, href, expected] of [
   ["the real app host is still counted", "https://getforgenta.com/", "article_app"],
   ["a www. app host is still counted", "https://www.getforgenta.com/", "article_app"],
   ["a www. Play host is still labelled play", "https://www.play.google.com/store/apps/details?id=x", "article_play"],
+  // The gold App Store button is on every post and the homepage, and until
+  // 2026-09-30 the listener ignored its host - so App Store clicks were an
+  // ABSENCE in the table, never a zero.
+  ["the App Store button is counted", APPSTORE, "article_appstore"],
+  ["an App Store link with a ct token is counted", APPSTORE + "?ct=blog_x", "article_appstore"],
 ]) {
   const { listener, sent } = mount();
   click(listener, anchor(href, ["btn"]));
@@ -184,6 +192,15 @@ for (const [label, href, expected] of [
   const { listener, sent } = mount();
   click(listener, anchor("https://getforgenta.com/", ["nav-app-btn", "btn"]));
   check("nav button is not miscounted as article_app", sent.map((s) => s.p_cta), ["nav_app"]);
+}
+
+// The homepage carries two App Store buttons, so the page-level name matters too.
+{
+  const { listener, sent } = mount({ slug: null, path: "/" });
+  if (listener) click(listener, anchor(APPSTORE, ["btn", "btn-gold"]));
+  check("homepage App Store button -> page_appstore", sent, [
+    { fn: "record_cta_click", p_slug: "page-home", p_cta: "page_appstore" },
+  ]);
 }
 
 // --- the slug that is sent must be the post being read ----------------------
