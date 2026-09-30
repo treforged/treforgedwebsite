@@ -473,6 +473,8 @@ nav.primary a.active { color: var(--text); background: var(--surf-2); }
   line-height: 1.75;
 }
 .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+/* Calculator result CTA (2026-09-30): breathing room above and below the button row. */
+.result-cta { margin: 14px 0 22px; }
 
 /* Hero card — overflow:visible so descenders are never clipped */
 .hero-card {
