@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 30 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Touch Up Paint Chips and Scratches Yourself (And What You'll Save)</title>
+      <link>https://treforged.com/blog/how-to-touch-up-paint-chips-and-scratches/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-touch-up-paint-chips-and-scratches/</guid>
+      <pubDate>Wed, 30 Sep 2026 12:00:00 GMT</pubDate>
+      <description>Learn to fix paint chips and scratches with touch-up pens and clear coat in a weekend, plus a real cost comparison against a body shop repair.</description>
+    </item>
     <item>
       <title>How to Avoid Being Upside Down on Your Car Loan</title>
       <link>https://treforged.com/blog/how-to-avoid-being-upside-down-on-your-car-loan/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-read-and-dispute-your-credit-report/</guid>
       <pubDate>Fri, 11 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn how to read every section of your credit report and follow the exact steps to dispute and remove inaccurate entries in 2026.</description>
-    </item>
-    <item>
-      <title>What Car Maintenance Actually Costs (Job by Job, DIY vs Shop)</title>
-      <link>https://treforged.com/blog/what-car-maintenance-actually-costs/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/what-car-maintenance-actually-costs/</guid>
-      <pubDate>Thu, 10 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Real 2026 price ranges for common car maintenance jobs, what each costs to DIY, and which repairs are actually worth paying shop markup for.</description>
     </item>
   </channel>
 </rss>
