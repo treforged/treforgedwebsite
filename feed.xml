@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Sep 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 01 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Talk to Your Kids About Money at Every Age</title>
+      <link>https://treforged.com/blog/how-to-talk-to-your-kids-about-money/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-talk-to-your-kids-about-money/</guid>
+      <pubDate>Thu, 01 Oct 2026 12:00:00 GMT</pubDate>
+      <description>Age-by-age scripts and habits for teaching kids about saving, spending, and earning, from toddlerhood through the teen years.</description>
+    </item>
     <item>
       <title>How to Touch Up Paint Chips and Scratches Yourself (And What You'll Save)</title>
       <link>https://treforged.com/blog/how-to-touch-up-paint-chips-and-scratches/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/what-is-gap-insurance-and-do-you-need-it/</guid>
       <pubDate>Sat, 12 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn how GAP insurance works for financed or leased cars, what it costs, and when it's actually worth adding to your policy in 2026.</description>
-    </item>
-    <item>
-      <title>How to Read Your Credit Report and Dispute Errors (2026 Guide)</title>
-      <link>https://treforged.com/blog/how-to-read-and-dispute-your-credit-report/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-read-and-dispute-your-credit-report/</guid>
-      <pubDate>Fri, 11 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to read every section of your credit report and follow the exact steps to dispute and remove inaccurate entries in 2026.</description>
     </item>
   </channel>
 </rss>
