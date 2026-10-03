@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 02 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Build a Simple Financial Filing System (So You Can Find Anything in Minutes)</title>
+      <link>https://treforged.com/blog/how-to-build-a-financial-filing-system/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-build-a-financial-filing-system/</guid>
+      <pubDate>Sat, 03 Oct 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to set up an easy digital and physical filing system for bills, warranties, and tax documents so you never lose an important paper again.</description>
+    </item>
     <item>
       <title>Certified Pre-Owned vs. Used: Is the Premium Worth Paying?</title>
       <link>https://treforged.com/blog/certified-pre-owned-vs-used-cars/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-lower-insurance-premiums/</guid>
       <pubDate>Mon, 14 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn how bundling, discounts, and smart deductible changes can shrink your home, renters, and auto insurance premiums in 2026.</description>
-    </item>
-    <item>
-      <title>Debt Consolidation Explained: When It Helps and When It Hurts</title>
-      <link>https://treforged.com/blog/debt-consolidation-explained/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/debt-consolidation-explained/</guid>
-      <pubDate>Sun, 13 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Debt consolidation can simplify your bills or make things worse. Learn how loans and balance transfers work, and when each one is the right move in 2026.</description>
     </item>
   </channel>
 </rss>
