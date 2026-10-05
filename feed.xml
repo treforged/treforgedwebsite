@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Replace Your Spark Plugs: A Step-by-Step Guide</title>
+      <link>https://treforged.com/blog/how-to-replace-your-spark-plugs/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-your-spark-plugs/</guid>
+      <pubDate>Mon, 05 Oct 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to replace your own spark plugs with the right tools, gapping, and torque specs, and see how much you'll save versus shop labor rates.</description>
+    </item>
     <item>
       <title>How to Financially Prepare for a Career Change or Job Loss in 2026</title>
       <link>https://treforged.com/blog/how-to-financially-prepare-for-a-career-change/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/cost-of-convenience-spending/</guid>
       <pubDate>Wed, 16 Sep 2026 12:00:00 GMT</pubDate>
       <description>See what delivery fees, rideshare rides, and other convenience purchases really cost over a year in 2026, plus simple ways to cut back.</description>
-    </item>
-    <item>
-      <title>How to Handle Medical Bills Without Falling Into Debt</title>
-      <link>https://treforged.com/blog/how-to-handle-medical-bills-without-debt/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-handle-medical-bills-without-debt/</guid>
-      <pubDate>Tue, 15 Sep 2026 12:00:00 GMT</pubDate>
-      <description>A step-by-step guide to negotiating medical bills, setting up payment plans, and avoiding collections after an unexpected health expense.</description>
     </item>
   </channel>
 </rss>
