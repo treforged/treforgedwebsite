@@ -144,9 +144,30 @@
     <section class="block reveal">
       <div class="block-title">Next step</div>
       <h2>Track your spending and balances</h2>
-      <p>Knowing your safe to spend amount is the first step. <a href="https://getforgenta.com/?utm_source=blog&amp;utm_medium=tool&amp;utm_campaign=safe-to-spend-calculator" target="_blank" rel="noopener">Forgenta</a> tracks your spending and balances to keep this calculation accurate and shows you how your situation changes over time.</p>
+      <p>Knowing your safe to spend amount is the first step. <a href="https://getforgenta.com/?utm_source=blog&amp;utm_medium=tool&amp;utm_campaign=safe-to-spend-calculator" target="_blank" rel="noopener">Forgenta</a> connects your bank accounts and shows what is safe to spend before payday after your upcoming bills, so you do not have to type the numbers in each time.</p>
       <p class="calc-note">Related reading: <a href="/blog/50-30-20-budget-rule-explained/">the 50/30/20 budget rule</a> · <a href="/blog/how-to-stop-living-paycheck-to-paycheck/">how to stop living paycheck to paycheck</a> · <a href="/tools/credit-card-interest-calculator/">credit card interest calculator</a> · <a href="/tools/debt-payoff-calculator/">debt payoff calculator</a></p>
     </section>
+
+    <!-- EMAIL_CAPTURE (2026-10-06, ask 3983048e): the site's existing newsletter form, handled by main.js
+         (newsletter_subscribers, source treforged.com). Opt-in is the visitor typing an email and pressing
+         Subscribe; nothing is pre-filled. Remove this block to undo. -->
+    <div class="newsletter reveal">
+      <div class="newsletter-inner">
+        <div class="newsletter-copy">
+          <div class="block-title">The Forge Newsletter</div>
+          <h2>Get the next payday guide.</h2>
+          <p>New money guides, including our series on spending safely before payday, straight to your inbox. No spam, unsubscribe anytime.</p>
+        </div>
+        <form class="newsletter-form" id="newsletter-form" novalidate>
+          <div class="newsletter-fields">
+            <input type="email" id="newsletter-email" name="email" placeholder="you@example.com" autocomplete="email" required aria-label="Your email address">
+            <button type="submit" class="btn btn-gold">Subscribe →</button>
+          </div>
+          <input type="text" class="nl-hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="newsletter-msg" id="newsletter-msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
   </div>
 </main>
 
