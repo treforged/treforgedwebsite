@@ -94,52 +94,52 @@
       <p class="calc-note">Enter your current balance, bills due before payday, savings you move first, and days until payday to calculate your safe to spend amount.</p>
       <form id="calcForm" class="calc-form" novalidate>
         <label for="balance">Current balance ($)
-          <input id="balance" name="balance" type="number" min="0" max="1000000" step="1" value="1000" inputmode="decimal">
+          <input id="balance" name="balance" type="number" min="0" max="1000000" step="1" value="1850" inputmode="decimal">
         </label>
         <label for="daysUntilPayday">Days until payday
           <input id="daysUntilPayday" name="daysUntilPayday" type="number" min="1" max="31" step="1" value="7" inputmode="numeric">
         </label>
         <label for="savings">Savings you move first ($)
-          <input id="savings" name="savings" type="number" min="0" max="1000000" step="1" value="200" inputmode="decimal">
+          <input id="savings" name="savings" type="number" min="0" max="1000000" step="1" value="100" inputmode="decimal">
         </label>
         <div class="bill-row">
           <label for="bill1">Bill 1 ($)
-            <input id="bill1" name="bill1" type="number" min="0" max="100000" step="1" value="0" inputmode="decimal">
+            <input id="bill1" name="bill1" type="number" min="0" max="100000" step="1" value="950" inputmode="decimal">
           </label>
           <label for="bill1Label">Label
-            <input id="bill1Label" name="bill1Label" type="text" placeholder="e.g., Rent" value="">
+            <input id="bill1Label" name="bill1Label" type="text" placeholder="e.g., Rent" value="Rent">
           </label>
         </div>
         <div class="bill-row">
           <label for="bill2">Bill 2 ($)
-            <input id="bill2" name="bill2" type="number" min="0" max="100000" step="1" value="0" inputmode="decimal">
+            <input id="bill2" name="bill2" type="number" min="0" max="100000" step="1" value="120" inputmode="decimal">
           </label>
           <label for="bill2Label">Label
-            <input id="bill2Label" name="bill2Label" type="text" placeholder="e.g., Car Payment" value="">
+            <input id="bill2Label" name="bill2Label" type="text" placeholder="e.g., Car Payment" value="Utilities">
           </label>
         </div>
         <div class="bill-row">
           <label for="bill3">Bill 3 ($)
-            <input id="bill3" name="bill3" type="number" min="0" max="100000" step="1" value="0" inputmode="decimal">
+            <input id="bill3" name="bill3" type="number" min="0" max="100000" step="1" value="250" inputmode="decimal">
           </label>
           <label for="bill3Label">Label
-            <input id="bill3Label" name="bill3Label" type="text" placeholder="e.g., Groceries" value="">
+            <input id="bill3Label" name="bill3Label" type="text" placeholder="e.g., Groceries" value="Car payment">
           </label>
         </div>
         <div class="bill-row">
           <label for="bill4">Bill 4 ($)
-            <input id="bill4" name="bill4" type="number" min="0" max="100000" step="1" value="0" inputmode="decimal">
+            <input id="bill4" name="bill4" type="number" min="0" max="100000" step="1" value="300" inputmode="decimal">
           </label>
           <label for="bill4Label">Label
-            <input id="bill4Label" name="bill4Label" type="text" placeholder="e.g., Utilities" value="">
+            <input id="bill4Label" name="bill4Label" type="text" placeholder="e.g., Utilities" value="Groceries">
           </label>
         </div>
         <div class="bill-row">
           <label for="bill5">Bill 5 ($)
-            <input id="bill5" name="bill5" type="number" min="0" max="100000" step="1" value="0" inputmode="decimal">
+            <input id="bill5" name="bill5" type="number" min="0" max="100000" step="1" value="80" inputmode="decimal">
           </label>
           <label for="bill5Label">Label
-            <input id="bill5Label" name="bill5Label" type="text" placeholder="e.g., Phone Bill" value="">
+            <input id="bill5Label" name="bill5Label" type="text" placeholder="e.g., Phone Bill" value="Insurance">
           </label>
         </div>
         <div class="bill-row">
