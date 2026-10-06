@@ -140,3 +140,17 @@ test("a Mistral-shaped value is NOT caught by content, and the filename rule cov
     "the filename rule is what covers it instead",
   );
 });
+
+test("Stripe secret, restricted and webhook keys and an ElevenLabs key are refused", () => {
+  // The 2026-10-06 gap: a staged Stripe live key committed clean.
+  assert.deepEqual(scanContent("a", key("sk_" + "live_", 24)).map((f) => f.kind), ["Stripe secret key"]);
+  assert.deepEqual(scanContent("a", key("sk_" + "test_", 24)).map((f) => f.kind), ["Stripe secret key"]);
+  assert.deepEqual(scanContent("a", key("rk_" + "live_", 24)).map((f) => f.kind), ["Stripe secret key"]);
+  assert.deepEqual(scanContent("a", key("whsec_", 32)).map((f) => f.kind), ["Stripe webhook secret"]);
+  assert.deepEqual(scanContent("a", "sk_" + "0a1b2c3d4e5f".repeat(4)).map((f) => f.kind), ["ElevenLabs key"]);
+});
+
+test("a Stripe PUBLISHABLE key and ordinary snake_case are NOT refused", () => {
+  assert.equal(scanContent("a", key("pk_" + "live_", 24)).length, 0);
+  assert.equal(scanContent("a", "const task_live_status = desk_test_runner;").length, 0);
+});
