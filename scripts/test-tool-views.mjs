@@ -53,10 +53,10 @@ function run(pathname, storage = 'ok') {
   const location = { pathname };
   const viewsRpc = (fn, body) => { calls.push({ fn, body }); return Promise.resolve(1); };
 
-  // eslint-disable-next-line no-new-func
   // The block also records the arrival source (ARRIVAL_SEND, 2026-09-16), which
   // calls main.js's wlSource(). Stubbed here; test-source-attribution.mjs owns it.
   const wlSource = () => 'direct';
+  // eslint-disable-next-line no-new-func
   const fn = new Function('location', 'sessionStorage', 'viewsRpc', 'wlSource', block);
   fn(location, sessionStorage, viewsRpc, wlSource);
   // Only the page-view call is this gate's subject; the arrival call is a
