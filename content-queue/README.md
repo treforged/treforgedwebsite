@@ -95,3 +95,22 @@ Action do it). You can also trigger the Action on demand from the repo's
 When `queue.json` gets low, add more articles (write them yourself or ask Claude
 to generate a batch in this exact format). Keeping 5–10 queued means the blog
 publishes hands-free for a week or two at a time.
+
+## "People also ask" drafts (`drafts/paa/`)
+
+Long-form posts that each answer ONE real Google "People also ask" question,
+from the 12-subtopic plan in tre-forged-marketing
+(docs/plans/2026-10-06_paa-content-strategy.md). One post a week.
+
+- Drafts live in `drafts/paa/<month>_<subtopic>/<slug>.json`: a normal queue
+  item plus a `paa` block (`question`, a 40-60 word `answer`, an optional
+  `/tools/` calculator, `questionSource`). **The daily publisher never reads
+  this folder**, so a draft cannot go live by accident.
+- The template renders the `paa` block as a "Short answer" box under the title
+  and leads the FAQPage schema with the question.
+- `questionSource` is `candidate` until a person confirms the question in a
+  real PAA box (by hand, or an allowed search API; never automated Google
+  scraping), then `verified` with `verifiedBy`.
+- **Going live is a publish and needs Tre's yes.** Then: run
+  `node scripts/paa-drafts.mjs --publishable`, and move the JSON object into
+  `queue.json` with a `date`.

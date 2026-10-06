@@ -47,6 +47,14 @@ export const tagBodyLinks = (bodyHtml, slug) =>
 const CAR_RE = /car care|automotive|\bdiy\b|maintenance|tires?|wiper|windshield|engine|brake|wheel/i;
 const isCarPost = (item) => (item.tags || []).some((t) => CAR_RE.test(t));
 
+/* Calculators a PAA post may point at, by folder under /tools/. */
+export const PAA_TOOLS = {
+  'credit-card-interest-calculator': 'Credit Card Interest Calculator',
+  'debt-payoff-calculator': 'Debt Snowball vs Avalanche Calculator',
+  'diy-vs-shop-calculator': 'DIY vs Shop Calculator',
+  'emergency-fund-calculator': 'Emergency Fund Calculator',
+};
+
 const QUEUE_PATH = join(ROOT, 'content-queue', 'queue.json');
 const PUBLISHED_PATH = join(ROOT, 'content-queue', 'published.json');
 
@@ -251,12 +259,17 @@ export const renderArticle = (item, related) => {
   const pubDate = item.published || item.date;
   const tags = item.tags || [];
 
-  const faqJsonLd = (item.faqs && item.faqs.length)
+  // A "People also ask" post (content-queue/drafts/paa/) answers ONE real
+  // search question up top. That question leads the FAQPage schema, so the
+  // short answer is what a search engine can lift as the snippet.
+  const faqs = item.paa ? [{ q: item.paa.question, a: item.paa.answer }, ...(item.faqs || [])] : item.faqs;
+
+  const faqJsonLd = (faqs && faqs.length)
     ? `,
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [${item.faqs.map((f) => `
+    "mainEntity": [${faqs.map((f) => `
       {"@type":"Question","name":${JSON.stringify(f.q)},"acceptedAnswer":{"@type":"Answer","text":${JSON.stringify(f.a)}}}`).join(',')}
     ]
   }`
@@ -318,6 +331,22 @@ export const renderArticle = (item, related) => {
       </div>`
     : '';
 
+  // The question is an <h3>, plain text, because faq-sync.mjs matches every
+  // FAQPage name against a visible <h3> on the page.
+  const paaTool = item.paa && PAA_TOOLS[item.paa.tool];
+  const paaBox = item.paa
+    ? `
+      <div class="block reveal paa-answer">
+        <div class="block-title">Short answer</div>
+        <div class="faq-item">
+          <h3>${esc(item.paa.question)}</h3>
+          <p>${esc(item.paa.answer)}</p>
+        </div>
+        <p><a href="/tools/${paaTool ? `${item.paa.tool}/` : ''}">${paaTool ? `Run your own numbers: ${paaTool} →` : 'Run your own numbers with our free calculators →'}</a></p>
+      </div>
+`
+    : '';
+
   const relatedSection = related.length
     ? `
       <div class="block reveal">
@@ -354,7 +383,7 @@ ${nav('blog', item.slug)}
           <span>TRE Forged</span>
         </div>
       </header>
-
+${paaBox}
       <div class="article-body reveal">
 ${item.bodyHtml}
       </div>
