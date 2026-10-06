@@ -54,9 +54,14 @@ function run(pathname, storage = 'ok') {
   const viewsRpc = (fn, body) => { calls.push({ fn, body }); return Promise.resolve(1); };
 
   // eslint-disable-next-line no-new-func
-  const fn = new Function('location', 'sessionStorage', 'viewsRpc', block);
-  fn(location, sessionStorage, viewsRpc);
-  return { calls, store };
+  // The block also records the arrival source (ARRIVAL_SEND, 2026-09-16), which
+  // calls main.js's wlSource(). Stubbed here; test-source-attribution.mjs owns it.
+  const wlSource = () => 'direct';
+  const fn = new Function('location', 'sessionStorage', 'viewsRpc', 'wlSource', block);
+  fn(location, sessionStorage, viewsRpc, wlSource);
+  // Only the page-view call is this gate's subject; the arrival call is a
+  // second, separate RPC on every page and is test-source-attribution's.
+  return { calls: calls.filter((c) => c.fn === 'increment_page_view'), arrivals: calls.filter((c) => c.fn === 'record_arrival'), store };
 }
 
 // ---- the paths that must be counted, and the slug each must produce -------
@@ -67,6 +72,7 @@ const counted = [
   ['/tools/emergency-fund-calculator', 'tool-emergency-fund-calculator'],
   ['/tools/debt-payoff-calculator/', 'tool-debt-payoff-calculator'],
   ['/tools/credit-card-interest-calculator/', 'tool-credit-card-interest-calculator'],
+  ['/tools/safe-to-spend-calculator/', 'tool-safe-to-spend-calculator'],
 ];
 
 for (const [path, slug] of counted) {
@@ -81,8 +87,20 @@ for (const [path, slug] of counted) {
 }
 
 // ---- the paths that must NOT be counted ----------------------------------
-for (const path of ['/tools/a/b/', '/blog/car-loans-explained/', '/', '/toolsy/',
-                    '/tools/Some-Name/', '/founders/', '/about/']) {
+// The static pages ARE counted since 2026-09-22 (PAGEVIEW_BLOCK, page-<name>).
+for (const [path, slug] of [['/', 'page-home'], ['/founders/', 'page-founders'], ['/about/', 'page-about']]) {
+  const { calls } = run(path);
+  check(calls.length === 1 && calls[0].body.p_slug === slug, path + ' counts once as "' + slug + '"',
+    calls.map((c) => c.body.p_slug).join(', ') || 'no call made');
+}
+
+// KNOWN DEFECT, left RED on purpose (ask eed894b3): /tools/ is counted by BOTH
+// the tool block ("tools-hub") and the static list ("page-tools", added
+// 2026-09-22), so the hub's views are split across two slugs. The /tools/ rows
+// above fail until main.js counts the hub once.
+
+for (const path of ['/tools/a/b/', '/blog/car-loans-explained/', '/toolsy/',
+                    '/tools/Some-Name/']) {
   const { calls } = run(path);
   check(calls.length === 0, path + ' is not counted', calls.length + ' call(s) made');
 }
