@@ -89,9 +89,22 @@ export const checkDraft = (item, ctx) => {
   }
   if (!body.includes(APP_LINK)) e('body never links Forgenta at https://getforgenta.com/');
   if (/\b(plaid|akoya)\b/i.test(body)) e('body names a bank-connection provider; the site stays provider-free');
-  for (const m of body.matchAll(/href="\/blog\/([a-z0-9-]+)\/"/g)) {
-    if (!ctx.known.has(m[1])) e(`links to /blog/${m[1]}/, which does not exist`);
+  // Any /blog/ href, slash or not: a slash-less link skipped this check once
+  // and publish-next only rewrites the slashed form.
+  for (const m of body.matchAll(/href="\/blog\/([^"]*)"/g)) {
+    const target = m[1].replace(/\/$/, '');
+    if (!m[1].endsWith('/')) e(`link /blog/${m[1]} has no trailing slash`);
+    if (!ctx.known.has(target)) e(`links to /blog/${target}/, which does not exist`);
   }
+  // Anchor text that is a bare slug reads as a broken page to a person.
+  const slugText = [...body.matchAll(/>([a-z0-9]+(?:-[a-z0-9]+){2,})</g)].map((m) => m[1]);
+  const slugProse = [...ctx.known].filter((k) => body.replace(/<[^>]+>/g, ' ').includes(k));
+  if (slugText.length || slugProse.length) e(`a raw slug is shown as text: ${[...slugText, ...slugProse].join(', ')}`);
+  // One or two plain mentions, as the generator prompt has always asked. More
+  // reads as an ad, and each extra sentence is a feature claim to verify.
+  const appLinks = body.split(APP_LINK).length - 1;
+  const named = (body.replace(/<[^>]+>/g, ' ').match(/Forgenta/g) || []).length;
+  if (appLinks > 2 || named > 3) e(`Forgenta is linked ${appLinks}x and named ${named}x; want at most 2 links and 3 mentions`);
   const faqs = item.faqs || [];
   if (faqs.length < 2 || faqs.length > 4) e(`${faqs.length} FAQs, want 2-4`);
   for (const f of faqs) if (!f.q || !f.q.endsWith('?') || ESC_CHANGES.test(f.q) || !f.a) e(`FAQ "${f.q}" has no "?", has quotes, or no answer`);

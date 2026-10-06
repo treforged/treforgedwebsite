@@ -58,7 +58,10 @@ expect('real calculator passes', withPaa({ tool: 'emergency-fund-calculator' }),
 expect('meta description too short is refused', { ...good, description: 'Too short.' }, false, 'meta description');
 expect('slug already live is refused', { ...good, slug: 'already-live' }, false, 'already in queue', { ...ctx(), file: 'already-live.json' });
 expect('leaked draft is refused', good, false, 'LEAK', { ...ctx(), leaked: new Set([good.slug]) });
+expect('slash-less /blog/ link is refused', { ...good, bodyHtml: good.bodyHtml.replace('/blog/real-post/', '/blog/made-up') }, false, 'trailing slash');
+expect('raw slug as text is refused', { ...good, bodyHtml: good.bodyHtml + '<p>Read real-post next.</p>' }, false, 'raw slug');
+expect('Forgenta oversell is refused', { ...good, bodyHtml: good.bodyHtml + '<p>Forgenta. Forgenta. Forgenta.</p>' }, false, 'Forgenta is linked');
 expect('FAQ without ? is refused', { ...good, faqs: [{ q: 'No mark', a: 'x' }, good.faqs[1]] }, false, 'FAQ');
 
-console.log(failures ? `\nFAIL - ${failures} case(s) wrong` : '\nPASS - 15 cases');
+console.log(failures ? `\nFAIL - ${failures} case(s) wrong` : '\nPASS - 18 cases');
 process.exit(failures ? 1 : 0);
