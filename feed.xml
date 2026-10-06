@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 05 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Read Your Check Engine Light with an OBD2 Scanner</title>
+      <link>https://treforged.com/blog/how-to-read-check-engine-light-codes/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-read-check-engine-light-codes/</guid>
+      <pubDate>Tue, 06 Oct 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to buy a cheap OBD2 scanner, pull your car's trouble codes, and figure out if it's a DIY fix or worth paying a shop's diagnostic fee.</description>
+    </item>
     <item>
       <title>How to Replace Your Spark Plugs: A Step-by-Step Guide</title>
       <link>https://treforged.com/blog/how-to-replace-your-spark-plugs/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/side-income-ideas-for-busy-people/</guid>
       <pubDate>Thu, 17 Sep 2026 12:00:00 GMT</pubDate>
       <description>Short on time but need extra cash? Here are realistic, low-time side income ideas for busy people who can't add hours to their week in 2026.</description>
-    </item>
-    <item>
-      <title>The True Cost of Convenience Spending: What Delivery and Rideshare Fees Really Add Up To</title>
-      <link>https://treforged.com/blog/cost-of-convenience-spending/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/cost-of-convenience-spending/</guid>
-      <pubDate>Wed, 16 Sep 2026 12:00:00 GMT</pubDate>
-      <description>See what delivery fees, rideshare rides, and other convenience purchases really cost over a year in 2026, plus simple ways to cut back.</description>
     </item>
   </channel>
 </rss>
