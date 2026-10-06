@@ -11,7 +11,7 @@
   "paa": {
     "question": "What does safe to spend mean?",
     "answer": "Safe to spend is your bank balance minus all bills and planned savings due before your next paycheck. This number tells you how much you can use freely without risking debt. For example, if you have $3,000 in your account and $2,000 in bills and $500 in savings due, your safe to spend is $500.",
-    "tool": null,
+    "tool": "safe-to-spend-calculator",
     "subtopic": "2026-11 safe to spend",
     "questionSource": "candidate",
     "verifiedBy": null

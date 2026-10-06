@@ -11,7 +11,7 @@
   "paa": {
     "question": "How do I stop spending all my money before payday?",
     "answer": "Calculate your safe spending limit by subtracting all upcoming bills and planned savings from your current balance. Only spend what remains after this calculation. Track every transaction and use budgeting apps to stay within limits and build emergency funds. Move your savings out on payday, so that money never looks like spending money.",
-    "tool": null,
+    "tool": "safe-to-spend-calculator",
     "subtopic": "2026-11 safe to spend",
     "questionSource": "candidate",
     "verifiedBy": null

@@ -53,6 +53,7 @@ export const PAA_TOOLS = {
   'debt-payoff-calculator': 'Debt Snowball vs Avalanche Calculator',
   'diy-vs-shop-calculator': 'DIY vs Shop Calculator',
   'emergency-fund-calculator': 'Emergency Fund Calculator',
+  'safe-to-spend-calculator': 'Safe to Spend Calculator',
 };
 
 const QUEUE_PATH = join(ROOT, 'content-queue', 'queue.json');

@@ -11,7 +11,7 @@
   "paa": {
     "question": "How do I know how much I can spend before payday?",
     "answer": "To know how much you can safely spend before payday, subtract all bills, upcoming regular expenses, and any money you have earmarked for savings from your current bank balance. The remainder is the amount you can use for discretionary purchases without risking a shortfall.",
-    "tool": null,
+    "tool": "safe-to-spend-calculator",
     "subtopic": "2026-11 safe to spend",
     "questionSource": "candidate",
     "verifiedBy": null

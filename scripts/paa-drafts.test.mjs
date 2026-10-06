@@ -53,7 +53,7 @@ expect('provider name is refused', { ...good, bodyHtml: good.bodyHtml + '<p>Plai
 expect('question without ? is refused', withPaa({ question: 'How much can I spend' }), false, 'PAA question');
 expect('quoted question is refused (faq-sync needs plain text)', withPaa({ question: "What's safe to spend?" }), false, 'PAA question');
 expect('long short-answer is refused', withPaa({ answer: good.paa.answer.repeat(2) }), false, 'short answer');
-expect('unknown calculator is refused', withPaa({ tool: 'safe-to-spend-calculator' }), false, 'not a calculator');
+expect('unknown calculator is refused', withPaa({ tool: 'made-up-calculator' }), false, 'not a calculator');
 expect('real calculator passes', withPaa({ tool: 'emergency-fund-calculator' }), true);
 expect('meta description too short is refused', { ...good, description: 'Too short.' }, false, 'meta description');
 expect('slug already live is refused', { ...good, slug: 'already-live' }, false, 'already in queue', { ...ctx(), file: 'already-live.json' });

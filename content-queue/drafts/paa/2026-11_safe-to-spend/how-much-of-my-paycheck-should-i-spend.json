@@ -11,7 +11,7 @@
   "paa": {
     "question": "How much of my paycheck should I spend?",
     "answer": "Calculate your safe spending by subtracting all bills and planned savings from your take-home pay. This ensures you never overspend and always have funds for emergencies and savings. Regularly review and adjust your budget to stay aligned with your financial goals.",
-    "tool": null,
+    "tool": "safe-to-spend-calculator",
     "subtopic": "2026-11 safe to spend",
     "questionSource": "candidate",
     "verifiedBy": null

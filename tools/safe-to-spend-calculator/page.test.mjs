@@ -16,7 +16,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const html = readFileSync(process.env.PAGE || join(here, 'index.html'), 'utf8');
+const html = readFileSync(join(here, 'index.html'), 'utf8');
 
 // Every id the markup defines. The script may use these and nothing else.
 const ids = new Set();
