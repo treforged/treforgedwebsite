@@ -144,10 +144,10 @@
     <!-- RESULT_EMAIL (2026-10-06, ask 1960d8c5): "email me this result". BUILT, OFF.
          `hidden` ON THE SECTION keeps it off (not on the form: .newsletter-form sets display:flex, which beats the hidden attribute): result-email.js then loads nothing and sends nothing. The server has its own
          switch too (RESULT_EMAIL_ENABLED). Turning it on is Tre's yes: docs/result-email/README.md.
-         data-sitekey is a PLACEHOLDER until a Cloudflare Turnstile widget exists. -->
+         data-sitekey is the PUBLIC Turnstile site key (widget "treforged.com calculator email", 2026-10-07). The secret lives only in TURNSTILE_SECRET_KEY on the server. -->
     <section class="block reveal" id="resultEmailBlock" hidden>
       <form class="newsletter-form" id="resultEmailForm" novalidate
-            data-sitekey="TURNSTILE_SITE_KEY"
+            data-sitekey="0x4AAAAAAFP7a9f0H8GlwPKr"
             data-endpoint="https://zyvqoefbgsgkbdoydopt.supabase.co/functions/v1/calculator-result-email">
         <div class="block-title">Keep this number</div>
         <p class="calc-note">Email yourself this result. Only the result is sent, not your balance or bills. We do not add you to any list.</p>
