@@ -85,7 +85,7 @@
     <section class="page-hero reveal">
       <div class="page-hero-label">Free Tool</div>
       <h1>Safe to Spend Calculator</h1>
-      <p>Your safe to spend amount is your balance minus bills due before payday minus savings you move first. This calculator shows you how much you can spend each day before payday, or if you're short, how much you're short by. Nothing is sent anywhere: the math runs in your browser.</p>
+      <p>Your safe to spend amount is your balance minus bills due before payday minus savings you move first. This calculator shows you how much you can spend each day before payday, or if you're short, how much you're short by. The math runs in your browser, and your balance and bills never leave it. Only the result is sent, and only if you ask for it by email.</p>
     </section>
 
     <section class="block reveal">
@@ -141,11 +141,11 @@
       <p class="calc-note">Safe to spend = balance - bills due before payday - savings moved first. If the result is negative, it shows how much you're short by.</p>
     </section>
 
-    <!-- RESULT_EMAIL (2026-10-06, ask 1960d8c5): "email me this result". BUILT, OFF.
+    <!-- RESULT_EMAIL (2026-10-06, ask 1960d8c5): "email me this result". ON since 2026-10-07 (Tre: "go ahead", b2377070). To turn OFF: put `hidden` back on the section AND unset RESULT_EMAIL_ENABLED on the server.
          `hidden` ON THE SECTION keeps it off (not on the form: .newsletter-form sets display:flex, which beats the hidden attribute): result-email.js then loads nothing and sends nothing. The server has its own
          switch too (RESULT_EMAIL_ENABLED). Turning it on is Tre's yes: docs/result-email/README.md.
          data-sitekey is the PUBLIC Turnstile site key (widget "treforged.com calculator email", 2026-10-07). The secret lives only in TURNSTILE_SECRET_KEY on the server. -->
-    <section class="block reveal" id="resultEmailBlock" hidden>
+    <section class="block reveal" id="resultEmailBlock">
       <form class="newsletter-form" id="resultEmailForm" novalidate
             data-sitekey="0x4AAAAAAFP7a9f0H8GlwPKr"
             data-endpoint="https://zyvqoefbgsgkbdoydopt.supabase.co/functions/v1/calculator-result-email">

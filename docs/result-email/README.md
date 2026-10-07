@@ -13,6 +13,8 @@ because it is a new automated email in his name.
   email. Email 1 carries a one-click cancel for it.
 - Nothing is stored. No table, no list. The address goes to Resend and nowhere else.
 
+## Status: ON since 2026-10-07 (Tre: "go ahead", b2377070). Function deployed, all four secrets set.
+
 ## How it is held off
 
 `supabase/functions/calculator-result-email/` is in the repo and is **not deployed**.

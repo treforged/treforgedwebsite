@@ -25,9 +25,10 @@ function ok(cond, name) {
   if (!cond) { failed++; console.log('FAIL  ' + name); } else console.log('ok    ' + name);
 }
 
-// 1. The shipped page is off.
+// 1. The shipped page is ON (Tre's yes, b2377070, 2026-10-07). The server flag
+//    RESULT_EMAIL_ENABLED is the send switch; `hidden` on the section is the page switch.
 const section = html.match(/<section[^>]*id="resultEmailBlock"[^>]*>/);
-ok(section && /\shidden(\s|>)/.test(section[0]), 'shipped index.html: #resultEmailBlock carries hidden');
+ok(section && !/\shidden(\s|>)/.test(section[0]), 'shipped index.html: #resultEmailBlock is visible (email is ON)');
 const form = html.match(/<form[^>]*id="resultEmailForm"[^>]*>/);
 ok(form && !/\shidden(\s|>)/.test(form[0]), 'hidden is NOT on the form (.newsletter-form display:flex would beat it)');
 
