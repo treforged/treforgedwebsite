@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 06 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 07 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Replace Your Car's Thermostat (And Save Yourself a Repair Bill)</title>
+      <link>https://treforged.com/blog/how-to-replace-a-thermostat/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-a-thermostat/</guid>
+      <pubDate>Wed, 07 Oct 2026 12:00:00 GMT</pubDate>
+      <description>Learn the warning signs of a failing thermostat, a full DIY replacement walkthrough, and how much you can save by skipping the shop.</description>
+    </item>
     <item>
       <title>How to Read Your Check Engine Light with an OBD2 Scanner</title>
       <link>https://treforged.com/blog/how-to-read-check-engine-light-codes/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/when-to-refinance-your-car-loan/</guid>
       <pubDate>Fri, 18 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn the clear signs a car loan refinance will actually save you money, plus a step-by-step walkthrough of how to do it right in 2026.</description>
-    </item>
-    <item>
-      <title>Realistic Side Income Ideas for People Who Are Already Busy</title>
-      <link>https://treforged.com/blog/side-income-ideas-for-busy-people/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/side-income-ideas-for-busy-people/</guid>
-      <pubDate>Thu, 17 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Short on time but need extra cash? Here are realistic, low-time side income ideas for busy people who can't add hours to their week in 2026.</description>
     </item>
   </channel>
 </rss>
