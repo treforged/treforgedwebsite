@@ -1,0 +1,27 @@
+EMAIL 1 - sent at once
+Subject: Your safe-to-spend result
+
+You have $150 safe to spend.
+
+That is about $21.43 a day for the next 7 days, after the bills due before payday and the savings you move first.
+
+The number changes every time a bill clears or money lands. Run the calculator again before you spend: https://treforged.com/tools/safe-to-spend-calculator/
+Or let Forgenta work it out from your accounts before every payday: https://getforgenta.com/?utm_source=email&utm_medium=result-email&utm_campaign=safe-to-spend-calculator
+
+You are getting this because you asked the Safe to Spend calculator at treforged.com to email you your result. You asked for one follow-up in 3 days. Cancel it: https://<project>.supabase.co/functions/v1/calculator-result-email?c=<id>.<signature>
+
+----------------------------------------
+
+EMAIL 2 - sent 3 days later, ONLY if the visitor ticked the box
+Subject: Has your safe-to-spend number moved?
+
+Has your safe-to-spend number moved?
+
+Three days ago you worked out what was safe to spend before payday. Since then a few bills have likely cleared and some spending has happened, so the number has probably moved.
+
+Two habits keep it honest: check it before any purchase you would not make twice, and move your savings on payday rather than at the end of the month.
+
+Run it again: https://treforged.com/tools/safe-to-spend-calculator/
+Forgenta: https://getforgenta.com/?utm_source=email&utm_medium=result-email&utm_campaign=safe-to-spend-calculator
+
+This is the one follow-up you asked for from the Safe to Spend calculator. You are not on any list, and we will not email you again. Questions: https://treforged.com/contact/

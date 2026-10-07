@@ -105,3 +105,18 @@ jobs:
       - run: node scripts/reach-destinations.mjs
       # Printed every run so a PASS is never read as a broader guarantee.
       - run: node scripts/reach-destinations.mjs --limits
+
+  result-email-off:
+    # The calculator result email is OFF until Tre says yes (ask 1960d8c5). This
+    # gate proves the off path makes zero outbound calls, for 9 off values and 5
+    # bodies. It runs here so the claim is checked on every push, not only on the
+    # machine that wrote it. Read-only, no secrets: Resend is a spy in the test.
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: deno test supabase/functions/calculator-result-email/
