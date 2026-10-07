@@ -62,7 +62,7 @@ function spies() {
   return {
     fetches, loads,
     fetchFn: (url, init) => { fetches.push({ url, body: JSON.parse(init.body) }); return Promise.resolve({ ok: true }); },
-    loadScript: (src, cb) => loads.push({ src, cb }),
+    loadScript: (src, cb, onerr) => loads.push({ src, cb, onerr }),
   };
 }
 const submit = (listeners) => listeners.find((l) => l.type === 'submit').fn({ preventDefault() {} });
@@ -111,6 +111,20 @@ const settle = () => new Promise((r) => setTimeout(r, 0));
   ok(body.email === 'reader@example.com' && body.followUp === true && body.turnstile === 'tok-123', 'payload email, follow-up box, token');
   ok(/Sent/.test(f.nodes.resultEmailMsg.textContent) && resets === 1, 'on: success message shown and Turnstile reset for reuse');
   delete globalThis.window;
+}
+
+// 4. The check fails to load: the visitor is told so, not asked to finish a check that is not there.
+{
+  const f = fakeDoc({ hidden: false, sitekey: '0xREALKEY' });
+  const s = spies();
+  ok(init(f.doc, s.fetchFn, s.loadScript) === 'on', 'load-fail: init returns on');
+  ok(typeof s.loads[0].onerr === 'function', 'load-fail: an error handler is passed to the loader');
+  s.loads[0].onerr();
+  submit(f.listeners);
+  await settle();
+  ok(s.fetches.length === 0, 'load-fail: no request without a token');
+  ok(/could not load/.test(f.nodes.resultEmailMsg.textContent) && !/complete the check/.test(f.nodes.resultEmailMsg.textContent),
+    'load-fail: says the check could not load - got "' + f.nodes.resultEmailMsg.textContent + '"');
 }
 
 console.log(`\n${failed ? 'FAIL' : 'PASS'} - ${checks} checks, ${failed} failed`);

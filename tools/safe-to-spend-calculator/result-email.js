@@ -1,6 +1,6 @@
 /**
  * result-email.js - "email me this result" on the Safe to Spend calculator.
- * Ask 1960d8c5, built OFF.
+ * Ask 1960d8c5. ON since 2026-10-07 (b2377070).
  *
  * OFF while #resultEmailBlock in index.html carries the `hidden` attribute: init()
  * returns at once and loads nothing - no Turnstile script, no listener, no
@@ -12,12 +12,13 @@
  */
 import { safeToSpend, perDay } from './calc.js';
 
-export function defaultLoadScript(src, onload) {
+export function defaultLoadScript(src, onload, onerror) {
   var script = document.createElement('script');
   script.src = src;
   script.async = true;
   script.defer = true;
   script.onload = onload;
+  script.onerror = onerror;
   document.head.appendChild(script);
 }
 
@@ -36,6 +37,14 @@ export function init(doc, fetchFn, loadScript) {
 
   var token = null;
   var widgetId = null;
+  // The check can fail to load (blocked, offline, Cloudflare refusing the
+  // browser). Without this the visitor is told to complete a check that is
+  // not on the page - measured on the live page 2026-10-07.
+  var captchaFailed = false;
+  function captchaFail() {
+    captchaFailed = true;
+    setMsg('The security check could not load. Refresh the page or try again later.', 'newsletter-msg is-err');
+  }
 
   loadScript(
     'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit',
@@ -47,10 +56,14 @@ export function init(doc, fetchFn, loadScript) {
           theme: 'dark',
           callback: function (t) {
             token = t;
-          }
+          },
+          'error-callback': captchaFail
         });
+      } else {
+        captchaFail();
       }
-    }
+    },
+    captchaFail
   );
 
   form.addEventListener('submit', function (e) {
@@ -85,6 +98,7 @@ export function init(doc, fetchFn, loadScript) {
     }
 
     if (!token) {
+      if (captchaFailed) { captchaFail(); return; }
       setMsg('Please complete the check above.', 'newsletter-msg is-err');
       return;
     }
