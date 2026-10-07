@@ -14,6 +14,11 @@ DNS is on Cloudflare (`dolly`/`grant.ns.cloudflare.com`).
 
 ## The records
 
+**DRAFT - DO NOT APPLY YET (Sam, 2026-10-07).** A CAA set that misses one of
+Cloudflare's Universal SSL CAs breaks the edge cert at its NEXT renewal, and
+that cannot be tested in advance. Confirm Cloudflare's current CA list (SSL/TLS
+-> Edge Certificates -> Certificate Authority) against the table below first.
+
 Add in Cloudflare -> treforged.com -> DNS -> Records -> Add record, type CAA,
 name `@` (the apex; CAA is inherited by `www` and every subdomain):
 
