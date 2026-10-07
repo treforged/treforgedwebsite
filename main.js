@@ -422,8 +422,12 @@
     // reader indistinguishable from the read-nothing population in
     // supabase/audits/counter-health.sql, which is the one ambiguity that
     // measurement could not resolve from the data it had.
+    // 'tools' was in this list from 2026-09-22 to 2026-10-06 on the belief that
+    // nothing counted the hub. The tool block above ALREADY counts /tools/ as
+    // "tools-hub", so the hub's views were split across two slugs. Hub views:
+    // tools-hub, all dates; page-tools rows are a duplicate of 09-22..10-06.
     var countedPages = ['about', 'blog', 'cars', 'contact', 'founders',
-                        'partnerships', 'services', 'tools'];
+                        'partnerships', 'services'];
     var pagePath     = location.pathname.replace(/\/+$/, '');
     var pageSlug     = null;
 

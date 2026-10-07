@@ -48,6 +48,22 @@ jobs:
   # control is a visible defect on a live page — Tre found a white <select> on
   # the DIY calculator himself on 2026-09-12, after it had been shipped and
   # unnoticed. It is the third visual defect this month that no test could see.
+  # View counting, blocking, no dependencies. Both harnesses cut the REAL
+  # block out of main.js and run it. Neither ran in CI until 2026-10-06, and
+  # test-tool-views had been broken ("wlSource is not defined") since 09-16 -
+  # so the /tools/ hub was double-counted 09-22..10-06 and nothing noticed.
+  view-counters:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node scripts/test-tool-views.mjs
+      - run: node scripts/test-page-views.mjs
+
   form-controls:
     # Least privilege: this job only reads the tree and runs a gate. It never
     # commits, comments or releases, so it is given no write scope at all.

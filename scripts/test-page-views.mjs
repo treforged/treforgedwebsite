@@ -81,14 +81,14 @@ const COUNTED = [
   // it is the one innocent explanation left standing for the "arrived and read
   // nothing" population measured in supabase/audits/counter-health.sql.
   ["/blog/", "page-blog"],
-  ["/tools/", "page-tools"],
 ];
 
 const NOT_COUNTED = [
   "/blog/how-to-change-a-flat-tire/",  // articles have their own counter
-  // NOTE: "/tools/" moved to COUNTED above. The reason recorded here -
-  // "tools have their own counter" - was true of the tool PAGES and wrong
-  // about the HUB, which nothing counted at all.
+  // The HUB is counted by the TOOL block as "tools-hub" (test-tool-views.mjs).
+  // It was ALSO in this list 2026-09-22..10-06, on the false belief that nothing
+  // counted it, which split the hub's views across two slugs.
+  "/tools/",
   "/tools/auto-loan-calculator/",
   "/founders/extra/",                   // deeper path is not the page
   "/nope/",                             // unknown path must go uncounted

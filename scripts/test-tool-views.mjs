@@ -94,10 +94,8 @@ for (const [path, slug] of [['/', 'page-home'], ['/founders/', 'page-founders'],
     calls.map((c) => c.body.p_slug).join(', ') || 'no call made');
 }
 
-// KNOWN DEFECT, left RED on purpose (ask eed894b3): /tools/ is counted by BOTH
-// the tool block ("tools-hub") and the static list ("page-tools", added
-// 2026-09-22), so the hub's views are split across two slugs. The /tools/ rows
-// above fail until main.js counts the hub once.
+// /tools/ is counted ONCE, as "tools-hub". From 2026-09-22 to 10-06 the static
+// list counted it AGAIN as "page-tools"; the rows above caught that (ask eed894b3).
 
 for (const path of ['/tools/a/b/', '/blog/car-loans-explained/', '/toolsy/',
                     '/tools/Some-Name/']) {
