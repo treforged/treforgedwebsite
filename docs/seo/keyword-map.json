@@ -1,0 +1,31 @@
+{
+  "_about": "One primary search intent per page on treforged.com (ask df6b3fbb, Tre 2026-10-07). getforgenta.com (Ada) owns the product head terms; this site owns brand terms and long-tail how-to terms that link to Ada's pages. Blog posts are mapped in content-queue/keyword-targets.md, not here. Gate: node scripts/keyword-map.mjs",
+  "reservedForGetforgenta": [
+    "best budget app",
+    "best budgeting app",
+    "simple budget app",
+    "simple budgeting app",
+    "free budget app",
+    "free budgeting app",
+    "safe to spend app",
+    "ynab alternative",
+    "monarch alternative",
+    "rocket money alternative"
+  ],
+  "pages": [
+    { "file": "index.html", "primary": "TRE Forged", "supports": "Forgenta budget app" },
+    { "file": "about/index.html", "primary": "About TRE Forged" },
+    { "file": "blog/index.html", "primary": "budgeting guides" },
+    { "file": "tools/index.html", "primary": "budget calculators" },
+    { "file": "tools/credit-card-interest-calculator/index.html", "primary": "credit card interest calculator" },
+    { "file": "tools/debt-payoff-calculator/index.html", "primary": "snowball vs avalanche calculator" },
+    { "file": "tools/emergency-fund-calculator/index.html", "primary": "emergency fund calculator" },
+    { "file": "tools/safe-to-spend-calculator/index.html", "primary": "safe to spend calculator" },
+    { "file": "tools/diy-vs-shop-calculator/index.html", "primary": "DIY vs shop calculator" },
+    { "file": "contact/index.html", "primary": "Contact TRE Forged" },
+    { "file": "services/index.html", "primary": "TRE Forged services" },
+    { "file": "partnerships/index.html", "primary": "TRE Forged partnerships" },
+    { "file": "cars/index.html", "primary": "TRE Forged car collection" },
+    { "file": "founders/index.html", "primary": "startup with AI agents" }
+  ]
+}

@@ -419,7 +419,7 @@ export const renderBlogIndex = (published) => {
 
   return `${head({
     title: 'The Forge: Money Basics & Budgeting Guides | TRE Forged',
-    description: 'Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of the Forgenta app.',
+    description: 'Budgeting guides from TRE Forged: how to make a budget, save, pay off debt, and get the most out of the Forgenta budget app.',
     canonical: `${SITE}/blog/`,
     extra: `  <meta property="og:type" content="website">
   <meta property="og:title" content="The Forge: Personal Finance Guides by TRE Forged">
