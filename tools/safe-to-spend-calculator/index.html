@@ -161,7 +161,7 @@
         <p class="newsletter-msg" id="resultEmailMsg" role="status" aria-live="polite"></p>
       </form>
     </section>
-    <script type="module" src="./result-email.js"></script>
+    <script type="module" src="./result-email.js?v=fc8c4402"></script>
 
     <section class="block reveal">
       <div class="block-title">Next step</div>
@@ -194,7 +194,7 @@
 </main>
 
 <script type="module">
-  import { safeToSpend, perDay, shortfall } from './calc.js';
+  import { safeToSpend, perDay, shortfall } from './calc.js?v=46fd5002';
 
   var $ = function (id) { return document.getElementById(id); };
   var money0 = function (n) { return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); };

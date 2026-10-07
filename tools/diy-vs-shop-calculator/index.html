@@ -158,8 +158,8 @@
 </main>
 
 <script type="module">
-  import { diyCost, savings, effectiveHourly, verdict, toolBreakEvenJobs } from './calc.js';
-  import { JOBS, SOURCE, jobById, sourceUrl, midpoint } from './costs.js';
+  import { diyCost, savings, effectiveHourly, verdict, toolBreakEvenJobs } from './calc.js?v=0d0115cc';
+  import { JOBS, SOURCE, jobById, sourceUrl, midpoint } from './costs.js?v=483754eb';
 
   var $ = function (id) { return document.getElementById(id); };
   var money0 = function (n) { return (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US'); };

@@ -1,5 +1,6 @@
 /**
- * Puts a content hash on /main.js and /styles.css in every HTML file.
+ * Puts a content hash on /main.js and /styles.css in every HTML file, and on
+ * every ./<name>.js a page loads from its own folder (the calculator modules).
  *
  * WHY: this site has no build step, so those two filenames never change when
  * their contents do. On 2026-09-05 a Cloudflare cache rule with a 1-day edge TTL
@@ -77,6 +78,24 @@ function rewrite(html, mainVer, cssVer) {
     .replace(/(href="\/styles\.css)(?:\?v=[^"]*)?"/g, `$1?v=${cssVer}"`);
 }
 
+// SIBLING MODULES. A calculator page loads its own ./calc.js, ./costs.js and
+// ./result-email.js. Those are cached at the Cloudflare edge too, and on
+// 2026-10-07 a result-email.js fix was live at the origin while Chrome kept
+// running the old module (cf-cache-status HIT). So every "./<name>.js"
+// reference in a page - a src= or an import specifier - is stamped with the
+// hash of the file beside that page. A reference whose file does not exist is
+// left alone rather than stamped with a guess.
+export function rewriteSiblings(html, dir, readSibling) {
+  return html.replace(/(src="|from ')\.\/([A-Za-z0-9_-]+\.js)(?:\?v=[0-9a-f]*)?(["'])/g, (m, pre, name, q) => {
+    const raw = readSibling(dir, name);
+    return raw === null ? m : `${pre}./${name}?v=${hashBytes(raw)}${q}`;
+  });
+}
+
+function readSiblingFile(dir, name) {
+  try { return readFileSync(path.join(dir, name)); } catch { return null; }
+}
+
 // Only ACT when run as a command. Importing this module - which
 // test-version-assets.mjs does, to reach hashBytes - must not rewrite 85 files
 // as a side effect of asking a question about one of them.
@@ -101,7 +120,7 @@ let changed = 0;
 
 for (const file of files) {
   const before = readFileSync(file, "utf8");
-  const after = rewrite(before, mainVer, cssVer);
+  const after = rewriteSiblings(rewrite(before, mainVer, cssVer), path.dirname(file), readSiblingFile);
   if (before === after) continue;
   const rel = path.relative(REPO_ROOT, file).split(path.sep).join("/");
   if (checkOnly) {

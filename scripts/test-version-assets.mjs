@@ -20,7 +20,7 @@ import { readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { hashBytes } from './version-assets.mjs';
+import { hashBytes, rewriteSiblings } from './version-assets.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 let failed = 0;
@@ -61,6 +61,19 @@ for (const asset of ['styles.css', 'main.js']) {
   check(home.includes(`/${asset}?v=${want}`),
     `index.html references ${asset}?v=${want}`,
     'run: node scripts/version-assets.mjs');
+}
+
+// Sibling modules (2026-10-07): the edge served a stale result-email.js after a fix.
+{
+  const files = { 'calc.js': Buffer.from('export const a = 1;'), 'result-email.js': Buffer.from('x') };
+  const read = (_d, n) => (n in files ? files[n] : null);
+  const html = '<script type="module" src="./result-email.js"></script>'
+    + "<script type=\"module\"> import { a } from './calc.js?v=00000000'; import { b } from './missing.js'; </script>";
+  const out = rewriteSiblings(html, '/x', read);
+  check(out.includes('src="./result-email.js?v=' + hashBytes(files['result-email.js']) + '"'), 'sibling src= is stamped with its own hash', out);
+  check(out.includes("from './calc.js?v=" + hashBytes(files['calc.js']) + "'"), 'a stale import stamp is REPLACED, not appended', out);
+  check(out.includes("from './missing.js'"), 'a reference to a file that does not exist is left alone', out);
+  check(rewriteSiblings(out, '/x', read) === out, 'idempotent: a second run changes nothing');
 }
 
 if (checks === 0) {
