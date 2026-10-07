@@ -1,0 +1,47 @@
+# Repo-owned Semgrep rules for treforged.com (ask 466f7b7f). Run by .githooks/pre-commit
+# beside the pinned OWASP pack (scripts/semgrep-staged.mjs).
+# 1. raw SQL by concatenation - copied from getforgenta (Ada, ask 77cfda79): the OWASP pack's
+#    JS SQL rules only fire on Lambda event sources and knex, so it reads a planted
+#    pool.query("..." + id) as clean. This repo's Deno functions could grow one.
+# 2. DOM HTML sinks fed by a non-literal - this repo is hand-written browser JS with no
+#    framework escaping, so innerHTML / insertAdjacentHTML / document.write with built
+#    strings is this site's XSS shape. A string literal is allowed; anything else must be
+#    built with textContent / createElement, or carry a nosemgrep with its reason.
+rules:
+  - id: treforged.raw-sql-concatenation
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: >-
+      Raw SQL built by string concatenation or template interpolation. Pass values as
+      parameters (query(text, [values]) or a tagged sql`...` template) instead.
+    patterns:
+      - pattern-either:
+          - pattern: $DB.query($A + $B, ...)
+          - pattern: $DB.query(`...${$X}...`, ...)
+          - pattern: $DB.unsafe($A + $B, ...)
+          - pattern: $DB.unsafe(`...${$X}...`, ...)
+          - pattern: $DB.queryObject($A + $B, ...)
+          - pattern: $DB.queryObject(`...${$X}...`, ...)
+          - pattern: $DB.queryArray($A + $B, ...)
+          - pattern: $DB.queryArray(`...${$X}...`, ...)
+          - pattern: $DB.execute($A + $B, ...)
+          - pattern: $DB.execute(`...${$X}...`, ...)
+      - pattern-not: $DB.query("..." + "...", ...)
+  - id: treforged.dom-html-sink-non-literal
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >-
+      HTML written into the page from a non-literal value. Use textContent or
+      createElement, or escape it and add `// nosemgrep: <why it is safe>`.
+    patterns:
+      - pattern-either:
+          - pattern: $EL.innerHTML = $X
+          - pattern: $EL.outerHTML = $X
+          - pattern: $EL.insertAdjacentHTML($P, $X)
+          - pattern: document.write($X)
+          - pattern: document.writeln($X)
+      - pattern-not: $EL.innerHTML = "..."
+      - pattern-not: $EL.outerHTML = "..."
+      - pattern-not: $EL.insertAdjacentHTML($P, "...")
+      - pattern-not: document.write("...")
+      - pattern-not: document.writeln("...")

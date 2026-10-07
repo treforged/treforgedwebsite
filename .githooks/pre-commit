@@ -40,4 +40,13 @@ if ! node "$SCANNER" --repo "$REPO"; then
   echo "pre-commit REFUSED by the secret scan." >&2
   exit 1
 fi
+
+# Semgrep SAST on staged JS/TS (ask 466f7b7f; same tool and pinned rules as
+# getforgenta). Exit 1 = a finding, 2 = could not check - both refuse.
+# SEMGREP_SKIP=1 is the loud way past it. Rules: .semgrep/treforged.yml + the
+# pinned OWASP pack. Test: node scripts/semgrep-staged.test.mjs
+if ! node "$REPO/scripts/semgrep-staged.mjs" --repo "$REPO"; then
+  echo "pre-commit REFUSED by the Semgrep scan (see the lines above)." >&2
+  exit 1
+fi
 exit 0
