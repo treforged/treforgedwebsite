@@ -12,19 +12,29 @@ import { isEnabled, parseInput, resultEmail, followUpEmail, money, escapeHtml } 
 
 type Call = { url: string; body: Record<string, unknown> | null };
 
-function deps(env: Record<string, string | undefined>, calls: Call[], now = 1_790_000_000_000): Deps {
+const SITEVERIFY = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+
+// The spy answers Turnstile with `human` and Resend with an id. `calls` holds
+// EVERY outbound call; resend(calls) is the subset that could send mail.
+function deps(env: Record<string, string | undefined>, calls: Call[], human = true, now = 1_790_000_000_000): Deps {
   return {
     env: (k) => env[k],
     now: () => now,
     fetch: ((input: string | URL | Request, init?: RequestInit) => {
+      const url = String(input);
       const body = typeof init?.body === "string" ? JSON.parse(init.body) : null;
-      calls.push({ url: String(input), body });
+      calls.push({ url, body });
+      if (url === SITEVERIFY) {
+        return Promise.resolve(new Response(JSON.stringify({ success: human }), { status: 200 }));
+      }
       return Promise.resolve(new Response(JSON.stringify({ id: "4ef9a417-02e9-4d39-ad75-9611e0fcc33c" }), { status: 200 }));
     }) as typeof fetch,
   };
 }
 
-const VALID = { email: "Reader@Example.com ", safe: 150, perDay: 21.43, days: 7, followUp: true };
+const resend = (calls: Call[]): Call[] => calls.filter((c) => c.url.startsWith("https://api.resend.com/"));
+
+const VALID = { email: "Reader@Example.com ", safe: 150, perDay: 21.43, days: 7, followUp: true, turnstile: "tok" };
 
 // A fresh IP per request, so the module-level throttle never decides a test.
 let ipSeq = 0;
@@ -36,7 +46,7 @@ function post(body: unknown, ip = `203.0.113.${++ipSeq % 250}`): Request {
   });
 }
 
-const ON = { RESULT_EMAIL_ENABLED: "on", RESEND_API_KEY: "test", RESULT_EMAIL_SIGNING_KEY: "k", SUPABASE_URL: "https://x.supabase.co" };
+const ON = { RESULT_EMAIL_ENABLED: "on", RESEND_API_KEY: "test", RESULT_EMAIL_SIGNING_KEY: "k", TURNSTILE_SECRET_KEY: "ts", SUPABASE_URL: "https://x.supabase.co" };
 
 Deno.test("FLAG OFF: no outbound call for any off value, on any body", async () => {
   const offValues = [undefined, "", "true", "1", "ON", " on", "on ", "yes", "enabled"];
@@ -64,8 +74,9 @@ Deno.test("FLAG ON: result email + scheduled follow-up, cancel link signed", asy
   const calls: Call[] = [];
   const res = await handle(post(VALID), deps(ON, calls));
   assertEquals(res.status, 200);
-  assertEquals(calls.length, 2);
-  const [follow, result] = calls;
+  assertEquals(calls.length, 3);
+  assertEquals(calls[0].url, SITEVERIFY); // verified BEFORE anything is sent
+  const [follow, result] = resend(calls);
   assertEquals(follow.body?.to, ["reader@example.com"]);
   assert(typeof follow.body?.scheduled_at === "string", "follow-up must be scheduled, not sent now");
   assertEquals(new Date(follow.body!.scheduled_at as string).getTime() - 1_790_000_000_000, 3 * 86_400_000);
@@ -78,8 +89,8 @@ Deno.test("FLAG ON, no follow-up box: exactly one email, no cancel link", async 
   const calls: Call[] = [];
   const res = await handle(post({ ...VALID, followUp: "yes" }), deps(ON, calls));
   assertEquals(res.status, 200);
-  assertEquals(calls.length, 1);
-  assertStringIncludes(String(calls[0].body?.html), "only email you will get");
+  assertEquals(resend(calls).length, 1);
+  assertStringIncludes(String(resend(calls)[0].body?.html), "only email you will get");
 });
 
 Deno.test("FLAG ON: honeypot and bad input send nothing", async () => {
@@ -90,12 +101,27 @@ Deno.test("FLAG ON: honeypot and bad input send nothing", async () => {
   }
 });
 
+Deno.test("TURNSTILE: no token, a failed check, or no secret = nothing sent", async () => {
+  const cases: [string, Record<string, unknown>, Record<string, string | undefined>, boolean][] = [
+    ["no token", { ...VALID, turnstile: undefined }, ON, true],
+    ["empty token", { ...VALID, turnstile: "" }, ON, true],
+    ["bot (siteverify says no)", VALID, ON, false],
+    ["no secret configured", VALID, { ...ON, TURNSTILE_SECRET_KEY: undefined }, true],
+  ];
+  for (const [name, body, env, human] of cases) {
+    const calls: Call[] = [];
+    const res = await handle(post(body), deps(env, calls, human));
+    assertEquals(resend(calls).length, 0, name);
+    assertEquals(res.status, 403, name);
+  }
+});
+
 Deno.test("cancel: a forged signature is refused and calls nothing; a valid one cancels", async () => {
   const calls: Call[] = [];
   const d = deps(ON, calls);
   const sent: Call[] = [];
   await handle(post(VALID), deps(ON, sent));
-  const link = String(sent[1].body?.html).match(/\?c=([A-Za-z0-9.-]+)/)![1];
+  const link = String(resend(sent)[1].body?.html).match(/\?c=([A-Za-z0-9.-]+)/)![1];
   const [id] = link.split(".");
 
   const bad = await handle(new Request(`https://x/f?c=${id}.${"0".repeat(64)}`), d);

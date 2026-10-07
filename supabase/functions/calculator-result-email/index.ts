@@ -10,9 +10,11 @@
  * desk's: it is a new automated email in his name. Drafts and the turn-on steps:
  * docs/result-email/README.md. Gate: supabase/functions/calculator-result-email/handler.test.ts.
  *
- * POST { email, safe, perDay, days, followUp, company } -> result email now, plus
- *        the follow-up scheduled at Resend (`scheduled_at`) when followUp is true.
- *        `company` is a honeypot.
+ * POST { email, safe, perDay, days, followUp, company, turnstile } -> result email
+ *        now, plus the follow-up scheduled at Resend (`scheduled_at`) when followUp
+ *        is true. `company` is a honeypot. `turnstile` is a Cloudflare Turnstile
+ *        token, verified BEFORE any send: without it anyone could make this
+ *        function email any address they type. No TURNSTILE_SECRET_KEY = no send.
  * GET  ?c=<resendId>.<sig>  -> cancel the scheduled follow-up (the link in both emails).
  *
  * Nothing is stored. There is no table: the address goes to Resend and nowhere
@@ -109,6 +111,30 @@ function same(a: string, b: string): boolean {
 
 const RESEND_ID_RE = /^[A-Za-z0-9-]{8,64}$/;
 
+/**
+ * Cloudflare Turnstile check. Fails CLOSED: no secret, no token, an unreachable
+ * Cloudflare or any answer but success means no email. The token is single-use
+ * at Cloudflare, so a captured one cannot be replayed.
+ */
+async function humanVerified(token: unknown, ip: string, deps: Deps): Promise<boolean> {
+  const secret = deps.env("TURNSTILE_SECRET_KEY");
+  if (!secret || typeof token !== "string" || token === "" || token.length > 2048) return false;
+  try {
+    const form = new URLSearchParams({ secret, response: token });
+    if (ip !== "unknown") form.set("remoteip", ip);
+    const res = await deps.fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      body: form,
+    });
+    if (!res.ok) return false;
+    const data = await res.json().catch(() => ({}));
+    return data?.success === true;
+  } catch {
+    console.error("calculator-result-email: turnstile unreachable");
+    return false;
+  }
+}
+
 async function cancel(token: string, deps: Deps): Promise<Response> {
   const signingKey = deps.env("RESULT_EMAIL_SIGNING_KEY");
   const [id, sig] = token.split(".");
@@ -176,6 +202,10 @@ async function send(req: Request, deps: Deps): Promise<Response> {
     return json(req, { error: parsed.error }, 400);
   }
   const v = parsed.value;
+
+  if (!(await humanVerified((body as Record<string, unknown>).turnstile, ip, deps))) {
+    return json(req, { error: "verification_failed" }, 403);
+  }
 
   // Schedule the follow-up FIRST, so the result email can carry its cancel link.
   let cancelUrl: string | null = null;

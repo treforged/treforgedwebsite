@@ -141,6 +141,28 @@
       <p class="calc-note">Safe to spend = balance - bills due before payday - savings moved first. If the result is negative, it shows how much you're short by.</p>
     </section>
 
+    <!-- RESULT_EMAIL (2026-10-06, ask 1960d8c5): "email me this result". BUILT, OFF.
+         `hidden` ON THE SECTION keeps it off (not on the form: .newsletter-form sets display:flex, which beats the hidden attribute): result-email.js then loads nothing and sends nothing. The server has its own
+         switch too (RESULT_EMAIL_ENABLED). Turning it on is Tre's yes: docs/result-email/README.md.
+         data-sitekey is a PLACEHOLDER until a Cloudflare Turnstile widget exists. -->
+    <section class="block reveal" id="resultEmailBlock" hidden>
+      <form class="newsletter-form" id="resultEmailForm" novalidate
+            data-sitekey="TURNSTILE_SITE_KEY"
+            data-endpoint="https://zyvqoefbgsgkbdoydopt.supabase.co/functions/v1/calculator-result-email">
+        <div class="block-title">Keep this number</div>
+        <p class="calc-note">Email yourself this result. Only the result is sent, not your balance or bills. We do not add you to any list.</p>
+        <div class="newsletter-fields">
+          <input type="email" id="resultEmailInput" name="email" placeholder="you@example.com" autocomplete="email" required aria-label="Your email address">
+          <button type="submit" class="btn btn-gold" id="resultEmailSubmit">Email me this →</button>
+        </div>
+        <label class="calc-note" for="resultEmailFollowUp"><input type="checkbox" id="resultEmailFollowUp" name="followUp"> Also send me one reminder in 3 days</label>
+        <div id="resultEmailCaptcha"></div>
+        <input type="text" class="nl-hp" id="resultEmailHp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="newsletter-msg" id="resultEmailMsg" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+    <script type="module" src="./result-email.js"></script>
+
     <section class="block reveal">
       <div class="block-title">Next step</div>
       <h2>Track your spending and balances</h2>

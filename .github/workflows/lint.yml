@@ -109,7 +109,7 @@ jobs:
   result-email-off:
     # The calculator result email is OFF until Tre says yes (ask 1960d8c5). This
     # gate proves the off path makes zero outbound calls, for 9 off values and 5
-    # bodies. It runs here so the claim is checked on every push, not only on the
+    # bodies, and that Turnstile is checked before any send. It runs here so the claim is checked on every push, not only on the
     # machine that wrote it. Read-only, no secrets: Resend is a spy in the test.
     permissions:
       contents: read
@@ -120,3 +120,8 @@ jobs:
         with:
           deno-version: v2.x
       - run: deno test supabase/functions/calculator-result-email/
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      # The page half: the shipped section is hidden, and off loads and sends nothing.
+      - run: node tools/safe-to-spend-calculator/result-email.test.mjs
