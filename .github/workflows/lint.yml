@@ -106,6 +106,36 @@ jobs:
       # Printed every run so a PASS is never read as a broader guarantee.
       - run: node scripts/reach-destinations.mjs --limits
 
+  # The secret guard's CI half (ask 21d5dd90). The pre-commit hook is skipped by
+  # --no-verify, by a clone without core.hooksPath, and by the GitHub web
+  # editor; this is not. Same rules (scripts/secret-scan.mjs), run over the
+  # tree at HEAD AND every blob in the pushed commits, so a key added and then
+  # deleted inside one push is still caught. Blocking, no dependencies.
+  # Proven red 2026-10-07 on a planted fake GitHub token, both at HEAD and
+  # added-then-deleted. It cannot un-publish: a red run means ROTATE first.
+  secret-scan:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      # SHAs pass through env, never spliced into the script (same rule as 8d1d6b7).
+      - env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          if [ -n "$BASE_SHA" ]; then
+            node scripts/secret-scan-ci.mjs --range "$BASE_SHA..$HEAD_SHA"
+          else
+            node scripts/secret-scan-ci.mjs
+          fi
+      - run: node scripts/secret-scan.test.mjs
+
   result-email-off:
     # The calculator result email is OFF until Tre says yes (ask 1960d8c5). This
     # gate proves the off path makes zero outbound calls, for 9 off values and 5
