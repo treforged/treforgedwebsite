@@ -1,0 +1,21 @@
+# Cloudflare Pages response headers for treforged.com. Copied into dist/ by
+# scripts/build-pages.mjs; this file is never served itself. Max 100 rules.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Preview and production *.pages.dev hostnames must never compete with
+# treforged.com in search results. The custom domain does not match these.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+# Images never change in place (a new photo gets a new filename), so a week of
+# browser cache is safe. main.js and styles.css are NOT given a long max-age:
+# their filenames carry no hash, only the ?v= stamp on the page does
+# (scripts/version-assets.mjs), and a bare request must still revalidate.
+/assets/*
+  Cache-Control: public, max-age=604800

@@ -7,3 +7,7 @@ backups/
 # Dev tooling only — the linter's dependencies. Nothing here is served: the
 # site has no build step, so node_modules exists purely so `npm run lint` works.
 node_modules/
+
+# Cloudflare Pages build output (scripts/build-pages.mjs). Rebuilt from the
+# tracked tree on every build; never committed.
+dist/

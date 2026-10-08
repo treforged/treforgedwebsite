@@ -9,7 +9,8 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "lint:baseline": "node scripts/lint-baseline.mjs"
+    "lint:baseline": "node scripts/lint-baseline.mjs",
+    "build": "node scripts/build-pages.mjs"
   },
   "devDependencies": {
     "eslint": "^9.36.0",

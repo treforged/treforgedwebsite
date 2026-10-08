@@ -21,7 +21,7 @@ import { fileURLToPath } from "node:url";
 
 const SELF = fileURLToPath(import.meta.url);
 const REPO = path.resolve(path.dirname(SELF), "..");
-const EXCLUDE_DIRS = new Set(["node_modules", "backups", ".git"]);
+const EXCLUDE_DIRS = new Set(["node_modules", "backups", ".git", "dist"]);
 const CONTROL_TAGS = new Set(["select", "input", "textarea"]);
 
 const LIMITS = [

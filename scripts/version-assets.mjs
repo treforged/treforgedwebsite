@@ -28,7 +28,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const REPO_ROOT = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
-const EXCLUDED_DIRS = new Set([".git", "node_modules", ".github", ".claude"]);
+const EXCLUDED_DIRS = new Set([".git", "node_modules", ".github", ".claude", "dist"]);
 
 // Hash the file with LINE ENDINGS NORMALISED to LF.
 //

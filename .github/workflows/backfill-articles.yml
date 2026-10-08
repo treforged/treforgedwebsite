@@ -21,7 +21,19 @@ concurrency:
 
 jobs:
   backfill:
-    runs-on: ubuntu-latest
+    # Which machine publishes. Unset (today): GitHub-hosted, which needs Actions
+    # minutes. ARTICLE_RUNNER=pc (repo Settings > Secrets and variables >
+    # Actions > Variables): Tre's Windows self-hosted runner, which uses no
+    # minutes - set it only AFTER the repo is private (the first step refuses
+    # otherwise). If the PC is off, the job waits in the queue for the runner
+    # (GitHub drops a queued job after 24 hours) and runs when the PC comes on.
+    # See docs/cloudflare-cutover.md.
+    runs-on: ${{ vars.ARTICLE_RUNNER == 'pc' && fromJSON('["self-hosted","windows"]') || 'ubuntu-latest' }}
+    # bash on both: the steps are bash, and the Windows runner gets it from Git
+    # for Windows. Without this they would run under PowerShell and fail.
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,6 +42,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
+
+      # Only ever on Tre's PC when the repo is PRIVATE. A self-hosted runner on a
+      # public repo can be handed code by strangers; Sam's runner is registered
+      # for private repos only. This refuses before any script runs if the variable
+      # was flipped while the repo is still public. Skipped on GitHub-hosted runners.
+      - name: Refuse the PC runner on a public repo
+        if: runner.environment == 'self-hosted'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node -e "fetch('https://api.github.com/repos/' + process.env.GITHUB_REPOSITORY, {headers: {authorization: 'Bearer ' + process.env.GH_TOKEN, 'user-agent': 'treforged-bot'}}).then(r => r.json()).then(j => { if (j.private !== true) { console.error('REFUSED: ' + process.env.GITHUB_REPOSITORY + ' is not private (private=' + j.private + '). Unset the ARTICLE_RUNNER variable or make the repo private first.'); process.exit(1); } console.log('repo is private - PC runner allowed'); }).catch(e => { console.error('could not confirm the repo is private: ' + e.message); process.exit(1); })"
 
       - name: Regenerate and republish articles
         env:

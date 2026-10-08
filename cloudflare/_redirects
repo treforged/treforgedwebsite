@@ -1,0 +1,10 @@
+# Cloudflare Pages redirects for treforged.com. Copied into dist/ by
+# scripts/build-pages.mjs; this file is never served itself.
+#
+# On GitHub Pages these three URLs were meta-refresh stub pages (cars.html,
+# contact.html, founder.html at the repo root). The build drops the stubs and
+# answers with a real 301 instead, which search engines treat as a move rather
+# than as a thin page. Destinations match the stubs exactly.
+/cars.html      /cars/     301
+/contact.html   /contact/  301
+/founder.html   /          301

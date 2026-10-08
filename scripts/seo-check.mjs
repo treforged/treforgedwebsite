@@ -104,7 +104,7 @@ const sitePages = [
 // 9/9 - the same omission this gate exists to prevent, committed by the same
 // hand that wrote it. Anything that is a real page at a top-level directory is
 // now checked whether or not anyone remembered to add it here.
-const NOT_PAGES = new Set(['blog', 'tools', 'assets', 'backups', 'scripts', 'content-queue', 'node_modules']);
+const NOT_PAGES = new Set(['blog', 'tools', 'assets', 'backups', 'scripts', 'content-queue', 'node_modules', 'dist']);
 const sectionDirs = (await readdir(ROOT, { withFileTypes: true }))
   .filter((d) => d.isDirectory() && !d.name.startsWith('.') && !NOT_PAGES.has(d.name))
   .map((d) => d.name)

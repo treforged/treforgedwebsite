@@ -58,7 +58,7 @@ check(sitemap.includes('<loc>https://treforged.com/tools/</loc>'),
 // ---- every navigated page points at /tools/ ------------------------------
 function htmlFiles(dir, out = []) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    if (entry.name === '.git' || entry.name === 'node_modules') continue;
+    if (entry.name === '.git' || entry.name === 'node_modules' || entry.name === 'dist') continue;
     const full = join(dir, entry.name);
     if (entry.isDirectory()) htmlFiles(full, out);
     else if (entry.name.endsWith('.html')) out.push(full);
