@@ -15,9 +15,14 @@ import { readFileSync } from 'node:fs';
 
 const src = readFileSync(new URL('../main.js', import.meta.url), 'utf8');
 
-// Cut out the real block, between its own comment and the next one.
+// Cut out the real block, from its own comment to the ARRIVAL_SEND end marker.
+// The end used to be the "Preview cards" comment; that section was deleted on
+// 2026-10-08 when the public view count was hidden (ask 88882397), so the end is
+// now a marker that exists to be found rather than a comment that can vanish.
 const start = src.indexOf('// ── Tool pages: count the view, silently');
-const end = src.indexOf('// ── Preview cards:', start);
+const END_MARKER = '// ARRIVAL_SEND_BLOCK_END';
+const endAt = src.indexOf(END_MARKER, start);
+const end = endAt === -1 ? -1 : endAt + END_MARKER.length;
 if (start === -1 || end === -1) {
   console.log('FAIL - could not find the tool-view block in main.js.');
   console.log('       If it was renamed, update this test; do not delete it.');
