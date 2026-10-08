@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 08 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Get Preapproved for a Car Loan Before You Shop</title>
+      <link>https://treforged.com/blog/how-to-get-preapproved-for-a-car-loan/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-get-preapproved-for-a-car-loan/</guid>
+      <pubDate>Thu, 08 Oct 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to get preapproved for a car loan, why it gives you leverage at the dealership, and how to use it to negotiate a better deal in 2026.</description>
+    </item>
     <item>
       <title>How to Replace Your Car's Thermostat (And Save Yourself a Repair Bill)</title>
       <link>https://treforged.com/blog/how-to-replace-a-thermostat/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/financial-first-aid-kit/</guid>
       <pubDate>Sat, 19 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn exactly which documents, contacts, and cash access points every household should gather now, before a job loss, accident, or emergency hits.</description>
-    </item>
-    <item>
-      <title>When (and How) to Refinance Your Car Loan</title>
-      <link>https://treforged.com/blog/when-to-refinance-your-car-loan/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/when-to-refinance-your-car-loan/</guid>
-      <pubDate>Fri, 18 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Learn the clear signs a car loan refinance will actually save you money, plus a step-by-step walkthrough of how to do it right in 2026.</description>
     </item>
   </channel>
 </rss>
