@@ -621,13 +621,176 @@
     "angle": "Interest saved versus prepayment penalties, how extra payments change the payoff date, and when that money is better used for an emergency fund or higher-interest debt."
   },
   {
-    "slug": "how-to-split-bills-with-roommates",
-    "title": "How to Split Bills With Roommates Fairly (and Keep the Peace)",
-    "angle": "Equal versus income-based versus room-size splits, which bills go in whose name, simple tracking for shared costs, and what to do when a roommate pays late."
-  },
-  {
     "slug": "how-to-pay-off-student-loans-faster",
     "title": "How to Pay Off Student Loans Faster: A Practical Plan",
     "angle": "Find the real balance and rate on each loan, make extra payments go to principal, pick which loan to attack first, and see how much earlier the payoff date lands. Keep it general and avoid country-specific tax or forgiveness rules."
+  },
+  {
+    "slug": "how-to-choose-a-budgeting-app-for-paying-off-debt",
+    "title": "How to Choose a Budgeting App When Your Goal Is Paying Off Debt",
+    "angle": "What to look for when the main job is getting out of debt: a clear payoff order (avalanche or snowball), a debt-free date, and a way to see how an extra payment moves that date. Include a checklist and when a spreadsheet is enough. Do not name, rank, or compare specific apps."
+  },
+  {
+    "slug": "how-to-track-car-expenses",
+    "title": "How to Track Every Car Cost in One Place (Payment, Gas, Insurance, Repairs)",
+    "angle": "A simple system for seeing the true monthly cost of a car: list fixed costs, average the variable ones, set aside a monthly amount for repairs and the next car, and review it each quarter. Do not name, rank, or compare specific apps."
+  },
+  {
+    "slug": "budgeting-app-for-paycheck-to-paycheck",
+    "title": "What to Look For in a Budgeting App If You Live Paycheck to Paycheck",
+    "angle": "The features that matter when money is tight: a number that subtracts the bills due before payday, a bill calendar, a warning before the balance runs low, and a free way to start. Explain why a monthly category view can mislead between paychecks. Do not name, rank, or compare specific apps."
+  },
+  {
+    "slug": "how-to-split-bills-fairly-with-roommates",
+    "title": "How to Split Bills Fairly When You Live with Roommates",
+    "angle": "Cover methods for splitting rent, utilities, and shared costs equitably based on income or usage, plus simple tools to track who owes what."
+  },
+  {
+    "slug": "how-to-replace-a-tail-light-bulb",
+    "title": "How to Replace a Tail Light Bulb in Under 10 Minutes",
+    "angle": "Walk through a quick bulb swap with the tools needed and compare the DIY cost to a shop charge or avoiding a ticket.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-avoid-common-banking-fees",
+    "title": "How to Avoid Common Banking Fees (Overdraft, ATM, and Maintenance Charges)",
+    "angle": "Identify the fees most people don't notice draining their account and the practical steps or account types that eliminate them."
+  },
+  {
+    "slug": "how-to-switch-car-insurance-without-a-coverage-gap",
+    "title": "How to Switch Car Insurance Companies Without a Gap in Coverage",
+    "angle": "Explain how to time cancellation and a new policy start, plus the documentation needed to avoid a lapse that spikes future premiums."
+  },
+  {
+    "slug": "how-to-plug-a-tire-yourself",
+    "title": "How to Plug a Tire Yourself (And When You Shouldn't)",
+    "angle": "Show safe puncture repair with a plug kit, when a patch or replacement is required instead, and the real savings versus a shop visit.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-stop-emotional-spending-triggers",
+    "title": "How to Spot and Stop Emotional Spending Triggers",
+    "angle": "Identify common emotional and impulse spending patterns and build friction and alternatives that interrupt them before checkout."
+  },
+  {
+    "slug": "how-to-check-and-top-off-power-steering-fluid",
+    "title": "How to Check and Top Off Your Power Steering Fluid",
+    "angle": "Show how to locate the reservoir, judge fluid condition and level, and top off correctly to prevent premature steering wear.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-negotiate-a-raise-at-work",
+    "title": "How to Prepare for and Negotiate a Raise at Work",
+    "angle": "Build a data-backed case, choose the right timing, and use scripts to ask for more pay with confidence."
+  },
+  {
+    "slug": "financing-a-used-car-interest-rates-and-terms",
+    "title": "Financing a Used Car: What Interest Rates and Terms Really Look Like",
+    "angle": "Break down how used-car APRs differ from new-car rates, loan term tradeoffs, and red flags to watch in financing offers."
+  },
+  {
+    "slug": "how-to-replace-wiper-washer-nozzles-and-pump",
+    "title": "How to Replace Windshield Washer Nozzles and Pump",
+    "angle": "Diagnose a weak or dead washer spray, replace the nozzles or pump, and test the system for proper flow.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "smart-money-habits-in-your-20s",
+    "title": "How to Build Smart Money Habits in Your 20s (Beyond the Basics)",
+    "angle": "Cover habits past budgeting 101, including automations, basic insurance, a sane pace for building credit, and common traps to dodge."
+  },
+  {
+    "slug": "how-to-test-your-car-battery-with-a-multimeter",
+    "title": "How to Test Your Car Battery's Health with a Multimeter",
+    "angle": "Show how to measure resting voltage and load performance to catch a failing battery before it strands you.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-set-boundaries-lending-money-to-family",
+    "title": "How to Set Boundaries When Family or Friends Ask for Money",
+    "angle": "Offer scripts and strategies for saying no or lending wisely without wrecking your budget or the relationship."
+  },
+  {
+    "slug": "hidden-costs-of-owning-an-electric-vehicle",
+    "title": "The Hidden Costs of Owning an Electric Vehicle",
+    "angle": "Examine charging costs, battery degradation, insurance differences, and home charger installation beyond the sticker price."
+  },
+  {
+    "slug": "how-to-replace-a-fuel-filter",
+    "title": "How to Replace a Fuel Filter: Signs, Steps, and Savings",
+    "angle": "Recognize symptoms of a clogged filter and walk through a safe replacement, comparing the DIY cost to a shop job.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-merge-finances-after-marriage",
+    "title": "How to Merge Finances After Marriage: Joint, Separate, or Both",
+    "angle": "Compare the account structures couples use after a wedding and how to choose or blend one that fits your relationship."
+  },
+  {
+    "slug": "how-to-replace-a-pcv-valve",
+    "title": "How to Replace a Car's PCV Valve (A Cheap Fix for a Rough Idle)",
+    "angle": "Explain what the valve does, the symptoms of failure, and a quick replacement most drivers can handle themselves.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-financially-prepare-for-a-new-baby",
+    "title": "How to Financially Prepare for a New Baby",
+    "angle": "Budget for one-time and ongoing baby costs, insurance changes, and building a cash buffer before the due date."
+  },
+  {
+    "slug": "dealer-financing-vs-credit-union-loans",
+    "title": "Dealer Financing vs. Credit Union Loans: Which Saves You More",
+    "angle": "Compare how dealership financing and outside lenders differ in rates, approval speed, and your negotiating leverage."
+  },
+  {
+    "slug": "how-to-replace-a-radiator-hose",
+    "title": "How to Replace a Radiator Hose Before It Leaves You Stranded",
+    "angle": "Spot the signs of a failing hose and replace it safely, including coolant handling and a proper leak test.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "financial-safety-net-beyond-emergency-fund",
+    "title": "How to Build a Financial Safety Net Beyond Your Emergency Fund",
+    "angle": "Cover the basic life, disability, and liability coverage that protect you once the cash cushion is already in place."
+  },
+  {
+    "slug": "how-to-flush-and-replace-transmission-fluid",
+    "title": "How to Flush and Replace Your Transmission Fluid",
+    "angle": "Explain fluid types, when a flush is actually needed, and the steps involved with an honest cost comparison to a shop.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-budget-for-your-teens-first-car",
+    "title": "How to Budget for Your Teen's First Car (Insurance, Gas, and Repairs)",
+    "angle": "Plan for the full cost of adding a new driver to the household, not just the purchase price of the car."
+  },
+  {
+    "slug": "how-to-financially-prepare-for-a-pet",
+    "title": "How to Financially Prepare for a Pet (Vet Bills, Food, and Insurance)",
+    "angle": "Budget for routine and emergency pet costs and decide whether pet insurance actually pencils out."
+  },
+  {
+    "slug": "how-to-replace-brake-rotors",
+    "title": "How to Replace Brake Rotors (Discs): A Step-by-Step Guide",
+    "angle": "Show when rotors need swapping alongside pads and walk through a safe, complete rotor replacement.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-replace-cv-axles-and-boots",
+    "title": "How to Replace CV Axles and Boots Without Fear",
+    "angle": "Diagnose a torn boot or clicking axle and walk through a full axle swap you can do in your own driveway.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-replace-wheel-bearings",
+    "title": "How to Replace Wheel Bearings: A Careful DIY Guide",
+    "angle": "Cover the symptoms of a bad bearing, the tools required, and a safety-focused replacement procedure for confident DIYers.",
+    "category": "car-maintenance"
+  },
+  {
+    "slug": "how-to-recharge-your-cars-ac-system",
+    "title": "How to Recharge Your Car's AC System Safely (With a DIY Kit)",
+    "angle": "Explain refrigerant basics, gauge reading, and safe recharge steps using a consumer kit versus paying for shop service.",
+    "category": "car-maintenance"
   }
 ]

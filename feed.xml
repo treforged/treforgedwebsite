@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 09 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Save for a Wedding Without Starting Your Marriage in Debt</title>
+      <link>https://treforged.com/blog/how-to-save-for-a-wedding-without-debt/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-save-for-a-wedding-without-debt/</guid>
+      <pubDate>Fri, 09 Oct 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to build a realistic wedding savings timeline and category-based sinking funds so you can celebrate your day without taking on debt.</description>
+    </item>
     <item>
       <title>How to Get Preapproved for a Car Loan Before You Shop</title>
       <link>https://treforged.com/blog/how-to-get-preapproved-for-a-car-loan/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-a-key-fob-battery/</guid>
       <pubDate>Sun, 20 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn how to safely open your key fob, swap the coin battery, and reprogram it if needed, plus see how much you'll save versus a dealer visit.</description>
-    </item>
-    <item>
-      <title>Build a Financial First-Aid Kit for When Life Goes Sideways</title>
-      <link>https://treforged.com/blog/financial-first-aid-kit/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/financial-first-aid-kit/</guid>
-      <pubDate>Sat, 19 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Learn exactly which documents, contacts, and cash access points every household should gather now, before a job loss, accident, or emergency hits.</description>
     </item>
   </channel>
 </rss>
