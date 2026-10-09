@@ -1,0 +1,34 @@
+{
+  "slug": "what-is-the-27-40-rule",
+  "title": "What Is the $27.40 Rule? Saving $10,000 a Year, Explained",
+  "description": "The $27.40 rule means saving $27.40 a day to reach about $10,000 in a year. Here is the math, who it fits, and smaller versions that work too.",
+  "tags": [
+    "Budgeting",
+    "Personal Finance"
+  ],
+  "readMins": 5,
+  "promoteApp": true,
+  "paa": {
+    "question": "What is the $27.40 rule?",
+    "answer": "The $27.40 rule is a savings habit: put away $27.40 every day and after 365 days you have about $10,001. It turns a large yearly goal into a small daily one. In practice that is about $384 every two weeks or $833 a month, so it only works if your budget has that much room.",
+    "tool": "emergency-fund-calculator",
+    "subtopic": "2026-11 safe to spend",
+    "questionSource": "verified",
+    "verifiedBy": "Ruby, Google PAA box, hl=en gl=us, 2026-10-06 (tre-forged-marketing docs/evidence/2026-10-06_paa-check-nov-safe-to-spend.md, raw boxes)"
+  },
+  "bodyHtml": "<p>The $27.40 rule spread on social media because the math is tidy. Ten thousand dollars divided by 365 days is about $27.40, so saving that amount each day gets you to $10,001 by the end of the year. It is a framing trick more than a budgeting system, and a useful one, as long as you check that your budget can actually carry it.</p><h2>Where the Number Comes From</h2><p>Ten thousand divided by 365 is 27.397. Rounded up to $27.40 and multiplied back by 365, it gives $10,001. Some versions use $27.39, which lands a few dollars short of the goal. The point is the same: a five-figure goal feels out of reach, while a daily amount close to the price of a takeout lunch feels doable.</p><h2>What It Means Per Paycheck</h2><p>Nobody actually moves $27.40 a day, so convert it to how you are paid.</p><ul><li>Weekly: $27.40 times 7 is $191.80 a paycheck.</li><li>Every two weeks: $27.40 times 14 is $383.60 a paycheck.</li><li>Twice a month: about $416.75 a paycheck.</li><li>Monthly: about $833.40.</li></ul><p>Seen this way, the rule asks for about $833 a month. On a $4,000 monthly take-home pay that is about 21% of income, right around the savings share most budgets aim for. On $2,500 a month it is a third of your pay, which is not realistic for most people.</p><h2>Who It Fits, and Who It Does Not</h2><p>It fits someone whose bills are comfortably covered and whose money leaks out in small daily purchases. Turning those into a daily savings target makes the trade-off visible: the $6 coffee and the $12 lunch are now competing with a number you care about.</p><p>It does not fit someone whose budget is already tight, someone carrying high-interest card debt, or someone with no emergency fund who might need the money next month. In those cases a $27.40 daily goal can lead to pulling money back out, or to putting regular bills on a card while the savings account looks healthy.</p><h2>Smaller Versions That Still Work</h2><p>The structure scales. Saving $5.48 a day gives about $2,000 in a year, which covers a starter emergency fund with room left over. Saving $13.70 a day gives about $5,000. Pick the yearly goal first, divide by 365, and check the per-paycheck figure against what your bills leave behind.</p><p>If the money is for a specific goal, our guide on <a href=\"/blog/how-to-save-for-a-big-purchase-without-going-into-debt/\">saving for a big purchase without going into debt</a> shows how to set a deadline and a monthly target together.</p><h2>How to Make It Stick</h2><p>Automate it. Set a transfer for the day after each payday in the per-paycheck amount above rather than relying on a daily habit. Put the money in a separate savings account, ideally one that earns interest, so it is not sitting next to your spending money.</p><p>Before you commit, check that the transfer will not leave you short before the next payday. <a href=\"https://getforgenta.com/\" target=\"_blank\" rel=\"noopener\">Forgenta</a> forecasts your balance to payday with your bills on it, which makes it easy to see whether $384 every two weeks fits or whether a smaller version is the honest choice.</p><p>If you are saving toward several things at once, our guide on <a href=\"/blog/how-to-prioritize-savings-goals/\">prioritizing multiple savings goals</a> helps decide what gets funded first.</p><h2>The $27.40 Rule Compared to Other Money Rules</h2><p>Social media is full of round-number rules, and they solve different problems. The 50/30/20 rule tells you how to split a whole paycheck between needs, wants and savings. The 70/20/10 rule is a similar split with a smaller savings share. The $27.40 rule does neither. It only says how fast you need to save to reach one specific goal.</p><p>That makes it a good companion to a budget rather than a replacement for one. Use a split rule to decide how much of your pay can go to savings at all, then use a daily figure like $27.40 to see how long a particular goal will take at that pace. If the split leaves you $500 a month for savings, $27.40 a day is out of reach, but $16.44 a day, about $6,000 a year, is not.</p><p>There is also a motivational side. A daily figure gives you something to beat. Some people track it on a calendar, marking each day they stayed within plan, which turns an abstract yearly goal into a visible streak.</p><p>Interest helps a little at the edges. Money that sits in a savings account earning several percent a year grows while you add to it, so the last few months of the year need slightly less from you than the first. It is a bonus, not a strategy, but it is one more reason not to keep the savings in checking.</p><p>Whatever daily figure you choose, review it every three months. If the transfers have gone through without strain, raise the amount a little. If you have had to pull money back out, lower it to a level you can hold, because a steady smaller habit outperforms a large one that keeps breaking. The rule is a tool for momentum, and momentum comes from a number you can keep hitting.</p><h2>The Bottom Line</h2><p>The $27.40 rule is a simple way to make $10,000 a year feel reachable: about $833 a month or $384 every two weeks. Use it if your budget has that room. If it does not, keep the idea and shrink the number, because a smaller goal you keep beats a large one you abandon in March.</p>",
+  "faqs": [
+    {
+      "q": "How much is $27.40 a day per month?",
+      "a": "About $833. Multiply $27.40 by 365 days and divide by 12 months."
+    },
+    {
+      "q": "Is the $27.40 rule realistic?",
+      "a": "For people with about $833 a month left after bills, yes. For tighter budgets, a smaller daily amount with the same method works better."
+    },
+    {
+      "q": "Where should I keep the money?",
+      "a": "In a separate savings account that earns interest, away from your everyday checking account so it is not spent by accident."
+    }
+  ]
+}
