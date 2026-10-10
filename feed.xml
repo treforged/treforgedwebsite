@@ -6,7 +6,14 @@
     <atom:link href="https://treforged.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical, jargon-free personal finance guides from TRE Forged: budgeting, saving, debt payoff, and getting the most out of Forgenta.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 10 Oct 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>How to Flush and Replace Your Engine Coolant: A Complete DIY Guide</title>
+      <link>https://treforged.com/blog/how-to-flush-and-replace-engine-coolant/</link>
+      <guid isPermaLink="true">https://treforged.com/blog/how-to-flush-and-replace-engine-coolant/</guid>
+      <pubDate>Sat, 10 Oct 2026 12:00:00 GMT</pubDate>
+      <description>Learn how to safely flush and replace your engine coolant at home, including disposal tips and a full DIY-versus-shop cost breakdown.</description>
+    </item>
     <item>
       <title>How to Save for a Wedding Without Starting Your Marriage in Debt</title>
       <link>https://treforged.com/blog/how-to-save-for-a-wedding-without-debt/</link>
@@ -139,13 +146,6 @@
       <guid isPermaLink="true">https://treforged.com/blog/avoiding-lifestyle-inflation/</guid>
       <pubDate>Mon, 21 Sep 2026 12:00:00 GMT</pubDate>
       <description>Learn why lifestyle creep quietly swallows raises and bonuses, and use these concrete rules to keep spending in check as your income grows in 2026.</description>
-    </item>
-    <item>
-      <title>How to Replace a Dead Key Fob Battery in Minutes</title>
-      <link>https://treforged.com/blog/how-to-replace-a-key-fob-battery/</link>
-      <guid isPermaLink="true">https://treforged.com/blog/how-to-replace-a-key-fob-battery/</guid>
-      <pubDate>Sun, 20 Sep 2026 12:00:00 GMT</pubDate>
-      <description>Learn how to safely open your key fob, swap the coin battery, and reprogram it if needed, plus see how much you'll save versus a dealer visit.</description>
     </item>
   </channel>
 </rss>
